@@ -1,4 +1,4 @@
-export default function Groupchat() {
+export default function Home() {
     return (
       <>
 
