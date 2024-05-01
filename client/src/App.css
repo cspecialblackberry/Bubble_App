@@ -128,10 +128,9 @@ nav a {
 .new-post-icon {
   position: relative;
   z-index: 1;
-  margin-top: -55px;
+  margin-top: -50px;
   margin-bottom: -15px;  
-  /* max-height: 50px; */
-  /* width: 85px; */
+  width: 85px;
 }
 
 /* HEADER / LOGO */
