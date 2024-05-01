@@ -1,4 +1,4 @@
-import NavTabs from "../NavTabs";
+import NavTabs from "../components/NavTabs";
 
 export default function Navigation() {
   return (

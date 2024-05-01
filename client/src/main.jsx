@@ -8,7 +8,6 @@ import Home from './pages/Home';
 import Profile from './pages/Profile';
 import Friends from './pages/Friends';
 import Grouplist from './pages/Grouplist';
-import Groupchat from './pages/Groupchat';
 
 
 
@@ -41,10 +40,6 @@ const router = createBrowserRouter([
       {
         path: '/grouplist',
         element: <Grouplist />,
-      },
-      {
-        path: '/groupchat',
-        element: <Groupchat />,
       },
     ],
   },

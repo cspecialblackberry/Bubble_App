@@ -1,42 +1,93 @@
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  background-color: #fff;
+  color: #000;
+}
+
+body {
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight: lighter;
+  font-size: 15px;
+  letter-spacing: 1px;
+  margin: 0;
+}
+
 #root {
-  max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+main {
+  padding: 1rem;
+  display: flex;
+  justify-content: space-around;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+p {
+  font-family: Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  padding: 15px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+a {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
 }
 
-.card {
-  padding: 2em;
+h1 {
+  font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+  font-size: 2.3em;
+  text-transform: uppercase;
+  margin-top: 20px;
+  margin-bottom: 10px;
 }
 
-.read-the-docs {
-  color: #888;
+h2 {
+  font-family: 'Montserrat', Helvetica, Arial, sans-serif;
+  font-size: 1.3em;
+  font-weight: bold;
+}
+
+button {
+  font-family: Helvetica, Arial, sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  background-color: #ffddd1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: .9em;
+  border-radius: 0px;
+  border: 1px solid #000;
+  width: 250px;
+  height: 40px;
+}
+
+button:hover {
+  background-color: #DDF638;
+  font-weight: bold;
+}
+
+label {
+  text-align: left;
+  margin-top: 10px;
+}
+
+::placeholder {
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: .9em
+}
+
+img {
+  width: 100%;
+  display: block;
 }
