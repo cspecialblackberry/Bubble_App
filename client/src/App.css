@@ -117,12 +117,20 @@ footer {
 
 nav a {
   display: flex;
-  padding: 5px;
+  /* padding: 5px; */
 }
 
 .nav-tabs a:hover,
 .nav-link-active {
   font-weight: bold;
+}
+
+.new-post-icon {
+  position: relative;
+  z-index: 1;
+  margin-top: -50px;
+  margin-bottom: -15px;  
+  width: 85px;
 }
 
 /* HEADER / LOGO */

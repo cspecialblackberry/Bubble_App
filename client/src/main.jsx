@@ -6,6 +6,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import App from './App';
 import Home from './pages/Home/index.jsx';
 import Profile from './pages/Profile/index.jsx';
+import NewPost from './pages/NewPost/index.jsx';
 import Friends from './pages/Friends/index.jsx';
 import Grouplist from './pages/GroupList/index.jsx';
 
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
       {
         path: '/profile',
         element: <Profile />,
+      },
+      {
+        path: '/newpost',
+        element: <NewPost />,
       },
       {
         path: '/friends',
