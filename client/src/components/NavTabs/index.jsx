@@ -21,6 +21,14 @@ function NavTabs() {
                     Profile
                 </Link>
             </li>
+            <li className="new-post-icon">
+                <Link
+                    to="/newpost"
+                    className={currentPage === '/newpost' ? 'nav-link-active' : 'nav-link'}
+                >
+                    <img src="bubble-wand-icon.svg" alt="Create New Post" />
+                </Link>
+            </li>
             <li className="nav-item">
                 <Link
                     to="/friends"
