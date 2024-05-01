@@ -91,3 +91,38 @@ img {
   width: 100%;
   display: block;
 }
+
+/* NAVIGATION */
+header nav {
+  display: flex;
+  justify-content: flex-end;
+  padding: 1rem;
+}
+
+.nav-tabs li {
+  display: flex;
+  flex-direction: column;
+  list-style-type: none;
+  text-align: right;
+  font-size: .8em;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+footer .nav-tabs li {
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+nav a {
+  padding: 5px;
+}
+
+nav ul {
+  align-items: center;
+}
+
+.nav-tabs a:hover,
+.nav-link-active {
+  font-weight: bold;
+}
