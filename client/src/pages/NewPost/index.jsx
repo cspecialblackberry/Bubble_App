@@ -27,6 +27,6 @@ export default function NewPost() {
 }
 
 
-// saves to db on submit
-// on submit, takes you to home/feed where you can see your recent post
+// CASEY-TODO: saves to db on submit - as a new post or updating user?
+// CASEY-TODO: on submit, takes you to home/feed where you can see your recent post
 
