@@ -8,7 +8,7 @@ import Home from './pages/Home/index.jsx';
 import Profile from './pages/Profile/index.jsx';
 import NewPost from './pages/NewPost/index.jsx';
 import Friends from './pages/Friends/index.jsx';
-
+import Login from './pages/Login/index.jsx';
 
 const router = createBrowserRouter([
   {
@@ -22,7 +22,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Home />,
+        element: <Login />,
       },
       {
         path: '/home',
