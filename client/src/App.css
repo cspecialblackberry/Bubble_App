@@ -133,6 +133,13 @@ nav a {
   width: 85px;
 }
 
+.home-icon,
+.profile-icon,
+.friends-icon,
+.login-icon {
+  max-width: 25px;
+}
+
 /* HEADER / LOGO */
 header {
   display: flex;
