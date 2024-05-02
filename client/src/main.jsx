@@ -8,8 +8,6 @@ import Home from './pages/Home/index.jsx';
 import Profile from './pages/Profile/index.jsx';
 import NewPost from './pages/NewPost/index.jsx';
 import Friends from './pages/Friends/index.jsx';
-import Grouplist from './pages/GroupList/index.jsx';
-
 
 
 const router = createBrowserRouter([

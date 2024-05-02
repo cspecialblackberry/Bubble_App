@@ -7,7 +7,7 @@ function NavTabs() {
         <ul className="nav-tabs">
             <li className="home-icon">
                 <Link
-                    to="/"
+                    to="/home"
                     className={currentPage === '/' ? 'nav-link-active' : 'nav-link'}
                 >
                     <img src="bubbles-icon.svg" alt="Home Page" />
@@ -39,7 +39,7 @@ function NavTabs() {
             </li>
             <li className="login-icon">
                 <Link
-                    to="/login"
+                    to="/"
                     className={currentPage === '/login' ? 'nav-link-active' : 'nav-link'}
                 >
                     <img src="login-icon.svg" alt="Login" />
