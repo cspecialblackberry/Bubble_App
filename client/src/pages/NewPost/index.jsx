@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState } from 'react'
 import { Text, Textarea } from '@chakra-ui/react'
+import './style.css'
 
 export default function NewPost() {
     let [value, setValue] = React.useState('')
@@ -11,18 +12,20 @@ export default function NewPost() {
     }
 
     return (
-        <>
-            <Text mb='8px'>Value: {value}</Text>
+        <form className='new-post-form'>
+            <label htmlFor='post'>Blow a new bubble</label>
             <Textarea
                 value={value}
                 onChange={handleInputChange}
-                placeholder='Here is a sample placeholder'
+                placeholder='Create your post here'
                 size='sm'
             />
-        </>
+            <button className="submit-post" type='submit'>Blow Bubble</button>
+        </form>
     )
 }
 
 
+// saves to db on submit
 // on submit, takes you to home/feed where you can see your recent post
 

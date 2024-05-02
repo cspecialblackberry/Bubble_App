@@ -1,0 +1,5 @@
+.new-post-form textarea {
+    max-width: 345px;
+    resize: none;
+    border-radius: 20px;
+}
