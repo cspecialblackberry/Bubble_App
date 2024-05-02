@@ -6,18 +6,15 @@ const mongoose = require('mongoose')
 const userSchema = new Schema({
     username: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     password: {
         type: String,
         required: true
     },
-    firstName: {
+    name: {
         type: String,
-        required: true
-    },
-    lastName: {
-        type: String
     },
     color: {
         type: String,
