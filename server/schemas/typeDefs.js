@@ -22,6 +22,14 @@ type Post {
     postText: String!
     replies: [Response]
 }
+
+type Query {
+    users: [User]
+}
+
+type Mutation {
+    addUser
+}
 `;
 
 module.exports = typeDefs;
