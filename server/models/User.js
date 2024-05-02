@@ -1,6 +1,6 @@
 const { Schema, model} = require('mongoose')
 const mongoose = require('mongoose')
-
+const {postSchema} = require('./Post')
 
 
 const userSchema = new Schema({
@@ -29,10 +29,10 @@ const userSchema = new Schema({
         type: String,
         max: [150, "Bio must be less than 150 characters."]
     },
-    posts: [],
+    posts: [mongoose.ObjectId],
     friends: [mongoose.ObjectId],
     })
 
     const User = model('User', userSchema)
 
-    module.exports = {User}
+    module.exports = {User, userSchema}
