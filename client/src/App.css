@@ -2,7 +2,24 @@
   box-sizing: border-box;
 }
 
-html, body {
+:root {
+  /* COLOR VARIABLES */
+  --pink: #ff8fb7;
+  --light-pink: #FFDAE7;
+  --orange: #FF914D;
+  --light-orange: #FFD073;
+  --yellow: #FFDE59;
+  --light-yellow: #FFF0B5;
+  --green: #7ED957;
+  --light-green: #D8FFA5;
+  --blue: #56BDFA;
+  --light-blue: #B9E5FF;
+  --purple: #8C52FF;
+  --light-purple: #D9C5FF;
+}
+
+html,
+body {
   height: 100%;
   background-color: #fff;
   color: #000;
@@ -61,20 +78,20 @@ button {
   font-family: Helvetica, Arial, sans-serif;
   text-transform: uppercase;
   letter-spacing: 1px;
-  background-color: #ffddd1;
+  background-color: var(--light-purple);
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: .9em;
   border-radius: 20px;
   border: 1px solid #000;
-  width: 250px;
+  width: 200px;
   height: 40px;
 }
 
 button:hover {
-  background-color: #DDF638;
-  font-weight: bold;
+  background-color: var(--purple);
+  color: #fff;
 }
 
 label {
@@ -84,7 +101,8 @@ label {
 
 ::placeholder {
   font-family: Helvetica, Arial, sans-serif;
-  font-size: .9em
+  font-size: .9em;
+  padding: 5px;
 }
 
 img {

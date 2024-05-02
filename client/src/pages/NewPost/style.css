@@ -1,5 +1,12 @@
+.new-post-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 345px;
+    gap: 15px;
+}
+
 .new-post-form textarea {
-    max-width: 345px;
     resize: none;
-    border-radius: 20px;
+    border-radius: 35px;
 }
