@@ -4,7 +4,7 @@ const UserAvatar = (props) => {
     const {url, name} = props;
     return(
         <>
-            <Avatar size='2xl' name='Segun Adebayo' src={{url}} />
+            <Avatar size='2xl' name={name} src={{url}} />
         </>
     )
 }

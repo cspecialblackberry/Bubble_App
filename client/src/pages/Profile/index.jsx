@@ -1,13 +1,6 @@
 // import Post from './components/Post';
-// import ProfileImage from './components/ProfileImage';
+import UserAvatar from '../../components/ProfileImage';
 // import PostSection from './components/PostSection';
-
-//Hamburger Menu
-// const EditMenu = () => {
-//     return(
-
-//     )
-// }
 
 //Profile will contain:
     //A given user ID (yours, or the person you clicked on)
@@ -31,8 +24,8 @@
 const Profile = () => {
     return(
         <>
-            <h1>Name</h1>
-            <ProfileImage></ProfileImage>
+            <h1>User's full name</h1>
+            <UserAvatar></UserAvatar>
             <EditMenu></EditMenu>
             <Bio></Bio>
             <h2>My Bubbles:</h2>
