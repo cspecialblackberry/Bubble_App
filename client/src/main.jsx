@@ -42,10 +42,10 @@ const router = createBrowserRouter([
         path: '/friends',
         element: <Friends />,
       },
-      {
-        path: '/grouplist',
-        element: <Grouplist />,
-      },
+      // {
+      //   path: '/login',
+      //   element: <Login />,
+      // },
     ],
   },
 ]);
