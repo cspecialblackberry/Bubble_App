@@ -1,4 +1,7 @@
-const { Schema, model } = require('mongoose')
+const { Schema, model} = require('mongoose')
+const mongoose = require('mongoose')
+
+
 
 const userSchema = new Schema({
     username: {
@@ -29,7 +32,8 @@ const userSchema = new Schema({
         type: String,
         max: [150, "Bio must be less than 150 characters."]
     },
-    posts: []
+    posts: [],
+    friends: [mongoose.ObjectId],
     })
 
     const User = model('User', userSchema)
