@@ -5,20 +5,20 @@ function NavTabs() {
 
     return (
         <ul className="nav-tabs">
-            <li className="nav-item">
+            <li className="home-icon">
                 <Link
-                    to="/"
+                    to="/home"
                     className={currentPage === '/' ? 'nav-link-active' : 'nav-link'}
                 >
-                    Home/Feed
+                    <img src="bubbles-icon.svg" alt="Home Page" />
                 </Link>
             </li>
-            <li className="nav-item">
+            <li className="profile-icon">
                 <Link
                     to="/profile"
                     className={currentPage === '/profile' ? 'nav-link-active' : 'nav-link'}
                 >
-                    Profile
+                    <img src="profile-icon.svg" alt="My Profile" />
                 </Link>
             </li>
             <li className="new-post-icon">
@@ -29,20 +29,20 @@ function NavTabs() {
                     <img src="bubble-wand-icon.svg" alt="Create New Post" />
                 </Link>
             </li>
-            <li className="nav-item">
+            <li className="friends-icon">
                 <Link
                     to="/friends"
                     className={currentPage === '/friends' ? 'nav-link-active' : 'nav-link'}
                 >
-                    Friends
+                    <img src="friends-icon.svg" alt="My Friends" />
                 </Link>
             </li>
-            <li className="nav-item">
+            <li className="login-icon">
                 <Link
-                    to="/grouplist"
-                    className={currentPage === '/grouplist' ? 'nav-link-active' : 'nav-link'}
+                    to="/"
+                    className={currentPage === '/login' ? 'nav-link-active' : 'nav-link'}
                 >
-                    Groups
+                    <img src="login-icon.svg" alt="Login" />
                 </Link>
             </li>
         </ul>

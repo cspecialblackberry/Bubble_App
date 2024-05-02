@@ -8,8 +8,6 @@ import Home from './pages/Home/index.jsx';
 import Profile from './pages/Profile/index.jsx';
 import NewPost from './pages/NewPost/index.jsx';
 import Friends from './pages/Friends/index.jsx';
-import Grouplist from './pages/GroupList/index.jsx';
-
 
 
 const router = createBrowserRouter([
@@ -42,10 +40,10 @@ const router = createBrowserRouter([
         path: '/friends',
         element: <Friends />,
       },
-      {
-        path: '/grouplist',
-        element: <Grouplist />,
-      },
+      // {
+      //   path: '/login',
+      //   element: <Login />,
+      // },
     ],
   },
 ]);
