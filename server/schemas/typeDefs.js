@@ -17,7 +17,7 @@ type Response {
 }
 
 type Post {
-    _id
+    _id: ID
     user: [User]
     postText: String!
     replies: [Response]
@@ -28,7 +28,7 @@ type Query {
 }
 
 type Mutation {
-    addUser
+    addUser(username: String!, password: String!, name: String): User
 }
 `;
 
