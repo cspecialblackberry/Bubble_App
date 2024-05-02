@@ -1,63 +1,58 @@
+import { Card, CardBody, Tabs, TabList, TabPanels, Tab, TabPanel, FormControl, FormLabel, Input, Button } from '@chakra-ui/react'
+
+
 function LoginCreateAccount() {
 
     return (
         <>
-
+<Card boxShadow='lg' p='6' rounded='md' bg='white'>
+  <CardBody>
             <Tabs isFitted variant='enclosed'>
                 <TabList mb='1em'>
-                    <Tab>LOGIN</Tab>
-                    <Tab>CREATE ACCOUNT</Tab>
+                    <Tab _selected={{ color: 'blue', bg: '#B9E5FF' }}>LOGIN</Tab>
+                    <Tab _selected={{ color: 'blue', bg: '#B9E5FF' }}>CREATE ACCOUNT</Tab>
                 </TabList>
                 <TabPanels>
                     <TabPanel>
-                        <FormControl mt={4}>
+                        <FormControl>
                             <FormLabel>Username</FormLabel>
                             <Input placeholder='Username' />
                         </FormControl>
 
-                        <FormControl mt={4}>
+                        <FormControl>
                             <FormLabel>Password</FormLabel>
                             <Input placeholder='Password' />
                         </FormControl>
 
-                        <Button
-                            isLoading
-                            loadingText='Submitting'
-                            colorScheme='blue'
-                            variant='outline'
-                        >
-                            Submit
+                        <Button colorScheme='blue'>
+                            Login
                         </Button>
                     </TabPanel>
                     <TabPanel>
                         <FormControl>
                             <FormLabel>Full Name</FormLabel>
-                            <Input ref={initialRef} placeholder='Full Name' />
+                            <Input placeholder='Full Name' />
                         </FormControl>
 
-                        <FormControl mt={4}>
+                        <FormControl>
                             <FormLabel>Username</FormLabel>
                             <Input placeholder='Username' />
                         </FormControl>
 
-                        <FormControl mt={4}>
+                        <FormControl>
                             <FormLabel>Password</FormLabel>
                             <Input placeholder='Password' />
                         </FormControl>
 
-                        <Button
-                            isLoading
-                            loadingText='Submitting'
-                            colorScheme='blue'
-                            variant='outline'
-                        >
-                            Submit
+                        <Button colorScheme='blue'>
+                            Create Account
                         </Button>
 
                     </TabPanel>
                 </TabPanels>
             </Tabs>
-
+            </CardBody>
+</Card>
 
         </>
     )
