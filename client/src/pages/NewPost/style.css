@@ -6,7 +6,12 @@
     gap: 15px;
 }
 
+.new-post-label {
+    font-size: 1.2em;
+}
+
 .new-post-form textarea {
     resize: none;
     border-radius: 35px;
+    font-family: var(--main-text-font);
 }

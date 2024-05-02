@@ -9,11 +9,12 @@ export default function NewPost() {
     let handleInputChange = (event) => {
         let inputValue = event.target.value
         setValue(inputValue)
+        console.log(inputValue)
     }
 
     return (
         <form className='new-post-form'>
-            <label htmlFor='post'>Blow a new bubble</label>
+            <label className='new-post-label' htmlFor='post'>Blow a new bubble</label>
             <Textarea
                 value={value}
                 onChange={handleInputChange}
