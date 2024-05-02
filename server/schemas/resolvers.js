@@ -2,8 +2,8 @@ const {User, Post} = require('../models')
 
 const resolvers = {
     Query: {
-        users: () => {
-            return User.find({})
+        users: async () => {
+            return await User.find({}).clone()
         }
     },
 
