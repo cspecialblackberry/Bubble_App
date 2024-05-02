@@ -8,8 +8,8 @@ const resolvers = {
     },
 
     Mutation: {
-        addUser: (parent, {username, password, name}) => {
-            return User.create({username, password, name})
+        addUser: async (parent, {username, password, name}) => {
+            return await User.create({username, password, name})
         }
     }
 }
