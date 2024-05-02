@@ -18,6 +18,9 @@ type Response {
 
 type Post {
     _id
+    user: [User]
+    postText: String!
+    replies: [Response]
 }
 `;
 
