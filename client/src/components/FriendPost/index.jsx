@@ -1,6 +1,6 @@
 import { Card, Avatar, CardHeader, CardBody, CardFooter, Stack } from '@chakra-ui/react';
 
-const Post = (props) => {
+const FriendPost = (props) => {
     const { url, name, text, userId } = props;
     return (
         <Card
@@ -29,3 +29,5 @@ const Post = (props) => {
         </Card>
     )
 }
+
+export default FriendPost;
