@@ -115,3 +115,7 @@ img {
   width: 100%;
   display: block;
 }
+
+.tab {
+  border-radius: 4px;
+}
