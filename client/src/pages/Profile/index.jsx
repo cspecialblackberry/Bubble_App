@@ -26,9 +26,8 @@ import './style.css';
 const name = 'Jimmy Smith';
 const image = '/profile-icon.svg';
 const bio = 'I am a React coder from Cleveland, Ohio. Excited to meet more friends on this site.';
-const bubbles = ['Let\'s go Phillies! Big win tonight!', 'Stop judging people for what they put on their bagels! Chocolate sauce is good!', 'Anyone want to go to the mall later on?'];
 const color = '#B9E5FF';
-
+const bubbles = ['Let\'s go Phillies! Big win tonight!', 'Stop judging people for what they put on their bagels! Chocolate sauce is good!', 'Anyone want to go to the mall later on?'];
 
 const Profile = () => {
     return (
