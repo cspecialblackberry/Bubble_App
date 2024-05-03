@@ -3,6 +3,7 @@ import './style.css'
 
 function NavTabs() {
     const currentPage = useLocation().pathname;
+    let isLoggedIn = true;
 
     return (
         <ul className="nav-tabs">
@@ -43,7 +44,7 @@ function NavTabs() {
                     to="/"
                     className={currentPage === '/login' ? 'nav-link-active' : 'nav-link'}
                 >
-                    <img src="login-icon.svg" alt="Login" />
+                    {isLoggedIn ? <img src="logout-icon.svg" alt="Logout" /> : <img src="login-icon.svg" alt="Login" />}
                 </Link>
             </li>
         </ul>
