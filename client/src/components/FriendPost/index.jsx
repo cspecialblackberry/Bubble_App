@@ -18,7 +18,7 @@ const FriendPost = (props) => {
             marginTop={3}
         >
             
-            <Stack>
+            <Stack display='flex' flexDirection='column' alignItems='center'>
                 <Heading size='md'>{name}</Heading>
                 <Avatar
                     size='md' src={url}
