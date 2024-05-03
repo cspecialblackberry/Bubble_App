@@ -12,9 +12,16 @@
     padding-bottom: 5px;
 }
 
-/* .nav-tabs a:hover,
-.nav-link-active {
-    opacity: .7;
+/* .nav-tabs a:hover::before,
+.nav-link-active::before {
+    content: '';
+    display: block;
+    position: relative;
+    z-index: 1;
+    border-radius: 100vw;
+    height: 35px;
+    width: 35px;
+    background-color: #000;
 } */
 
 .new-post-icon {
