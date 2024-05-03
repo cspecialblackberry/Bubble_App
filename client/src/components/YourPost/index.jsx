@@ -32,7 +32,7 @@ const YourPost = (props) => {
             <Stack display='flex' flexDirection='column' alignItems='center'>
                 <Heading size='md'>{name}</Heading>
                 <Avatar
-                    size='md' src={url}
+                    size='md' src={url} name={name}
                 />
             </Stack>
             
