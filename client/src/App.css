@@ -42,7 +42,8 @@ body {
   text-align: center;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
+  gap: 20px;
   height: 100%
 }
 
@@ -106,6 +107,7 @@ label {
 ::placeholder {
   font-family: var(--main-text-font);
   font-size: .9em;
+  letter-spacing: 1px;
   padding: 5px;
 }
 

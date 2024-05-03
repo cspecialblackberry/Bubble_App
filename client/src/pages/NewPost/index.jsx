@@ -18,7 +18,7 @@ export default function NewPost() {
             <Textarea
                 value={value}
                 onChange={handleInputChange}
-                placeholder='Create your post here'
+                placeholder={`What's poppin'?`}
                 size='sm'
             />
             <button className="submit-post" type='submit'>Blow Bubble</button>
@@ -27,6 +27,6 @@ export default function NewPost() {
 }
 
 
-// CASEY-TODO: saves to db on submit - as a new post or updating user?
-// CASEY-TODO: on submit, takes you to home/feed where you can see your recent post
+// CASEY-TODO: saves to db on submit - post id added to user
+// CASEY-TODO: on submit, takes you to home/feed
 
