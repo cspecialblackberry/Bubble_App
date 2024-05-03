@@ -12,10 +12,10 @@
     padding-bottom: 5px;
 }
 
-.nav-tabs a:hover,
+/* .nav-tabs a:hover,
 .nav-link-active {
-    font-weight: bold;
-}
+    opacity: .7;
+} */
 
 .new-post-icon {
     position: relative;
