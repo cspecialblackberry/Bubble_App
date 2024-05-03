@@ -40,7 +40,7 @@ const YourPost = (props) => {
                 {/* <Heading size='md'>{name}</Heading> */}
                 <h2>{name}</h2>
                 <Avatar
-                    size='md' src={url}
+                    size='md' src={url} name={name}
                 />
             </Stack>
 

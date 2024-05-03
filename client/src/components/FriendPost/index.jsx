@@ -24,7 +24,7 @@ const FriendPost = (props) => {
             <Stack className='name-container' display='flex' flexDirection='column' alignItems='center'>
                 <h2>{name}</h2>
                 <Avatar
-                    size='md' src={url}
+                    size='md' src={url} name={name}
                 />
             </Stack>
             <Stack className='content-container'>
