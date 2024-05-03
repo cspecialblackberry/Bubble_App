@@ -1,6 +1,6 @@
 import { Card, CardHeader, CardBody, CardFooter, Text } from '@chakra-ui/react'; //for Bio section
 import UserAvatar from '../../components/ProfileImage';
-// import EditDrawer from '../../components/EditDrawer';
+// import EditProfile from '../../components/EditProfile';
 import YourPost from '../../components/YourPost';
 import FriendPost from '../../components/FriendPost';
 import './style.css';
