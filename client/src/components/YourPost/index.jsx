@@ -13,19 +13,19 @@ const YourPost = (props) => {
             borderColor={color}
             borderRadius={35}
             width={350}
-            maxHeight={200}
+            minHeight={200}
             display='flex'
-            alignItems="center"
+            // alignItems="center"
             flexDirection='row'
-            marginTop={3}
+            padding={5}
         >
-            <Stack width={250}>
-                <CardBody>
-                    <Text py='2'>
+            <Stack className='content-container'>
+                <CardBody padding={0}>
+                    <p className='bubble-text'>
                         {text}
-                    </Text>
+                    </p>
                 </CardBody>
-                <CardFooter>
+                <CardFooter padding={0}>
                     <button
                         className='reply-button'
                         variant='solid'
