@@ -22,7 +22,7 @@ module.exports = {
         .trim();
     }
 
-    console.log("token", token)
+    // console.log("token", token)
 
 
     if (!token) {
