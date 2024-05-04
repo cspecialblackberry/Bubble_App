@@ -1,9 +1,8 @@
 const { Schema, model} = require('mongoose')
-const {userSchema} = require('./User')
 const Mongoose = require('mongoose')
 
 const responseSchema = new Schema({
-    user: [{userSchema}],
+    user: [Mongoose.ObjectId],
     responseText: {
         type: String,
         required: true,
@@ -12,7 +11,7 @@ const responseSchema = new Schema({
 })
 
 const postSchema = new Schema ({
-    user: [Mongoose.objectId],
+    user: [Mongoose.ObjectId],
     postText: {
         type: String,
         required: true,
