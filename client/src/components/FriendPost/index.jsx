@@ -13,9 +13,11 @@ const FriendPost = (props) => {
             borderColor={color}
             borderRadius={35}
             width={350}
+            minHeight={200}
             display='flex'
-            alignItems="center"
+            // alignItems="center"
             flexDirection='row'
+            padding={5}
             marginTop={3}
         >
             
@@ -25,13 +27,13 @@ const FriendPost = (props) => {
                     size='md' src={url}
                 />
             </Stack>
-            <Stack>
-                <CardBody>
-                    <Text py='2'>
+            <Stack className='content-container'>
+                <CardBody padding={0}>
+                    <p className='bubble-text'>
                         {text}
-                    </Text>
+                    </p>
                 </CardBody>
-                <CardFooter>
+                <CardFooter padding={0}>
                 <button
                         className='reply-button'
                         variant='solid'

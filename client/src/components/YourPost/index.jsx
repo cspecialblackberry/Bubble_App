@@ -18,6 +18,7 @@ const YourPost = (props) => {
             // alignItems="center"
             flexDirection='row'
             padding={5}
+            marginTop={3}
         >
             <Stack className='content-container'>
                 <CardBody padding={0}>
