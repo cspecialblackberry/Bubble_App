@@ -1,7 +1,3 @@
-//DO NOT DELETE COMMENTED OUT CODE 
-//DO NOT DELETE COMMENTED OUT CODE
-//DO NOT DELETE COMMENTED OUT CODE
-
 const express = require('express')
 const { ApolloServer } = require('@apollo/server')
 const { expressMiddleware } = require('@apollo/server/express4')
