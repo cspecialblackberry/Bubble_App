@@ -1,4 +1,5 @@
 import { Card, Avatar, CardHeader, CardBody, CardFooter, Stack, Heading, Button, Text } from '@chakra-ui/react';
+import './style.css'
 
 const FriendPost = (props) => {
     const { url, name, color, text, userId } = props;
@@ -12,28 +13,34 @@ const FriendPost = (props) => {
             borderColor={color}
             borderRadius={35}
             width={350}
+            minHeight={200}
             display='flex'
-            alignItems="center"
+            // alignItems="center"
             flexDirection='row'
+            padding={5}
             marginTop={3}
         >
             
-            <Stack display='flex' flexDirection='column' alignItems='center'>
-                <Heading size='md'>{name}</Heading>
+            <Stack className='name-container' display='flex' flexDirection='column' alignItems='center'>
+                <h2>{name}</h2>
                 <Avatar
                     size='md' src={url} name={name}
                 />
             </Stack>
-            <Stack>
-                <CardBody>
-                    <Text py='2'>
+            <Stack className='content-container'>
+                <CardBody padding={0}>
+                    <p className='bubble-text'>
                         {text}
-                    </Text>
+                    </p>
                 </CardBody>
-                <CardFooter>
-                    <Button variant='solid' bgColor={color} border={0}>
+                <CardFooter className='friend-bubble-footer' padding={0}>
+                <button
+                        className='reply-button'
+                        variant='solid'
+                        style= {{backgroundColor: color}}
+                    >
                         REPLY
-                    </Button>
+                    </button>
                 </CardFooter>
             </Stack>
         </Card>
@@ -41,3 +48,5 @@ const FriendPost = (props) => {
 }
 
 export default FriendPost;
+
+// CASEY-TODO: PADDING ON CARD BODY, CARD FLEX
