@@ -19,8 +19,8 @@ const FriendPost = (props) => {
             marginTop={3}
         >
             
-            <Stack display='flex' flexDirection='column' alignItems='center'>
-                <Heading size='md'>{name}</Heading>
+            <Stack className='name-container' display='flex' flexDirection='column' alignItems='center'>
+                <h2>{name}</h2>
                 <Avatar
                     size='md' src={url}
                 />
@@ -46,3 +46,5 @@ const FriendPost = (props) => {
 }
 
 export default FriendPost;
+
+// CASEY-TODO: PADDING ON CARD BODY, CARD FLEX

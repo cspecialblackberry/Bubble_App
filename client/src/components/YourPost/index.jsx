@@ -35,8 +35,9 @@ const YourPost = (props) => {
                     </button>
                 </CardFooter>
             </Stack>
-            <Stack display='flex' flexDirection='column' alignItems='center'>
-                <Heading size='md'>{name}</Heading>
+            <Stack className='name-container' display='flex' flexDirection='column' alignItems='center'>
+                {/* <Heading size='md'>{name}</Heading> */}
+                <h2>{name}</h2>
                 <Avatar
                     size='md' src={url}
                 />

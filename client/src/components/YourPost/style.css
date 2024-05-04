@@ -6,3 +6,8 @@
     font-family: var(--main-text-font);
     width: 100px;
 }
+
+.name-container {
+    width: 40%;
+    padding: 5px;
+}
