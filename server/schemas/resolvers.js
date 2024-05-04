@@ -1,34 +1,37 @@
-const {User, Post} = require('../models')
+const { User, Post } = require('../models')
 const { signToken, AuthenticationError } = require('../utils/auth')
 
 const resolvers = {
     Query: {
         users: async () => {
-            return await User.find({}).clone()
+            return await User.find({})
         }
     },
 
     Mutation: {
-        addUser: async (parent, {username, password, name}) => {
-            return await User.create({username, password, name})
+        addUser: async (parent, { username, password, name }) => {
+            return await User.create({ username, password, name })
         },
         login: async (parent, { username, password }) => {
             const user = await User.findOne({ username });
-      
+
             if (!user) {
-              throw AuthenticationError;
+                throw AuthenticationError;
             }
-      
+
             const correctPw = await user.isCorrectPassword(password);
-      
+
             if (!correctPw) {
-              throw AuthenticationError;
+                throw AuthenticationError;
             }
-      
+
             const token = signToken(user);
-      
+
             return { token, user };
-          }
+        },
+        addPost: async (parent, args, context) => {
+            const post = Post.create(context.user._id, args)
+        }
     }
 }
 

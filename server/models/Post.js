@@ -1,5 +1,6 @@
 const { Schema, model} = require('mongoose')
 const {userSchema} = require('./User')
+const Mongoose = require('mongoose')
 
 const responseSchema = new Schema({
     user: [{userSchema}],
@@ -11,7 +12,7 @@ const responseSchema = new Schema({
 })
 
 const postSchema = new Schema ({
-    user: [{userSchema}],
+    user: [Mongoose.objectId],
     postText: {
         type: String,
         required: true,
