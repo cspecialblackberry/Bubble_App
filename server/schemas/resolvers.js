@@ -33,10 +33,12 @@ const resolvers = {
             if (context.user) {
                 const post = await Post.create(args)
 
-                const user = await User.findByIdAndUpdate(context.user._id, {$push: {posts: post}})
+                await User.findByIdAndUpdate(context.user._id, {$push: {posts: post}})
 
                 return post
             }
+
+            throw AuthenticationError
         }
     }
 }
