@@ -1,6 +1,6 @@
 import { Card, CardHeader, CardBody, CardFooter, Text } from '@chakra-ui/react'; //for Bio section
 import UserAvatar from '../../components/ProfileImage';
-// import EditDrawer from '../../components/EditDrawer';
+// import EditForm from '../../components/EditForm';
 import YourPost from '../../components/YourPost';
 import FriendPost from '../../components/FriendPost';
 import './style.css';
@@ -26,14 +26,14 @@ import './style.css';
 const name = 'Jimmy Smith';
 const image = '/profile-icon.svg';
 const bio = 'I am a React coder from Cleveland, Ohio. Excited to meet more friends on this site.';
-const color = '#B9E5FF';
+const color = '#FFD073';
 const bubbles = ['Let\'s go Phillies! Big win tonight!', 'Stop judging people for what they put on their bagels! Chocolate sauce is good!', 'Anyone want to go to the mall later on?'];
 
 const Profile = () => {
     return (
         <>
             <h1>{name}</h1>
-            {/* <EditDrawer></EditDrawer> */}
+            {/* <EditForm></EditForm> */}
             <UserAvatar url={image} name={name}></UserAvatar>
             <Text bgColor={color}>{bio}</Text>
             <h2>Recent Bubbles:</h2>
