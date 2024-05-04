@@ -1,5 +1,6 @@
 .your-bubble {
     border-radius: 35px;
+    gap: 10px;
 }
 
 .reply-button {
@@ -12,10 +13,15 @@
     padding: 5px;
 }
 
+.name-container h2 {
+    font-size: 1.1em;
+}
+
 .content-container {
     display: flex;
     justify-content: space-between;
     text-align: left;
+    width: 60%;
 }
 
 .bubble-text {

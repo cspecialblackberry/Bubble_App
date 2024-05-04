@@ -33,7 +33,7 @@ const FriendPost = (props) => {
                         {text}
                     </p>
                 </CardBody>
-                <CardFooter padding={0}>
+                <CardFooter className='friend-bubble-footer' padding={0}>
                 <button
                         className='reply-button'
                         variant='solid'
