@@ -23,12 +23,18 @@ type Post {
     replies: [Response]
 }
 
+type Auth {
+    token: ID
+    user: User
+}
+
 type Query {
     users: [User]
 }
 
 type Mutation {
     addUser(username: String!, password: String!, name: String): User
+    login(username: String!, password: String!): Auth
 }
 `;
 
