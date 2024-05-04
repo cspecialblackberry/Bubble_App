@@ -1,4 +1,5 @@
 import { Card, Avatar, CardHeader, CardBody, CardFooter, Stack, Heading, Button, Text } from '@chakra-ui/react';
+import './style.css'
 
 const YourPost = (props) => {
     const { url, name, color, text, userId } = props;
@@ -12,6 +13,7 @@ const YourPost = (props) => {
             borderColor={color}
             borderRadius={35}
             width={350}
+            maxHeight={200}
             display='flex'
             alignItems="center"
             flexDirection='row'
@@ -24,9 +26,13 @@ const YourPost = (props) => {
                     </Text>
                 </CardBody>
                 <CardFooter>
-                    <Button variant='solid' bgColor={color} border={0}>
+                    <button
+                        className='reply-button'
+                        variant='solid'
+                        style= {{backgroundColor: color}}
+                    >
                         REPLY
-                    </Button>
+                    </button>
                 </CardFooter>
             </Stack>
             <Stack display='flex' flexDirection='column' alignItems='center'>
@@ -35,7 +41,7 @@ const YourPost = (props) => {
                     size='md' src={url}
                 />
             </Stack>
-            
+
         </Card>
     )
 }

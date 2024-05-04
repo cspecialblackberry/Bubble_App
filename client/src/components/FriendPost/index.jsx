@@ -1,4 +1,5 @@
 import { Card, Avatar, CardHeader, CardBody, CardFooter, Stack, Heading, Button, Text } from '@chakra-ui/react';
+import './style.css'
 
 const FriendPost = (props) => {
     const { url, name, color, text, userId } = props;
@@ -31,9 +32,13 @@ const FriendPost = (props) => {
                     </Text>
                 </CardBody>
                 <CardFooter>
-                    <Button variant='solid' bgColor={color} border={0}>
+                <button
+                        className='reply-button'
+                        variant='solid'
+                        style= {{backgroundColor: color}}
+                    >
                         REPLY
-                    </Button>
+                    </button>
                 </CardFooter>
             </Stack>
         </Card>

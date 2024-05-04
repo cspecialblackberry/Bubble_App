@@ -1,3 +1,8 @@
 .your-bubble {
     border-radius: 35px;
 }
+
+.reply-button {
+    font-family: var(--main-text-font);
+    width: 100px;
+}
