@@ -34,13 +34,13 @@ function LoginCreateAccount() {
 
                                 <FormControl isInvalid={usernameError}>
                                     <FormLabel>Username</FormLabel>
-                                    <Input value={username} onChange={usernameChange} placeholder='Enter username' />
+                                    <Input value={username} onChange={usernameChange} placeholder='Enter username' borderRadius={20} />
                                     {!usernameError ? (
                                         <FormHelperText>
                         
                                         </FormHelperText>
                                     ) : (
-                                        <FormErrorMessage>Username is required.</FormErrorMessage>
+                                        <FormErrorMessage marginBottom={5}>Username is required.</FormErrorMessage>
                                     )}
                                 </FormControl>
 
@@ -53,11 +53,12 @@ function LoginCreateAccount() {
                                             pr='4.5rem'
                                             type={show ? 'text' : 'password'}
                                             placeholder='Enter password'
+                                            borderRadius={20}
                                         />
                                         <InputRightElement width='4.5rem'>
-                                            <Button h='1.75rem' size='sm' onClick={handleClick} mr={1}>
+                                            <button className='show-button' h='1.75rem' size='sm' onClick={handleClick} mr={1}>
                                                 {show ? 'Hide' : 'Show'}
-                                            </Button>
+                                            </button>
                                         </InputRightElement>
                                     </InputGroup>
                                     {!passwordError ? (
@@ -65,7 +66,7 @@ function LoginCreateAccount() {
                         
                                         </FormHelperText>
                                     ) : (
-                                        <FormErrorMessage>Password is required.</FormErrorMessage>
+                                        <FormErrorMessage marginBottom={5}>Password is required.</FormErrorMessage>
                                     )}
                                 </FormControl>
 
@@ -74,28 +75,29 @@ function LoginCreateAccount() {
                                 </button>
                             </TabPanel>
                             <TabPanel>
-                                <FormControl isRequired>
+                                <FormControl isRequired marginBottom={5}>
                                     <FormLabel>Full Name</FormLabel>
-                                    <Input placeholder='Enter your full name' />
+                                    <Input placeholder='Enter your full name' borderRadius={20} />
                                 </FormControl>
 
-                                <FormControl isRequired>
+                                <FormControl isRequired marginBottom={5}>
                                     <FormLabel>Username</FormLabel>
-                                    <Input placeholder='Create a username' />
+                                    <Input placeholder='Create a username' borderRadius={20} />
                                 </FormControl>
 
-                                <FormControl isRequired>
+                                <FormControl isRequired marginBottom={5}>
                                     <FormLabel>Password</FormLabel>
                                 <InputGroup size='md'>
                                         <Input 
                                             pr='4.5rem'
                                             type={show ? 'text' : 'password'}
                                             placeholder='Create a password'
+                                            borderRadius={20}
                                         />
                                         <InputRightElement width='4.5rem'>
-                                            <Button h='1.75rem' size='sm' onClick={handleClick} mr={1}>
+                                            <button className='show-button' h='1.75rem' size='sm' onClick={handleClick} mr={1}>
                                                 {show ? 'Hide' : 'Show'}
-                                            </Button>
+                                            </button>
                                         </InputRightElement>
                                     </InputGroup>
                                     </FormControl>
