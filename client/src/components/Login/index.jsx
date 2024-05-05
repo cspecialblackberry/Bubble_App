@@ -22,15 +22,15 @@ function LoginCreateAccount() {
 
     return (
         <>
-            <Card boxShadow='lg' p='6' rounded='md' bg='white'>
-                <CardBody>
+            <Card boxShadow='lg' p='6' rounded='md' bg='white' padding={3}>
+                <CardBody padding={3}>
                     <Tabs isFitted variant='enclosed'>
-                        <TabList mb='1em'>
-                            <Tab _selected={{ color: 'blue', bg: '#B9E5FF' }} className="tab">Login</Tab>
-                            <Tab _selected={{ color: 'blue', bg: '#B9E5FF' }} className="tab">Create Account</Tab>
+                        <TabList className='tab-selectors' mb='1em'>
+                            <Tab className='tab' _selected={{ bg: 'var(--pink)' }}>Login</Tab>
+                            <Tab className='tab' _selected={{ bg: 'var(--pink)' }}>Create Account</Tab>
                         </TabList>
                         <TabPanels>
-                            <TabPanel>
+                            <TabPanel padding={3}>
 
                                 <FormControl isInvalid={usernameError}>
                                     <FormLabel>Username</FormLabel>
@@ -74,7 +74,7 @@ function LoginCreateAccount() {
                                     Login
                                 </button>
                             </TabPanel>
-                            <TabPanel>
+                            <TabPanel padding={3}>
                                 <FormControl isRequired marginBottom={5}>
                                     <FormLabel>Full Name</FormLabel>
                                     <Input placeholder='Enter your full name' borderRadius={20} />

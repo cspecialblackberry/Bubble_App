@@ -16,3 +16,8 @@
 .show-button:hover {
     background-color: var(--green);
 }
+
+.tab {
+    border-radius: 0;
+    background-color: var(--light-pink);
+}
