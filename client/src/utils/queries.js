@@ -14,7 +14,7 @@ export const QUERY_USERS = gql`
         }
     }
 `
-
+//query for friend search feature
 export const SEARCH_USERS = gql`
     query searchUsers{
         users{

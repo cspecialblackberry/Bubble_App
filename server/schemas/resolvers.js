@@ -5,6 +5,9 @@ const resolvers = {
     Query: {
         users: async () => {
             return await User.find({})
+        },
+        user: async (parent, {_id}) => {
+            return await User.findById(_id)
         }
     },
 
