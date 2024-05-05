@@ -6,7 +6,7 @@ const resolvers = {
         users: async () => {
             return await User.find({})
         },
-        user: async (parent, {_id}) => {
+        user: async (parent, { _id }) => {
             return await User.findById(_id)
         }
     },
@@ -16,8 +16,11 @@ const resolvers = {
             return await User.create({ username, password, name })
         },
         editUser: async (parent, args, context) => {
-            // return await User.findByIdAndUpdate(context.user._id, {args})
-            return context
+            if (context.user) {
+                return await User.findByIdAndUpdate(context.user._id, { args })
+            }
+
+            throw AuthenticationError
         },
         login: async (parent, { username, password }) => {
             const user = await User.findOne({ username });
@@ -40,11 +43,11 @@ const resolvers = {
             if (context.user) {
                 const post = await Post.create(args)
 
-                await User.findByIdAndUpdate(context.user._id, {$push: {posts: post}})
+                await User.findByIdAndUpdate(context.user._id, { $push: { posts: post } })
 
                 return post
             }
-            
+
             throw AuthenticationError
         }
     }
