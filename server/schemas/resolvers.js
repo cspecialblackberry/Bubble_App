@@ -5,12 +5,19 @@ const resolvers = {
     Query: {
         users: async () => {
             return await User.find({})
+        },
+        searchUsers: async () => {
+            
         }
     },
 
     Mutation: {
         addUser: async (parent, { username, password, name }) => {
             return await User.create({ username, password, name })
+        },
+        editUser: async (parent, args, context) => {
+            // return await User.findByIdAndUpdate(context.user._id, {args})
+            return context
         },
         login: async (parent, { username, password }) => {
             const user = await User.findOne({ username });
@@ -37,7 +44,7 @@ const resolvers = {
 
                 return post
             }
-
+            
             throw AuthenticationError
         }
     }
