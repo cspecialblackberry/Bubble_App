@@ -26,8 +26,8 @@ function LoginCreateAccount() {
                 <CardBody padding={3}>
                     <Tabs isFitted variant='enclosed'>
                         <TabList className='tab-selectors' mb='1em'>
-                            <Tab className='tab' _selected={{ bg: 'var(--pink)' }}>Login</Tab>
-                            <Tab className='tab' _selected={{ bg: 'var(--pink)' }}>Create Account</Tab>
+                            <Tab className='tab' _selected={{ bg: 'var(--pink)' }} fontSize={'1em'}>Login</Tab>
+                            <Tab className='tab' _selected={{ bg: 'var(--pink)' }} fontSize={'1em'}>Create Account</Tab>
                         </TabList>
                         <TabPanels>
                             <TabPanel padding={3}>
