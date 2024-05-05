@@ -14,3 +14,13 @@ export const QUERY_USERS = gql`
         }
     }
 `
+
+export const SEARCH_USERS = gql`
+    query searchUsers{
+        users{
+            _id
+            username
+            avatar
+        }
+    }
+`
