@@ -5,6 +5,7 @@ type User {
     password: String!
     name: String
     color: String
+    avatar: String
     bio: String
     posts: [ID]
     friends: [ID]

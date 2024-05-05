@@ -29,6 +29,9 @@ const userSchema = new Schema({
         type: String,
         max: [150, "Bio must be less than 150 characters."]
     },
+    avatar: {
+        type: String,
+    },
     posts: [{postSchema}],
     friends: [mongoose.ObjectId],
 })
