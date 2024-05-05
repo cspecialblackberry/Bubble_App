@@ -21,11 +21,17 @@ function LoginCreateAccount() {
     const toast = useToast()
     const statuses = ['success', 'error', 'loading']
 
-    // const [login, { error }] = useMutation(LOGIN)
+    const [login, { error }] = useMutation(LOGIN)
   
-
     const handleLogin = async () => {
-
+        try{
+            const res = await login({
+                variables: {username: username, password: password}
+            })
+            console.log(res)
+        }catch(err){
+            console.error(err)
+        }
     }
 
     return (
