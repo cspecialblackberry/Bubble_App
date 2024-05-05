@@ -1,6 +1,7 @@
 import { Card, CardBody, Tabs, TabList, TabPanels, Tab, TabPanel, FormControl, FormLabel, Input, Button, InputGroup, InputRightElement, FormHelperText, FormErrorMessage, useToast } from '@chakra-ui/react'
 import * as React from 'react'
 import { useState } from 'react'
+import './style.css'
 
 function LoginCreateAccount() {
 
@@ -68,9 +69,9 @@ function LoginCreateAccount() {
                                     )}
                                 </FormControl>
 
-                                <Button mt={5}>
+                                <button className='login-create-button' mt={5}>
                                     Login
-                                </Button>
+                                </button>
                             </TabPanel>
                             <TabPanel>
                                 <FormControl isRequired>
@@ -99,7 +100,7 @@ function LoginCreateAccount() {
                                     </InputGroup>
                                     </FormControl>
 
-                                <Button mt={5}
+                                <button className='login-create-button' mt={5}
                                 onClick={() => {
                                     const examplePromise = new Promise((resolve, reject) => {
                                       setTimeout(() => resolve(200), 3000)
@@ -113,7 +114,7 @@ function LoginCreateAccount() {
                                   }}
                                 >
                                     Create Account
-                                </Button>
+                                </button>
 
                             </TabPanel>
                         </TabPanels>
