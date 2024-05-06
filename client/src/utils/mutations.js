@@ -24,8 +24,8 @@ export const LOGIN = gql`
     }
 `
 export const ADD_POST = gql`
-    mutation addPost($postText: String!){
-        addPost(postText: $postText){
+    mutation addPost($userId: ID!, $postText: String!){
+        addPost(userId: $_id, postText: $postText){
             _id
             user
             postText

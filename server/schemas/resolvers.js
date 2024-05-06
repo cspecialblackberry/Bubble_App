@@ -39,20 +39,15 @@ const resolvers = {
 
             return { token, user };
         },
-        addPost: async (parent, {postText}, context) => {
-            console.log(context)
-            if (context.user) {
-                const post = await Post.create({
-                    user: context.user._id,
-                    postText: postText
-                })
+        addPost: async (parent, { userId, postText }, context) => {
+            const post = await Post.create({
+                user: userId,
+                postText: postText
+            })
 
-                await User.findByIdAndUpdate(context.user._id, { $push: { posts: post } })
+            await User.findByIdAndUpdate(userId, { $push: { posts: post } })
 
-                return post
-            }
-
-            throw AuthenticationError
+            return post
         }
     }
 }

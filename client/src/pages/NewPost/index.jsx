@@ -4,6 +4,7 @@ import { Text, Textarea } from '@chakra-ui/react'
 import './style.css'
 import { useMutation } from '@apollo/client'
 import { ADD_POST } from '../../utils/mutations'
+import Auth from '../../utils/auth'
 
 export default function NewPost() {
     let [value, setValue] = React.useState('')
@@ -17,14 +18,16 @@ export default function NewPost() {
     const [addPost, {error}] = useMutation(ADD_POST)
 
     const handleSubmit = async () => {
-        try{
-            const res = await addPost({
-                variables: {postText: value}
-            })
-            console.log(res)
-        }catch(error){
-            console.error(error)
-        }
+        const token = Auth.getProfile()
+        console.log(token.data._id)
+        // try{
+        //     const res = await addPost({
+        //         variables: {postText: value}
+        //     })
+        //     console.log(res)
+        // }catch(error){
+        //     console.error(error)
+        // }
     }
 
     return (
