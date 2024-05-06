@@ -44,6 +44,8 @@ type Mutation {
     login(username: String!, password: String!): Auth
     addPost(userId: ID!, postText: String!): Post
     deletePost(userId: ID!, postId: ID!): Post
+    addReply(postId: ID!, userId: ID!, responseText: String!): Post
+    deleteReply(postId: ID!, replyId: ID!): Post
 }
 `;
 
