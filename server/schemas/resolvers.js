@@ -46,7 +46,7 @@ const resolvers = {
             return { token, user };
         },
         addFriend: async (parent, { userId, friendId }) => {
-
+            await User.findByIdAndUpdate(userId, { $push: { posts: friendId } })
         },
         removeFriend: async (parent, { userId, friendId }) => {
 
