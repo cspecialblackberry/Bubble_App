@@ -1,4 +1,17 @@
 const typeDefs = `
+type Response {
+    _id: ID
+    user: String!
+    responseText: String!
+}
+
+type Post {
+    _id: ID
+    user: String!
+    postText: String!
+    replies: [Response]
+}
+
 type User {
     _id: ID
     username: String!
@@ -7,21 +20,8 @@ type User {
     color: String
     avatar: String
     bio: String
-    posts: [ID]
-    friends: [ID]
-}
-
-type Response {
-    _id: ID
-    user: [User]
-    responseText: String!
-}
-
-type Post {
-    _id: ID
-    user: ID!
-    postText: String!
-    replies: [Response]
+    posts: [Post]
+    friends: [String]
 }
 
 type Auth {

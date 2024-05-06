@@ -11,10 +11,14 @@ const responseSchema = new Schema({
 })
 
 const postSchema = new Schema ({
-    user: [Mongoose.ObjectId],
+    user: {
+        type: Mongoose.ObjectId,
+        unique: false
+    },
     postText: {
         type: String,
         required: true,
+        unique: false,
         max: [150, "Post must be 150 characters or less."]
     },
     replies: [{responseSchema}]

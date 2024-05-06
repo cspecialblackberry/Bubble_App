@@ -45,7 +45,7 @@ const resolvers = {
                 postText: postText
             })
 
-            await User.findByIdAndUpdate(userId, { $push: { posts: post } })
+            await User.findByIdAndUpdate(userId, { $push: { posts: post} })
 
             return post
         }
