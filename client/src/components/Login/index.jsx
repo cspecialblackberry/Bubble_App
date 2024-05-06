@@ -30,7 +30,7 @@ function LoginCreateAccount() {
                 variables: {username: username, password: password}
             })
             console.log(res)
-            const token = mutationResponse.data.login.token;
+            const token = res.data.login.token;
             Auth.login(token)
         }catch(err){
             console.error(err)
