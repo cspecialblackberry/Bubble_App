@@ -1,5 +1,6 @@
 const { User, Post } = require('../models')
 const { signToken, AuthenticationError } = require('../utils/auth')
+const { Mongoose } = require('mongoose')
 
 const resolvers = {
     Query: {
@@ -46,7 +47,12 @@ const resolvers = {
             return { token, user };
         },
         addFriend: async (parent, { userId, friendId }) => {
-            await User.findByIdAndUpdate(userId, { $push: { posts: friendId } })
+            try{
+            const friend = await User.findById(friendId)
+            await User.findByIdAndUpdate(userId, { $push: { friends: friend._id } })
+            }catch(err){
+                return err
+            }
         },
         removeFriend: async (parent, { userId, friendId }) => {
 
