@@ -47,4 +47,6 @@ export default function NewPost() {
 
 // CASEY-TODO: saves to db on submit - post id added to user
 // CASEY-TODO: on submit, takes you to home/feed
+// CASEY-TODO: make outline the chosen user color?
+// CASEY-TODO: bubble animation on click for new post
 

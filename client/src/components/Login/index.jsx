@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { useMutation } from '@apollo/client'
 import { LOGIN } from '../../utils/mutations'
 import Auth from '../../utils/auth'
+import './style.css'
 
 function LoginCreateAccount() {
 
@@ -39,25 +40,25 @@ function LoginCreateAccount() {
 
     return (
         <>
-            <Card boxShadow='lg' p='6' rounded='md' bg='white'>
-                <CardBody>
+            <Card boxShadow='lg' p='6' rounded='md' bg='white' padding={3}>
+                <CardBody padding={3}>
                     <Tabs isFitted variant='enclosed'>
-                        <TabList mb='1em'>
-                            <Tab _selected={{ color: 'blue', bg: '#B9E5FF' }} className="tab">Login</Tab>
-                            <Tab _selected={{ color: 'blue', bg: '#B9E5FF' }} className="tab">Create Account</Tab>
+                        <TabList className='tab-selectors' mb='1em'>
+                            <Tab className='tab' _selected={{ bg: 'var(--pink)' }} fontSize={'1em'}>Login</Tab>
+                            <Tab className='tab' _selected={{ bg: 'var(--pink)' }} fontSize={'1em'}>Create Account</Tab>
                         </TabList>
                         <TabPanels>
-                            <TabPanel>
+                            <TabPanel padding={3}>
 
                                 <FormControl isInvalid={usernameError}>
                                     <FormLabel>Username</FormLabel>
-                                    <Input value={username} onChange={usernameChange} placeholder='Enter username' />
+                                    <Input value={username} onChange={usernameChange} placeholder='Enter username' borderRadius={20} />
                                     {!usernameError ? (
                                         <FormHelperText>
                         
                                         </FormHelperText>
                                     ) : (
-                                        <FormErrorMessage>Username is required.</FormErrorMessage>
+                                        <FormErrorMessage marginBottom={5}>Username is required.</FormErrorMessage>
                                     )}
                                 </FormControl>
 
@@ -70,11 +71,12 @@ function LoginCreateAccount() {
                                             pr='4.5rem'
                                             type={show ? 'text' : 'password'}
                                             placeholder='Enter password'
+                                            borderRadius={20}
                                         />
                                         <InputRightElement width='4.5rem'>
-                                            <Button h='1.75rem' size='sm' onClick={handleClick} mr={1}>
+                                            <button className='show-button' h='1.75rem' size='sm' onClick={handleClick} mr={1}>
                                                 {show ? 'Hide' : 'Show'}
-                                            </Button>
+                                            </button>
                                         </InputRightElement>
                                     </InputGroup>
                                     {!passwordError ? (
@@ -82,42 +84,43 @@ function LoginCreateAccount() {
                         
                                         </FormHelperText>
                                     ) : (
-                                        <FormErrorMessage>Password is required.</FormErrorMessage>
+                                        <FormErrorMessage marginBottom={5}>Password is required.</FormErrorMessage>
                                     )}
                                 </FormControl>
 
-                                <Button mt={5} onClick={handleLogin}>
+                                <button className='login-create-button' mt={5} onClick={handleLogin}>
                                     Login
-                                </Button>
+                                </button>
                             </TabPanel>
-                            <TabPanel>
-                                <FormControl isRequired>
+                            <TabPanel padding={3}>
+                                <FormControl isRequired marginBottom={5}>
                                     <FormLabel>Full Name</FormLabel>
-                                    <Input placeholder='Enter your full name' />
+                                    <Input placeholder='Enter your full name' borderRadius={20} />
                                 </FormControl>
 
-                                <FormControl isRequired>
+                                <FormControl isRequired marginBottom={5}>
                                     <FormLabel>Username</FormLabel>
-                                    <Input placeholder='Create a username' />
+                                    <Input placeholder='Create a username' borderRadius={20} />
                                 </FormControl>
 
-                                <FormControl isRequired>
+                                <FormControl isRequired marginBottom={5}>
                                     <FormLabel>Password</FormLabel>
                                 <InputGroup size='md'>
                                         <Input 
                                             pr='4.5rem'
                                             type={show ? 'text' : 'password'}
                                             placeholder='Create a password'
+                                            borderRadius={20}
                                         />
                                         <InputRightElement width='4.5rem'>
-                                            <Button h='1.75rem' size='sm' onClick={handleClick} mr={1}>
+                                            <button className='show-button' h='1.75rem' size='sm' onClick={handleClick} mr={1}>
                                                 {show ? 'Hide' : 'Show'}
-                                            </Button>
+                                            </button>
                                         </InputRightElement>
                                     </InputGroup>
                                     </FormControl>
 
-                                <Button mt={5}
+                                <button className='login-create-button' mt={5}
                                 onClick={() => {
                                     const examplePromise = new Promise((resolve, reject) => {
                                       setTimeout(() => resolve(200), 3000)
@@ -131,7 +134,7 @@ function LoginCreateAccount() {
                                   }}
                                 >
                                     Create Account
-                                </Button>
+                                </button>
 
                             </TabPanel>
                         </TabPanels>
