@@ -8,6 +8,9 @@ const resolvers = {
         },
         user: async (parent, { _id }) => {
             return await User.findById(_id)
+        },
+        posts: async () => {
+            return await Post.find({})
         }
     },
 

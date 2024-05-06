@@ -32,6 +32,7 @@ type Auth {
 type Query {
     users: [User]
     user(_id: ID!): User
+    posts: [Post]
 }
 
 type Mutation {
