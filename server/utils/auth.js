@@ -39,8 +39,8 @@ module.exports = {
 
     return req;
   },
-  signToken: function ({ _id }) {
-    const payload = { _id };
+  signToken: function ({ _id, color }) {
+    const payload = { _id, color };
 
     return jwt.sign(
       { data: payload },

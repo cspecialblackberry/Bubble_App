@@ -12,7 +12,7 @@ const resolvers = {
         posts: async () => {
             return await Post.find({})
         },
-        post: async (parent, {_id}) => {
+        post: async (parent, { _id }) => {
             return await Post.findById(_id)
         }
     },
@@ -45,30 +45,40 @@ const resolvers = {
 
             return { token, user };
         },
-        addFriend: async (parent, {userId, friendId}) => {
+        addFriend: async (parent, { userId, friendId }) => {
 
         },
-        removeFriend: async (parent, {userId, friendId}) => {
+        removeFriend: async (parent, { userId, friendId }) => {
 
         },
         addPost: async (parent, { userId, postText }, context) => {
-            const post = await Post.create({
-                user: userId,
-                postText: postText
-            })
+            console.log({ userId, postText })
+            const user = await User.findById(userId)
+            console.log(user)
+            try {
+                const post = await Post.create({
+                    user: user._id,
+                    postText: postText
+                })
+                console.log({ post })
+                await User.findByIdAndUpdate(userId, { $push: { posts: post } })
 
-            await User.findByIdAndUpdate(userId, { $push: { posts: post} })
+                return post
+            } catch (err) {
+                console.error(err)
+                return err
+            }
 
-            return post
+
         },
-        deletePost: async (parent, {userId, postId}) => {
+        deletePost: async (parent, { userId, postId }) => {
 
         },
-        addReply: async (parent, {postId, userId, responseText}) => {
+        addReply: async (parent, { postId, userId, responseText }) => {
 
         },
-        deleteReply: async (parent, {postId, replyId}) => {
-            
+        deleteReply: async (parent, { postId, replyId }) => {
+
         }
     }
 }
