@@ -3,6 +3,7 @@ import * as React from 'react'
 import { useState } from 'react'
 import { useMutation } from '@apollo/client'
 import { LOGIN } from '../../utils/mutations'
+import Auth from '../../utils/auth'
 
 function LoginCreateAccount() {
 
@@ -29,6 +30,8 @@ function LoginCreateAccount() {
                 variables: {username: username, password: password}
             })
             console.log(res)
+            const token = mutationResponse.data.login.token;
+            Auth.login(token)
         }catch(err){
             console.error(err)
         }
