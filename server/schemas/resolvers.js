@@ -11,6 +11,9 @@ const resolvers = {
         },
         posts: async () => {
             return await Post.find({})
+        },
+        post: async (parent, {_id}) => {
+            return await Post.findById(_id)
         }
     },
 
@@ -59,7 +62,7 @@ const resolvers = {
             return post
         },
         deletePost: async (parent, {userId, postId}) => {
-            
+
         }
     }
 }
