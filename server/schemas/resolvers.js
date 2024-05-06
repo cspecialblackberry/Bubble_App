@@ -63,6 +63,12 @@ const resolvers = {
         },
         deletePost: async (parent, {userId, postId}) => {
 
+        },
+        addReply: async (parent, {postId, userId, responseText}) => {
+
+        },
+        deleteReply: async (parent, {postId, replyId}) => {
+            
         }
     }
 }
