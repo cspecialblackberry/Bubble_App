@@ -42,6 +42,12 @@ const resolvers = {
 
             return { token, user };
         },
+        addFriend: async (parent, {userId, friendId}) => {
+
+        },
+        removeFriend: async (parent, {userId, friendId}) => {
+
+        },
         addPost: async (parent, { userId, postText }, context) => {
             const post = await Post.create({
                 user: userId,
@@ -51,6 +57,9 @@ const resolvers = {
             await User.findByIdAndUpdate(userId, { $push: { posts: post} })
 
             return post
+        },
+        deletePost: async (parent, {userId, postId}) => {
+            
         }
     }
 }
