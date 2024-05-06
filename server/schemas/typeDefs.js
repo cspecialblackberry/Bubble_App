@@ -8,7 +8,7 @@ type Response {
 type Post {
     _id: ID
     user: String!
-    postText: String!
+    postText: String
     replies: [Response]
 }
 
@@ -33,7 +33,7 @@ type Query {
     users: [User]
     user(_id: ID!): User
     posts: [Post]
-    post: Post
+    post(_id: ID!): Post
 }
 
 type Mutation {
