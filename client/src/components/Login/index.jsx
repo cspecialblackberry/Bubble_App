@@ -1,6 +1,9 @@
 import { Card, CardBody, Tabs, TabList, TabPanels, Tab, TabPanel, FormControl, FormLabel, Input, Button, InputGroup, InputRightElement, FormHelperText, FormErrorMessage, useToast } from '@chakra-ui/react'
 import * as React from 'react'
 import { useState } from 'react'
+import { useMutation } from '@apollo/client'
+import { LOGIN } from '../../utils/mutations'
+import Auth from '../../utils/auth'
 import './style.css'
 
 function LoginCreateAccount() {
@@ -19,6 +22,21 @@ function LoginCreateAccount() {
 
     const toast = useToast()
     const statuses = ['success', 'error', 'loading']
+
+    const [login, { error }] = useMutation(LOGIN)
+  
+    const handleLogin = async () => {
+        try{
+            const res = await login({
+                variables: {username: username, password: password}
+            })
+            console.log(res)
+            const token = res.data.login.token;
+            Auth.login(token)
+        }catch(err){
+            console.error(err)
+        }
+    }
 
     return (
         <>
@@ -70,7 +88,7 @@ function LoginCreateAccount() {
                                     )}
                                 </FormControl>
 
-                                <button className='login-create-button' mt={5}>
+                                <button className='login-create-button' mt={5} onClick={handleLogin}>
                                     Login
                                 </button>
                             </TabPanel>

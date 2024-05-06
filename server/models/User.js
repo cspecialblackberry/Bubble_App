@@ -1,6 +1,7 @@
 const { Schema, model } = require('mongoose')
 const mongoose = require('mongoose')
 const bcrypt = require('bcrypt')
+const { postSchema } = require('./Post')
 
 const userSchema = new Schema({
     username: {
@@ -28,7 +29,10 @@ const userSchema = new Schema({
         type: String,
         max: [150, "Bio must be less than 150 characters."]
     },
-    posts: [mongoose.ObjectId],
+    avatar: {
+        type: String,
+    },
+    posts: [{postSchema}],
     friends: [mongoose.ObjectId],
 })
 

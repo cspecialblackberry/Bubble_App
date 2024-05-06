@@ -1,8 +1,8 @@
 const { Schema, model} = require('mongoose')
-const {userSchema} = require('./User')
+const Mongoose = require('mongoose')
 
 const responseSchema = new Schema({
-    user: [{userSchema}],
+    user: [Mongoose.ObjectId],
     responseText: {
         type: String,
         required: true,
@@ -11,10 +11,14 @@ const responseSchema = new Schema({
 })
 
 const postSchema = new Schema ({
-    user: [{userSchema}],
+    user: {
+        type: Mongoose.ObjectId,
+        unique: false
+    },
     postText: {
         type: String,
         required: true,
+        unique: false,
         max: [150, "Post must be 150 characters or less."]
     },
     replies: [{responseSchema}]
