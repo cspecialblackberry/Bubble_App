@@ -2,12 +2,9 @@ import YourPost from "../../components/YourPost";
 import FriendPost from "../../components/FriendPost";
 import './style.css';
 import Auth from '../../utils/auth'
-import {QUERY_USER, QUERY_POSTS} from '../../utils/queries'
-import {useQuery, useLazyQuery} from '@apollo/client'
+// import {QUERY_USER, QUERY_POSTS} from '../../utils/queries';
+// import {useQuery, useLazyQuery} from '@apollo/client';
 
-//array of posts
-
-//array of users
 const name = ['Jimmy Smith', 'Marie Travolta', 'Billy Lou', 'Gren Thalamus', 'Kristine Sinclair', 'Benjamin Phonics'];
 const image = ['/avatarImages/braedonMcCloud.jpg', '/avatarImages/davidClode.jpg', '/avatarImages/alexanderDummer.jpg', '/avatarImages/marcelStrauss.jpg', '/avatarImages/forestSimon.jpg', '/avatarImages/maxKleinen.jpg']
 const color = ['#FFDAE7', '#FFD073', '#FFF0B5', '#D8FFA5', '#B9E5FF', '#D9C5FF']
@@ -18,37 +15,35 @@ const bubbles = ['Let\'s go Phillies! Big win tonight!',
   'Sushi night!',
   'Bubble is the new Myspace'];
 
-
-
-
-
 export default function Home() {
 
-  const token = Auth.getProfile()
-  console.log(token.data._id)
-  // const [getUser, {called, loading, data}] = useLazyQuery(
+  // const token = Auth.getProfile()
+  // console.log(token.data._id)
+
+      // const [getUser, {called, loading, data}] = useLazyQuery(
+      //   QUERY_USER, {variables: {_id: token.data._id}}
+      // )
+
+  // const userResult = useQuery(
   //   QUERY_USER, {variables: {_id: token.data._id}}
   // )
-  const userResult = useQuery(
-    QUERY_USER, {variables: {_id: token.data._id}}
-  )
-  if(userResult.loading)console.log('loading')
-  if(userResult.data)console.log(userResult.data)
-  if(userResult.error)console.log(userResult.error)
+  // if(userResult.loading)console.log('loading')
+  // if(userResult.data)console.log(userResult.data)
+  // if(userResult.error)console.log(userResult.error)
 
-  let posts = []  
-  // const user = data?.user
+  // let posts = []  
+  // // const user = data?.user
 
-  const postsResult = useQuery(
-    QUERY_POSTS
-  )
+  // const postsResult = useQuery(
+  //   QUERY_POSTS
+  // )
 
-  if(postsResult.data){
-    console.log(postsResult.data)
-    posts = postsResult.data
-  }
+  // if(postsResult.data){
+  //   console.log(postsResult.data)
+  //   posts = postsResult.data
+  // }
 
-  console.log(posts)
+  // console.log(posts)
 
   return (
     <>
