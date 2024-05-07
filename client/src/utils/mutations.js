@@ -25,11 +25,10 @@ export const LOGIN = gql`
 `
 export const ADD_POST = gql`
     mutation addPost($userId: ID!, $postText: String!){
-        addPost(userId: $_id, postText: $postText){
+        addPost(userId: $userId, postText: $postText){
             _id
             user
             postText
-            replies
         }
     }
 `

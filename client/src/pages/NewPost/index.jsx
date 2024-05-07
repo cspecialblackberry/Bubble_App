@@ -20,14 +20,15 @@ export default function NewPost() {
     const handleSubmit = async () => {
         const token = Auth.getProfile()
         console.log(token.data._id)
-        // try{
-        //     const res = await addPost({
-        //         variables: {postText: value}
-        //     })
-        //     console.log(res)
-        // }catch(error){
-        //     console.error(error)
-        // }
+        console.log(value)
+        try{
+            const res = await addPost({
+                variables: {userId: token.data._id, postText: value}
+            })
+            console.log(res)
+        }catch(error){
+            console.error(error)
+        }
     }
 
     return (

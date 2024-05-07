@@ -2,7 +2,10 @@ const { Schema, model} = require('mongoose')
 const Mongoose = require('mongoose')
 
 const responseSchema = new Schema({
-    user: [Mongoose.ObjectId],
+    user: {
+        type: Mongoose.ObjectId,
+        unique: false
+    },
     responseText: {
         type: String,
         required: true,
@@ -21,9 +24,10 @@ const postSchema = new Schema ({
         unique: false,
         max: [150, "Post must be 150 characters or less."]
     },
-    replies: [{responseSchema}]
+    replies: [responseSchema]
 })
 
-const Post = model('Post', postSchema)
+const Response = model('Response', responseSchema)
+const Post = model('Post', postSchema) 
 
-module.exports = {Post, postSchema}
+module.exports = {Post, Response, postSchema}

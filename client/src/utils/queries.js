@@ -11,7 +11,9 @@ export const QUERY_USERS = gql`
             avatar
             bio
             friends
-            posts
+            posts{
+                _id
+            }
         }
     }
 `
@@ -22,6 +24,7 @@ export const SEARCH_USERS = gql`
             _id
             username
             avatar
+            color
         }
     }
 `
@@ -37,7 +40,10 @@ export const QUERY_USER = gql`
             avatar
             bio
             friends
-            posts
+            posts{
+                _id
+                postText
+            }
         }
     }
 `
