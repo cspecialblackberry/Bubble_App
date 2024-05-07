@@ -31,7 +31,7 @@ const userSchema = new Schema({
     avatar: {
         type: String,
     },
-    posts: [{postSchema}],
+    posts: [postSchema],
     friends: [mongoose.ObjectId],
 })
 

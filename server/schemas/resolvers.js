@@ -60,7 +60,11 @@ const resolvers = {
         removeFriend: async (parent, { userId, friendId }) => {
             try {
                 const user = await User.findById(userId)
+                console.log(user)
                 console.log(user.friends)
+                const friendIndex = user.friends.indexOf(user.friends.find((id) => id===friendId))
+                console.log(friendIndex)
+                console.log(user.friends[friendIndex])
                 // const newFriendList = user.friends.splice((user.friends.indexOf(friendId)), 1)
                 // console.log(newFriendList)
                 // const newUser = await User.findByIdAndUpdate(userId, {friends: newFriendList})
