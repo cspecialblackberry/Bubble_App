@@ -31,7 +31,6 @@ const resolvers = {
         editUser: async (parent, args, context) => {
             console.log(args)
             return await User.findByIdAndUpdate(args.userId, {$set: { ...args }})
-
         },
         //working
         login: async (parent, { username, password }) => {
@@ -116,17 +115,18 @@ const resolvers = {
         addReply: async (parent, { postId, userId, responseText }) => {
             const post = await Post.findById(postId)
             console.log(post)
-            // post.replies.push({
-            //     user: userId,
-            //     responseText
-            // })
-            // console.log(post)
-            Post.updateOne({
-                _id: postId
-            }, {$push: {replies: {
+            post.replies.push({
                 user: userId,
                 responseText
-            }}})
+            })
+            console.log(post)
+            Post.findByIdAndUpdate(postId, {post})
+            // Post.updateOne({
+            //     _id: postId
+            // }, {$push: {replies: {
+            //     user: userId,
+            //     responseText
+            // }}})
         },
         deleteReply: async (parent, { postId, replyId }) => {
 
