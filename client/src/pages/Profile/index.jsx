@@ -24,7 +24,7 @@ const bio = 'I am a React coder from Cleveland, Ohio. Excited to meet more frien
 const color = '#FFD073';
 const bubbles = ['Let\'s go Phillies! Big win tonight!', 'Stop judging people for what they put on their bagels! Chocolate sauce is good!', 'Anyone want to go to the mall later on?'];
 
-const Profile = () => {
+const Profile = (props) => {
     const [editIsOpen, setEditIsOpen] = useState(false);
 
     const handleEditButtonClick = () => {
