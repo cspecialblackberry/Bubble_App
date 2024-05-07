@@ -11,7 +11,9 @@ export const QUERY_USERS = gql`
             avatar
             bio
             friends
-            posts
+            posts{
+                _id
+            }
         }
     }
 `
