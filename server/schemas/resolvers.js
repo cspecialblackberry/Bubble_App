@@ -25,6 +25,7 @@ const resolvers = {
         addUser: async (parent, { username, password, name }) => {
             return await User.create({ username, password, name })
         },
+        //INCOMPLETE
         editUser: async (parent, args, context) => {
             if (context.user) {
                 return await User.findByIdAndUpdate(context.user._id, { args })
@@ -60,15 +61,11 @@ const resolvers = {
         removeFriend: async (parent, { userId, friendId }) => {
             try {
                 const user = await User.findById(userId)
-                console.log(user)
-                console.log(user.friends)
-                const friendIndex = user.friends.indexOf(user.friends.find((id) => id===friendId))
-                console.log(friendIndex)
-                console.log(user.friends[friendIndex])
-                // const newFriendList = user.friends.splice((user.friends.indexOf(friendId)), 1)
-                // console.log(newFriendList)
-                // const newUser = await User.findByIdAndUpdate(userId, {friends: newFriendList})
-                // console.log(newUser)
+                const friendIndex = user.friends.indexOf(friendId)
+                user.friends.splice(friendIndex, 1)
+                const update = await User.updateOne({
+                    _id: userId
+                }, user)
             } catch (err) {
                 return err
             }
