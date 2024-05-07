@@ -111,7 +111,7 @@ const resolvers = {
                 return err
             }
         },
-        //not working
+        //working
         addReply: async (parent, { postId, userId, responseText }) => {
             const post = await Post.findById(postId)
             console.log(post)
@@ -120,13 +120,7 @@ const resolvers = {
                 responseText
             })
             console.log(post)
-            Post.findByIdAndUpdate(postId, {post})
-            // Post.updateOne({
-            //     _id: postId
-            // }, {$push: {replies: {
-            //     user: userId,
-            //     responseText
-            // }}})
+            await Post.findByIdAndUpdate(postId, {$set: {replies: post.replies}})
         },
         deleteReply: async (parent, { postId, replyId }) => {
 
