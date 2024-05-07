@@ -15,6 +15,9 @@ const resolvers = {
         },
         post: async (parent, { _id }) => {
             return await Post.findById(_id)
+        },
+        replies: async () => {
+            return await Response.find({})
         }
     },
 
@@ -47,22 +50,22 @@ const resolvers = {
             return { token, user };
         },
         addFriend: async (parent, { userId, friendId }) => {
-            try{
-            const friend = await User.findById(friendId)
-            await User.findByIdAndUpdate(userId, { $push: { friends: friend._id } })
-            }catch(err){
+            try {
+                const friend = await User.findById(friendId)
+                await User.findByIdAndUpdate(userId, { $push: { friends: friend._id } })
+            } catch (err) {
                 return err
             }
         },
         removeFriend: async (parent, { userId, friendId }) => {
-            try{
+            try {
                 const user = await User.findById(userId)
                 console.log(user.friends)
-                const newFriendList = user.friends.splice((user.friends.indexOf(friendId)), 1)
-                console.log(newFriendList)
-                const newUser = await User.findByIdAndUpdate(userId, {friends: newFriendList})
-                console.log(newUser)
-            }catch(err){
+                // const newFriendList = user.friends.splice((user.friends.indexOf(friendId)), 1)
+                // console.log(newFriendList)
+                // const newUser = await User.findByIdAndUpdate(userId, {friends: newFriendList})
+                // console.log(newUser)
+            } catch (err) {
                 return err
             }
         },
@@ -90,16 +93,14 @@ const resolvers = {
 
         },
         addReply: async (parent, { postId, userId, responseText }) => {
-           const reply = new Response({
-             user: userId,
-             responseText
-           })
-           console.log(reply)
-          const post = await Post.findById(postId)
-          console.log(post)
-          post.replies.push(reply)
-          console.log(post)
-           
+            const post = await Post.findById(postId)
+            console.log(post)
+            post.replies.push({
+                user: userId,
+                responseText
+            })
+            console.log(post)
+
         },
         deleteReply: async (parent, { postId, replyId }) => {
 

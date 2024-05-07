@@ -34,6 +34,7 @@ type Query {
     user(_id: ID!): User
     posts: [Post]
     post(_id: ID!): Post
+    replies: Response
 }
 
 type Mutation {
