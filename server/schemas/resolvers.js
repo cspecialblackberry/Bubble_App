@@ -28,7 +28,7 @@ const resolvers = {
             return await User.create({ username, password, name })
         },
         //not working
-        editUser: async (parent, args, context) => {
+        editUser: async (parent, args) => {
             console.log(args)
             return await User.findByIdAndUpdate(args.userId, {$set: { ...args }})
         },
