@@ -1,6 +1,6 @@
 import { Card, CardHeader, CardBody, CardFooter, Text } from '@chakra-ui/react'; //for Bio section
 import UserAvatar from '../../components/ProfileImage';
-// import EditForm from '../../components/EditForm';
+import EditForm from '../../components/EditForm';
 import YourPost from '../../components/YourPost';
 import FriendPost from '../../components/FriendPost';
 import './style.css';
@@ -33,7 +33,7 @@ const Profile = () => {
     return (
         <>
             <h1>{name}</h1>
-            {/* <EditForm></EditForm> */}
+            <EditForm></EditForm>
             <UserAvatar url={image} name={name}></UserAvatar>
             <Text bgColor={color}>{bio}</Text>
             <h2>Recent Bubbles:</h2>
