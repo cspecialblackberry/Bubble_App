@@ -1,8 +1,8 @@
 const typeDefs = `
 type Response {
     _id: ID
-    user: String!
-    responseText: String!
+    user: String
+    responseText: String
 }
 
 type Post {

@@ -24,6 +24,7 @@ const postSchema = new Schema ({
     replies: [{responseSchema}]
 })
 
+const Response = model('Response', responseSchema)
 const Post = model('Post', postSchema)
 
-module.exports = {Post, postSchema}
+module.exports = {Post, Response, postSchema}
