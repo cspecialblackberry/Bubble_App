@@ -6,14 +6,33 @@ import {
     Button,
     Radio,
     RadioGroup,
-    Stack,
-    SimpleGrid
+    SimpleGrid,
+    Image
 } from '@chakra-ui/react'
+
+const imageArray = ['/avatarImages/andrewKeymaster.jpg', //Photo by Andrew Keymaster on Unsplash 
+ '/avatarImages/braedonMcCloud.jpg', //Photo by Braedon McLeod on Unsplash 
+  '/avatarImages/davidClode.jpg', //Photo by David Clode on Unsplash 
+  '/avatarImages/thomasStephan.jpg', //Photo by Thomas Stephan on Unsplash
+    '/avatarImages/ZdenekMachacek.jpg', //Photo by Zdeněk Macháček on Unsplash
+    '/avatarImages/maxKleinen.jpg', //Photo by Max Kleinen on Unsplash
+    '/avatarImages/alexanderDummer.jpg', //Photo by Alexander Dummer on Unsplash
+    '/avatarImages/davidClode2.jpg', //Photo by David Clode on Unsplash
+    '/avatarImages/forestSimon.jpg', //Photo by Forest Simon on Unsplash
+    '/avatarImages/alfredSchrock.jpg', //Photo by Alfred Schrock on Unsplash
+    '/avatarImages/forestSimon2.jpg', //Photo by Forest Simon on Unsplash
+    '/avatarImages/marcelStrauss.jpg', //Photo by Marcel Strauß on Unsplash
+]
+  
+  
+  
+  
 
 const EditForm = () => {
     const [nameInput, setNameInput] = useState('');
     const [bioInput, setBioInput] = useState('');
     const [value, setColorValue] = useState('');
+    const [avatarImage, setAvatarImage] = useState('');
 
     const handleNameInputChange = (e) => {
         setNameInput(e.target.value);
@@ -21,13 +40,15 @@ const EditForm = () => {
     const handleBioInputChange = (e) => {
         setBioInput(e.target.value);
     }
+    const handleColorInputChange = (e) => {
+        setColorValue(e);
+    }
     const handleSubmit = () => {
-        console.log(nameInput, bioInput, value);
+        console.log(nameInput, bioInput, value, avatarImage);
     }
 
     return (
-        <>
-            <h1>Edit Profile</h1>
+        <div>
             <h2>Choose an avatar</h2>
             <FormControl>
                 <FormLabel>Edit Name</FormLabel>
@@ -36,8 +57,22 @@ const EditForm = () => {
                     onChange={handleNameInputChange}>
                 </Input>
 
+                <FormLabel>Choose Your Bubble Avatar</FormLabel>
+                <SimpleGrid columns={3} height={60} overflowY='scroll' rowGap={3}>
+                    {imageArray.map((image, index) => {
+                        return (
+                            <Image key={index}
+                                borderRadius='full'
+                                boxSize='100px'
+                                src={image}
+                                onClick={() => setAvatarImage(image)}
+                            />
+                        )
+                    })}
+                </SimpleGrid>
+
                 <FormLabel>Choose Accent Color</FormLabel>
-                <RadioGroup onChange={setColorValue} value={value}>
+                <RadioGroup onChange={handleColorInputChange} value={value}>
                     <SimpleGrid direction='row' columns={3}>
                         <Radio value='#FFDAE7' color='#FFDAE7' colorScheme='#FFDAE7' bg='#FFDAE7' borderColor='#FFDAE7'>Red</Radio>
                         <Radio value='#FFD073' color='#FFD073' colorScheme='#FFD073' bg='#FFD073' borderColor='#FFD073'>Orange</Radio>
@@ -48,18 +83,19 @@ const EditForm = () => {
                     </SimpleGrid>
                 </RadioGroup>
 
+
                 <FormLabel>Edit Bio</FormLabel>
                 <Input type="text"
                     value={bioInput}
                     onChange={handleBioInputChange}>
                 </Input>
 
-                
+
 
 
                 <Button colorScheme='blue' onClick={handleSubmit}>Submit</Button>
             </FormControl>
-        </>
+        </div>
     )
 }
 

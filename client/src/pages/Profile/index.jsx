@@ -14,13 +14,6 @@ import './style.css';
 //User Bio
 //User's "bubbles"
 
-//EDIT (If it's your profile):
-//Give edit options:
-//Edit name
-//Edit avatar
-//Edit mycolor
-//Edit bio
-//Delete my posts
 
 //Hardcoded information:
 const name = 'Jimmy Smith';
@@ -37,7 +30,6 @@ const Profile = () => {
             <UserAvatar url={image} name={name}></UserAvatar>
             <Text bgColor={color}>{bio}</Text>
             <h2>Recent Bubbles:</h2>
-            {/*Needs a ternary for whether the user's id matches the logged in user's id or not*/}
             {bubbles.map((bubble, index) => {
                 return(
                     <YourPost key={index} name={name} url={image} text={bubble} color={color}></YourPost>
