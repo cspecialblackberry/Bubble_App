@@ -24,9 +24,6 @@ const userSchema = new Schema({
             message: 'Something went wrong!'
         }
     },
-    image: {
-        type: String,
-    },
     bio: {
         type: String,
         max: [150, "Bio must be less than 150 characters."]

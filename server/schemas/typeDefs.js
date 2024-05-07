@@ -19,7 +19,6 @@ type User {
     name: String
     color: String
     avatar: String
-    image: String
     bio: String
     posts: [Post]
     friends: [String]
@@ -40,7 +39,7 @@ type Query {
 
 type Mutation {
     addUser(username: String!, password: String!, name: String): User
-    editUser(userId: ID!, name: String, color: String, image: String, bio: String, avatar: String): User
+    editUser(userId: ID!, name: String, color: String, bio: String, avatar: String): User
     addFriend(userId: ID!, friendId: ID!): User
     removeFriend(userId: ID!, friendId: ID!): User
     login(username: String!, password: String!): Auth

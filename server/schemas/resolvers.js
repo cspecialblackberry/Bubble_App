@@ -27,10 +27,14 @@ const resolvers = {
         addUser: async (parent, { username, password, name }) => {
             return await User.create({ username, password, name })
         },
-        //not working
-        editUser: async (parent, args) => {
-            console.log(args)
-            return await User.findByIdAndUpdate(args.userId, {$set: { ...args }})
+        //working
+        editUser: async (parent, {userId, name, color, image, bio}) => {
+            return await User.findByIdAndUpdate(userId, [
+                {$set: {name: name}},
+                {$set: {color: color}},
+                {$set: {image: image}},
+                {$set: {bio: bio}},
+            ])
         },
         //working
         login: async (parent, { username, password }) => {
@@ -93,7 +97,7 @@ const resolvers = {
 
 
         },
-        //not working
+        //working
         deletePost: async (parent, { userId, postId }) => {
             try {
                 const user = await User.findById(userId)
@@ -103,9 +107,9 @@ const resolvers = {
                 console.log(postIndex)
                 user.posts.splice(postIndex, 1)
                 console.log(user.posts)
-                const update = User.findByIdAndUpdate(userId, { posts: user.posts })
+                const update = await User.findByIdAndUpdate(userId, { posts: user.posts })
                 console.log('update', update._update)
-                Post.findByIdAndDelete(postId)
+                await Post.findByIdAndDelete(postId)
             } catch (err) {
                 console.error(err)
                 return err
@@ -123,7 +127,7 @@ const resolvers = {
             await Post.findByIdAndUpdate(postId, {$set: {replies: post.replies}})
         },
         deleteReply: async (parent, { postId, replyId }) => {
-
+            
         }
     }
 }
