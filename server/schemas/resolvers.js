@@ -1,4 +1,4 @@
-const { User, Post } = require('../models')
+const { User, Post, Response } = require('../models')
 const { signToken, AuthenticationError } = require('../utils/auth')
 const { Mongoose } = require('mongoose')
 
@@ -11,7 +11,7 @@ const resolvers = {
             return await User.findById(_id)
         },
         posts: async () => {
-            return await Post.find({})
+            return await Post.find({}).populate("replies")
         },
         post: async (parent, { _id }) => {
             return await Post.findById(_id)
@@ -55,7 +55,16 @@ const resolvers = {
             }
         },
         removeFriend: async (parent, { userId, friendId }) => {
-
+            try{
+                const user = await User.findById(userId)
+                console.log(user.friends)
+                const newFriendList = user.friends.splice((user.friends.indexOf(friendId)), 1)
+                console.log(newFriendList)
+                const newUser = await User.findByIdAndUpdate(userId, {friends: newFriendList})
+                console.log(newUser)
+            }catch(err){
+                return err
+            }
         },
         addPost: async (parent, { userId, postText }, context) => {
             console.log({ userId, postText })
@@ -81,7 +90,16 @@ const resolvers = {
 
         },
         addReply: async (parent, { postId, userId, responseText }) => {
-
+           const reply = new Response({
+             user: userId,
+             responseText
+           })
+           console.log(reply)
+          const post = await Post.findById(postId)
+          console.log(post)
+          post.replies.push(reply)
+          console.log(post)
+           
         },
         deleteReply: async (parent, { postId, replyId }) => {
 

@@ -19,7 +19,8 @@ export default function NewPost() {
 
     const handleSubmit = async () => {
         const token = Auth.getProfile()
-        console.log(token)
+        console.log(token.data._id)
+        console.log(value)
         try{
             const res = await addPost({
                 variables: {userId: token.data._id, postText: value}

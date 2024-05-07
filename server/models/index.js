@@ -1,5 +1,5 @@
 const {User} = require('./User')
-const {Post} = require('./Post')
+const {Post, Response} = require('./Post')
 const {FriendRequest} = require('./FriendRequest')
 
-module.exports = {User, Post, FriendRequest}
+module.exports = {User, Post, Response, FriendRequest}
