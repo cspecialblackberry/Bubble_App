@@ -18,6 +18,7 @@ function NavTabs() {
             <li className="profile-icon">
                 <Link
                     to="/profile"
+                    state={{ from: 'yourUserId' }}
                     className={currentPage === '/profile' ? 'nav-link-active' : 'nav-link'}
                 >
                     <img src="profile-icon.svg" alt="My Profile" />

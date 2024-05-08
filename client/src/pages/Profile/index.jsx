@@ -6,6 +6,7 @@ import YourPost from '../../components/YourPost';
 import FriendPost from '../../components/FriendPost';
 import { useState } from 'react';
 import './style.css';
+import { useLocation } from 'react-router-dom';
 
 //Profile will contain:
 //A given user ID (yours, or the person you clicked on)
@@ -24,12 +25,15 @@ const bio = 'I am a React coder from Cleveland, Ohio. Excited to meet more frien
 const color = '#FFD073';
 const bubbles = ['Let\'s go Phillies! Big win tonight!', 'Stop judging people for what they put on their bagels! Chocolate sauce is good!', 'Anyone want to go to the mall later on?'];
 
-const Profile = (props) => {
+const Profile = () => {
     const [editIsOpen, setEditIsOpen] = useState(false);
+    const location = useLocation();
+    const { from } = location.state;
+    console.log(from);
 
     const handleEditButtonClick = () => {
         console.log('hit');
-        if(editIsOpen){
+        if (editIsOpen) {
             setEditIsOpen(false);
         } else {
             setEditIsOpen(true);
@@ -37,14 +41,14 @@ const Profile = (props) => {
     }
 
     return (
-        <>  
+        <>
             <h1>{name}</h1>
             <UserAvatar url={image} name={name}></UserAvatar>
             <Text bgColor={color}>{bio}</Text>
-            {editIsOpen ? <EditForm editIsOpen={editIsOpen} setEditIsOpen={setEditIsOpen}></EditForm> : <IconButton aria-label='Edit Profile' icon={<EditIcon/>} onClick={handleEditButtonClick} ></IconButton>}
+            {editIsOpen ? <EditForm editIsOpen={editIsOpen} setEditIsOpen={setEditIsOpen}></EditForm> : <IconButton aria-label='Edit Profile' icon={<EditIcon />} onClick={handleEditButtonClick} ></IconButton>}
             <h2>Recent Bubbles:</h2>
             {bubbles.map((bubble, index) => {
-                return(
+                return (
                     <YourPost key={index} name={name} url={image} text={bubble} color={color}></YourPost>
                 )
             })}

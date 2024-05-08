@@ -1,4 +1,5 @@
 import { Card, Avatar, CardHeader, CardBody, CardFooter, Stack, Heading, Button, Text } from '@chakra-ui/react';
+import { Link, useLocation } from 'react-router-dom';
 import './style.css'
 
 const YourPost = (props) => {
@@ -30,18 +31,26 @@ const YourPost = (props) => {
                     <button
                         className='reply-button'
                         variant='solid'
-                        style= {{backgroundColor: color}}
+                        style={{ backgroundColor: color }}
                     >
                         REPLY
+                    </button>
+                    <button
+                        className='reply-button'
+                        variant='solid'
+                        style={{ backgroundColor: color }}
+                    >
+                        DELETE
                     </button>
                 </CardFooter>
             </Stack>
             <Stack className='name-container' display='flex' flexDirection='column' alignItems='center'>
-                {/* <Heading size='md'>{name}</Heading> */}
-                <h2>{name}</h2>
-                <Avatar
-                    size='lg' src={url} name={name}
-                />
+                <Link to="/profile" state={{ from: 'yourUserId' }}>
+                    <h2>{name}</h2>
+                    <Avatar
+                        size='lg' src={url} name={name}
+                    />
+                </Link>
             </Stack>
 
         </Card>
