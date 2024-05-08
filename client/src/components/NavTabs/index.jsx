@@ -35,6 +35,8 @@ function NavTabs() {
                     <li></li>
                     <li></li>
                     <li></li>
+                    <li></li>
+                    <li></li>
                 </ul>
             </li>
             <li className="friends-icon">
