@@ -4,6 +4,7 @@ import './style.css';
 import Auth from '../../utils/auth'
 // import {QUERY_USER, QUERY_POSTS} from '../../utils/queries';
 // import {useQuery, useLazyQuery} from '@apollo/client';
+import Search from "../../components/SearchBar";
 
 const name = ['Jimmy Smith', 'Marie Travolta', 'Billy Lou', 'Gren Thalamus', 'Kristine Sinclair', 'Benjamin Phonics'];
 const image = ['/avatarImages/braedonMcCloud.jpg', '/avatarImages/davidClode.jpg', '/avatarImages/alexanderDummer.jpg', '/avatarImages/marcelStrauss.jpg', '/avatarImages/forestSimon.jpg', '/avatarImages/maxKleinen.jpg']
@@ -47,6 +48,7 @@ export default function Home() {
 
   return (
     <>
+    <Search />
       <h1>Here's what's poppin'</h1>
       <YourPost name='Doug Hamilton' url='/avatarImages/alfredSchrock.jpg' text='Expand your mind with Bubbles' color='#FFF0B5'></YourPost>
       {bubbles.map((bubble, index) => {

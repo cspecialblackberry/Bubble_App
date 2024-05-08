@@ -4,7 +4,7 @@ import Search from "../../components/SearchBar";
 import './style.css';
 
 const name = ['Jimmy Smith', 'Marie Travolta', 'Billy Lou', 'Gren Thalamus', 'Kristine Sinclair', 'Benjamin Phonics'];
-const avatar = ['/profile-icon.svg', '/login-icon.svg', '/friends-icon.svg', '/bubbles-icon.svg', '/bubble-wand-icon.svg', '/bubble-app-logo.svg']
+const avatar = ['/avatarImages/braedonMcCloud.jpg', '/avatarImages/davidClode.jpg', '/avatarImages/alexanderDummer.jpg', '/avatarImages/marcelStrauss.jpg', '/avatarImages/forestSimon.jpg', '/avatarImages/maxKleinen.jpg']
 const color = ['#FFDAE7', '#FFD073', '#FFF0B5', '#D8FFA5', '#B9E5FF', '#D9C5FF']
 const friends = ['1', '2', '3', '4', '5'];
 
