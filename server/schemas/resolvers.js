@@ -25,6 +25,7 @@ const resolvers = {
     Mutation: {
         //working
         addUser: async (parent, { username, password, name }) => {
+            console.log('adding')
             return await User.create({ username, password, name })
         },
         //working
