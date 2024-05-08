@@ -1,4 +1,5 @@
 import { Card, Avatar, CardHeader, CardBody, CardFooter, Stack, Heading, Button, Text } from '@chakra-ui/react';
+import { Link, useLocation } from 'react-router-dom';
 import './style.css'
 
 const FriendPost = (props) => {
@@ -20,12 +21,14 @@ const FriendPost = (props) => {
             padding={5}
             marginTop={3}
         >
-            
+
             <Stack className='name-container' display='flex' flexDirection='column' alignItems='center'>
-                <h2>{name}</h2>
-                <Avatar
+                <Link to="/profile" state={{ from: 'currentUserId' }}>
+                    <h2>{name}</h2>
+                   <Avatar
                     size='lg' src={url} name={name}
-                />
+                    /> 
+                </Link>
             </Stack>
             <Stack className='content-container'>
                 <CardBody padding={0}>
@@ -34,10 +37,10 @@ const FriendPost = (props) => {
                     </p>
                 </CardBody>
                 <CardFooter className='friend-bubble-footer' padding={0}>
-                <button
+                    <button
                         className='reply-button'
                         variant='solid'
-                        style= {{backgroundColor: color}}
+                        style={{ backgroundColor: color }}
                     >
                         REPLY
                     </button>

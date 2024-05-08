@@ -48,7 +48,6 @@ export default function Home() {
 
   return (
     <>
-    <Search />
       <h1>Here's what's poppin'</h1>
       <YourPost name='Doug Hamilton' url='/avatarImages/alfredSchrock.jpg' text='Expand your mind with Bubbles' color='#FFF0B5'></YourPost>
       {bubbles.map((bubble, index) => {
