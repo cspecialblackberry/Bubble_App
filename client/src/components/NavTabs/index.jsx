@@ -30,6 +30,11 @@ function NavTabs() {
                 >
                     <img src="bubble-wand-icon.svg" alt="Create New Post" />
                 </Link>
+                <ul className='floating-bubbles'>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                </ul>
             </li>
             <li className="friends-icon">
                 <Link
