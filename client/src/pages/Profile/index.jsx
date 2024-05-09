@@ -5,52 +5,46 @@ import EditForm from '../../components/EditForm';
 import YourPost from '../../components/YourPost';
 import FriendPost from '../../components/FriendPost';
 import { useState } from 'react';
+import { useEffect } from 'react';
 import './style.css';
 import { useLocation } from 'react-router-dom';
-import { QUERY_USER } from '../../utils/queries'
-import { useQuery } from '@apollo/client'
-import Auth from '../../utils/auth'
-
-//Profile will contain:
-//A given user ID (yours, or the person you clicked on)
-//Boolean about whether it's your profile or not (compare user in question ID to logged-in user ID)
-//Display:
-//User's name
-//User avatar
-//User Bio
-//User's "bubbles"
-
-
-//Hardcoded information:
-const name = 'Jimmy Smith';
-const image = '/avatarImages/forestSimon2.jpg';
-const bio = 'I am a React coder from Cleveland, Ohio. Excited to meet more friends on this site.';
-const color = '#FFD073';
-const bubbles = ['Let\'s go Phillies! Big win tonight!', 'Stop judging people for what they put on their bagels! Chocolate sauce is good!', 'Anyone want to go to the mall later on?'];
+import { QUERY_USER } from '../../utils/queries';
+import { useQuery } from '@apollo/client';
+import Auth from '../../utils/auth';
 
 const Profile = () => {
-    if(Auth.loggedIn() === false){
+    if (Auth.loggedIn() === false) {
         console.log('hit')
         window.location.replace('/')
     }
     const [editIsOpen, setEditIsOpen] = useState(false);
+    const [hasEditButton, setHasEditButton] = useState(false);
+
     const location = useLocation();
     const { from } = location.state;
-    console.log(from);
-    const userId = from.data._id
-    console.log(userId)
+    const userId = from;
 
-    const userInfo = useQuery(QUERY_USER, { variables: { _id: from.data._id } })
-    let posts =[]
+    const yourId = Auth.getProfile().data._id;
+    console.log(userId, 'userId');
+    console.log(yourId, 'yourId');
+
+    useEffect(() => {
+        if (userId === yourId) {
+            setHasEditButton(true);
+        }
+    }, []);
+
+
+    const userInfo = useQuery(QUERY_USER, { variables: { _id: from } })
+    let posts = []
 
     if (userInfo.data) {
         console.log(userInfo.data)
         posts = userInfo.data.user.posts.toReversed()
-        console.log(posts)
+        console.log(posts, 'posts')
     }
 
     const handleEditButtonClick = () => {
-        console.log('hit');
         if (editIsOpen) {
             setEditIsOpen(false);
         } else {
@@ -60,21 +54,27 @@ const Profile = () => {
 
     return (
         <>
-            {userInfo.loading ? 
-            <h2>...loading</h2>
-            : 
-            <>
-            <h1>{userInfo.data.user.name || userInfo.data.user.username}</h1>
-            <UserAvatar url={userInfo.data.user.avatar} name={userInfo.data.user.name}></UserAvatar>
-            <Text bgColor={userInfo.data.user.color}>{userInfo.data.user.bio || "New to bubble!"}</Text>
-            {editIsOpen ? <EditForm editIsOpen={editIsOpen} setEditIsOpen={setEditIsOpen} userInfo={userInfo.data.user}></EditForm> : <IconButton aria-label='Edit Profile' icon={<EditIcon />} onClick={handleEditButtonClick} ></IconButton>}
-            <h2>Recent Bubbles:</h2>
-            {posts.map((post, index) => {
-                return (
-                    <YourPost key={post._id} name={userInfo.data.user.name || userInfo.data.user.username} url={userInfo.data.user.avatar} text={post.postText} color={userInfo.data.user.color}></YourPost>
-                )
-            })}
-            </>}
+            {userInfo.loading ?
+                <h2>...loading</h2>
+                :
+                <>
+                    <h1>{userInfo.data.user.name || userInfo.data.user.username}</h1>
+                    <UserAvatar url={userInfo.data.user.avatar} name={userInfo.data.user.name}></UserAvatar>
+                    <Text bgColor={userInfo.data.user.color}>{userInfo.data.user.bio || "New to bubble!"}</Text>
+                    {hasEditButton? editIsOpen ? <EditForm editIsOpen={editIsOpen} setEditIsOpen={setEditIsOpen} userInfo={userInfo.data.user}></EditForm> 
+                    : <IconButton aria-label='Edit Profile' icon={<EditIcon />} onClick={handleEditButtonClick} ></IconButton> : <></>}
+                    <h2>Recent Bubbles:</h2>
+                    {hasEditButton ? posts.map((post) => {
+                        return (
+                            <YourPost key={post._id} name={userInfo.data.user.name || userInfo.data.user.username} url={userInfo.data.user.avatar} text={post.postText} color={userInfo.data.user.color} userId={from}></YourPost>
+                        )
+                    }) : 
+                    posts.map((post) => {
+                        return (
+                            <FriendPost key={post._id} name={userInfo.data.user.name || userInfo.data.user.username} url={userInfo.data.user.avatar} text={post.postText} color={userInfo.data.user.color} userId={from}></FriendPost>
+                        )
+                    })}
+                </>}
         </>
 
     )

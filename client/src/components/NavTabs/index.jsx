@@ -5,11 +5,10 @@ import Auth from '../../utils/auth'
 function NavTabs() {
     const currentPage = useLocation().pathname;
     let isLoggedIn = Auth.loggedIn();
-    let loggedInUser
+    let loggedInUserID
     if (isLoggedIn) {
-        loggedInUser = Auth.getProfile()
+        loggedInUserID = Auth.getProfile().data._id;
     }
-    console.log(loggedInUser)
 
     return (
         <ul className="nav-tabs">
@@ -24,7 +23,7 @@ function NavTabs() {
             <li className="profile-icon">
                 <Link
                     to="/profile"
-                    state={{ from: loggedInUser }}
+                    state={{ from: loggedInUserID }}
                     className={currentPage === '/profile' ? 'nav-link-active' : 'nav-link'}
                 >
                     <img src="profile-icon.svg" alt="My Profile" />
