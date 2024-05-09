@@ -68,7 +68,7 @@
 }
 
 .new-post-icon:hover .floating-bubbles li:nth-child(2) {
-    top: 20%; left: 40%;
+    top: 40%; left: 40%;
     width: 55px;
     height: 55px;
     animation-delay: 2s;
