@@ -59,8 +59,8 @@ function LoginCreateAccount() {
                 variables: { username: username, password: password, name: name }
             })
             console.log(res)
-            // const token = res.data.login.token;
-            // Auth.login(token)
+            const token = res.data.login.token;
+            Auth.login(token)
         } catch (err) {
             console.error(err)
         }
@@ -174,3 +174,8 @@ function LoginCreateAccount() {
 }
 
 export default LoginCreateAccount
+
+// TODO: login and create account final touches
+// TODO: create post success message, takes you to home page
+// TODO: replies - each has a delete btn
+// TODO: map through array of replies - tied into yourpost and friendpost

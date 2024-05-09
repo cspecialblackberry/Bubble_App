@@ -5,9 +5,11 @@ import './style.css'
 import { useMutation } from '@apollo/client'
 import { ADD_POST } from '../../utils/mutations'
 import Auth from '../../utils/auth'
+import { useNavigate } from 'react-router-dom'
 
 export default function NewPost() {
     let [value, setValue] = React.useState('')
+    let navigate = useNavigate();
 
     let handleInputChange = (event) => {
         let inputValue = event.target.value
@@ -17,7 +19,8 @@ export default function NewPost() {
 
     const [addPost, {error}] = useMutation(ADD_POST)
 
-    const handleSubmit = async () => {
+    const handleSubmit = async (event) => {
+        event.preventDefault();
         const token = Auth.getProfile()
         console.log(token.data._id)
         console.log(value)
@@ -29,10 +32,11 @@ export default function NewPost() {
         }catch(error){
             console.error(error)
         }
+        navigate('/home');
     }
 
     return (
-        <form className='new-post-form'>
+        <form className='new-post-form' onSubmit={handleSubmit}>
             <label className='new-post-label' htmlFor='post'>Blow a new bubble</label>
             <Textarea
                 value={value}
@@ -40,14 +44,7 @@ export default function NewPost() {
                 placeholder={`What's poppin'?`}
                 size='sm'
             />
-            <button className="submit-post" type="button" onClick={handleSubmit}>Blow Bubble</button>
+            <button className="submit-post" type="submit">Blow Bubble</button>
         </form>
     )
 }
-
-
-// CASEY-TODO: saves to db on submit - post id added to user
-// CASEY-TODO: on submit, takes you to home/feed
-// CASEY-TODO: make outline the chosen user color?
-// CASEY-TODO: bubble animation on click for new post
-
