@@ -46,10 +46,10 @@ export default function Home() {
     posts = postsResult.data.posts
     console.log(posts)
     homePosts = posts.filter((post) => {
-      if(post.user === token.data._id){
-          return post
-      }else if(user.friends.includes(post.user)){
-          return post
+      if (post.user === token.data._id) {
+        return post
+      } else if (user.friends.includes(post.user)) {
+        return post
       }
     })
     console.log(homePosts)
@@ -58,12 +58,24 @@ export default function Home() {
   return (
     <>
       <h1>Here's what's poppin'</h1>
-      <YourPost name='Doug Hamilton' url='/avatarImages/alfredSchrock.jpg' text='Expand your mind with Bubbles' color='#FFF0B5'></YourPost>
+
+      {homePosts.toReversed().map((post) => {
+        if (post.user === token.data._id) {
+          return (
+            <YourPost key={post._id} name={user.name} url={user.avatar} text={post.postText} color={user.color}></YourPost>
+          )
+        } else {
+          return (
+            <FriendPost key={post._id} text={post.postText} user={post.user}></FriendPost>
+          )
+        }
+      })}
+      {/* <YourPost name='Doug Hamilton' url='/avatarImages/alfredSchrock.jpg' text='Expand your mind with Bubbles' color='#FFF0B5'></YourPost>
       {bubbles.map((bubble, index) => {
         return (
           <FriendPost key={index} name={name[index]} url={image[index]} text={bubble} color={color[index]}></FriendPost>
         )
-      })}
+      })} */}
     </>
   );
 }

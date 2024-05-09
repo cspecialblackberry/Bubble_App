@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import './style.css'
 
 const YourPost = (props) => {
+    console.log('hit yourpost')
     const { url, name, color, text, userId } = props;
     return (
         <Card
