@@ -66,10 +66,11 @@ export default function Home() {
           )
         } else {
           return (
-            <FriendPost key={post._id} text={post.postText} user={post.user}></FriendPost>
+            <FriendPost key={post._id} postId={post._id} text={post.postText} userId={post.user}></FriendPost>
           )
         }
       })}
+
       {/* <YourPost name='Doug Hamilton' url='/avatarImages/alfredSchrock.jpg' text='Expand your mind with Bubbles' color='#FFF0B5'></YourPost>
       {bubbles.map((bubble, index) => {
         return (

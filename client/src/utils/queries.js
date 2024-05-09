@@ -52,6 +52,18 @@ export const QUERY_USER = gql`
     }
 `
 
+export const QUERY_USER_INFO = gql`
+    query user($_id: ID!){
+        user(_id: $_id){
+            _id
+            username
+            name
+            color
+            avatar
+        }
+    }
+`
+
 export const QUERY_POSTS = gql`
     query getPosts {
         posts{
