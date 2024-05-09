@@ -32,7 +32,8 @@ export default function NewPost() {
         }catch(error){
             console.error(error)
         }
-        navigate('/home');
+        // navigate('/home');
+        window.location.assign('/home')
     }
 
     return (
