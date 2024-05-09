@@ -29,11 +29,11 @@ const resolvers = {
             return await User.create({ username, password, name })
         },
         //working
-        editUser: async (parent, {userId, name, color, image, bio}) => {
+        editUser: async (parent, {userId, name, color, avatar, bio}) => {
             return await User.findByIdAndUpdate(userId, [
                 {$set: {name: name}},
                 {$set: {color: color}},
-                {$set: {image: image}},
+                {$set: {avatar: avatar}},
                 {$set: {bio: bio}},
             ])
         },

@@ -7,7 +7,7 @@ import {
     Radio,
     RadioGroup,
     SimpleGrid,
-    Image, 
+    Image,
     Card,
     CardBody,
     CloseButton
@@ -37,9 +37,9 @@ const EditForm = (props) => {
     const [bioInput, setBioInput] = useState(userInfo.bio);
     const [value, setColorValue] = useState(userInfo.color);
     const [avatarImage, setAvatarImage] = useState(userInfo.avatar);
-    
 
-    const [editUser, {error}] = useMutation(EDIT_USER)
+
+    const [editUser, { error }] = useMutation(EDIT_USER)
 
     const handleNameInputChange = (e) => {
         setNameInput(e.target.value);
@@ -54,11 +54,11 @@ const EditForm = (props) => {
         console.log(nameInput, bioInput, value, avatarImage);
         const res = await editUser({
             variables: {
-               userId: userInfo._id,
-               name: nameInput,
-               bio: bioInput,
-               color: value,
-               avatar: avatarImage 
+                userId: userInfo._id,
+                name: nameInput,
+                bio: bioInput,
+                color: value,
+                avatar: avatarImage
             }
         })
         console.log(res)
@@ -69,7 +69,7 @@ const EditForm = (props) => {
 
     return (
         <Card bgColor='#F4F4F4'>
-            <CloseButton onClick={handleCloseClick} alignSelf='end'/>
+            <CloseButton onClick={handleCloseClick} alignSelf='end' />
             <CardBody>
                 <h2>Edit Profile:</h2>
                 <FormControl>
@@ -87,7 +87,10 @@ const EditForm = (props) => {
                                     borderRadius='full'
                                     boxSize='100px'
                                     src={image}
-                                    onClick={() => setAvatarImage(image)}
+                                    onClick={() => {
+                                        console.log(image)
+                                        setAvatarImage(image)
+                                    }}
                                 />
                             )
                         })}
