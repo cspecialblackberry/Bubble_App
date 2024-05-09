@@ -22,6 +22,7 @@ const Profile = () => {
 
     const location = useLocation();
     const { from } = location.state;
+    console.log(from)
     const userId = from;
 
     const yourId = Auth.getProfile().data._id;
