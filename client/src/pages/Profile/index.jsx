@@ -62,7 +62,7 @@ const Profile = () => {
             <h1>{userInfo.data.user.name || userInfo.data.user.username}</h1>
             <UserAvatar url={userInfo.data.user.avatar} name={userInfo.data.user.name}></UserAvatar>
             <Text bgColor={userInfo.data.user.color}>{userInfo.data.user.bio || "New to bubble!"}</Text>
-            {editIsOpen ? <EditForm editIsOpen={editIsOpen} setEditIsOpen={setEditIsOpen}></EditForm> : <IconButton aria-label='Edit Profile' icon={<EditIcon />} onClick={handleEditButtonClick} ></IconButton>}
+            {editIsOpen ? <EditForm editIsOpen={editIsOpen} setEditIsOpen={setEditIsOpen} userInfo={userInfo.data.user}></EditForm> : <IconButton aria-label='Edit Profile' icon={<EditIcon />} onClick={handleEditButtonClick} ></IconButton>}
             <h2>Recent Bubbles:</h2>
             {posts.map((post, index) => {
                 return (
