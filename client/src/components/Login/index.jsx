@@ -116,12 +116,10 @@ function LoginCreateAccount() {
                                             <FormErrorMessage marginBottom={5}>Password is required.</FormErrorMessage>
                                         )}
                                     </FormControl>
-
                                     <button className='login-create-button' mt={5} type='submit'>
                                         Login
                                     </button>
                                 </form>
-
                             </TabPanel>
                             <TabPanel padding={3}>
                                 <form onSubmit={handleCreate}>
@@ -157,18 +155,15 @@ function LoginCreateAccount() {
                                             </InputRightElement>
                                         </InputGroup>
                                     </FormControl>
-
                                     <button className='login-create-button' mt={5} type='submit'>
                                         Create Account
                                     </button>
                                 </form>
-
                             </TabPanel>
                         </TabPanels>
                     </Tabs>
                 </CardBody>
             </Card>
-
         </>
     )
 }
@@ -176,6 +171,5 @@ function LoginCreateAccount() {
 export default LoginCreateAccount
 
 // TODO: login and create account final touches
-// TODO: create post success message, takes you to home page
 // TODO: replies - each has a delete btn
 // TODO: map through array of replies - tied into yourpost and friendpost
