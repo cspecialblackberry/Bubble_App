@@ -9,6 +9,7 @@ import './style.css';
 import { useLocation } from 'react-router-dom';
 import { QUERY_USER } from '../../utils/queries'
 import { useQuery } from '@apollo/client'
+import Auth from '../../utils/auth'
 
 //Profile will contain:
 //A given user ID (yours, or the person you clicked on)
@@ -28,6 +29,10 @@ const color = '#FFD073';
 const bubbles = ['Let\'s go Phillies! Big win tonight!', 'Stop judging people for what they put on their bagels! Chocolate sauce is good!', 'Anyone want to go to the mall later on?'];
 
 const Profile = () => {
+    if(Auth.loggedIn() === false){
+        console.log('hit')
+        window.location.replace('/')
+    }
     const [editIsOpen, setEditIsOpen] = useState(false);
     const location = useLocation();
     const { from } = location.state;

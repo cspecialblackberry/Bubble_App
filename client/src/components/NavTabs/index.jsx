@@ -5,7 +5,10 @@ import Auth from '../../utils/auth'
 function NavTabs() {
     const currentPage = useLocation().pathname;
     let isLoggedIn = Auth.loggedIn();
-    let loggedInUser = Auth.getProfile()
+    let loggedInUser
+    if (isLoggedIn) {
+        loggedInUser = Auth.getProfile()
+    }
     console.log(loggedInUser)
 
     return (
@@ -55,7 +58,7 @@ function NavTabs() {
                     to="/"
                     className={currentPage === '/login' ? 'nav-link-active' : 'nav-link'}
                 >
-                    {isLoggedIn ? <img src="logout-icon.svg" alt="Logout" /> : <img src="login-icon.svg" alt="Login" onClick={() => Auth.logout()}/>}
+                    {isLoggedIn ? <img src="logout-icon.svg" alt="Logout" /> : <img src="login-icon.svg" alt="Login" onClick={() => Auth.logout()} />}
                 </Link>
             </li>
         </ul>
