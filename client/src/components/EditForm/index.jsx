@@ -12,8 +12,9 @@ import {
     CardBody,
     CloseButton
 } from '@chakra-ui/react';
-import { EDIT_USER } from '../../utils/mutations'
-import { useMutation } from '@apollo/client'
+import { EDIT_USER } from '../../utils/mutations';
+import { useMutation } from '@apollo/client';
+import './style.css';
 
 const imageArray = ['/avatarImages/andrewKeymaster.jpg', //Photo by Andrew Keymaster on Unsplash 
     '/avatarImages/braedonMcCloud.jpg', //Photo by Braedon McLeod on Unsplash 
@@ -49,6 +50,10 @@ const EditForm = (props) => {
     }
     const handleColorInputChange = (e) => {
         setColorValue(e);
+    }
+    const handleAvatarImageChange = (image) => {
+        setAvatarImage(image)
+        console.log(avatarImage)
     }
     const handleSubmit = async () => {
         console.log(nameInput, bioInput, value, avatarImage);
@@ -90,10 +95,8 @@ const EditForm = (props) => {
                                     borderRadius='full'
                                     boxSize='100px'
                                     src={image}
-                                    onClick={() => {
-                                        console.log(image)
-                                        setAvatarImage(image)
-                                    }}
+                                    onClick={() => handleAvatarImageChange(image)}
+                                    className={avatarImage === image ? 'selected' : 'unselected'}
                                 />
                             )
                         })}
