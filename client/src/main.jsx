@@ -12,7 +12,7 @@ import Friends from './pages/Friends/index.jsx';
 import Login from './pages/Login/index.jsx';
 
 const client = new ApolloClient({
-  uri: '/graphql',
+  uri: 'http://localhost:3000/graphql',
   cache: new InMemoryCache(),
 })
 
