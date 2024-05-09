@@ -3,6 +3,7 @@ import * as React from 'react'
 import { useState } from 'react'
 import { useMutation } from '@apollo/client'
 import { LOGIN } from '../../utils/mutations'
+import { ADD_USER } from '../../utils/mutations'
 import Auth from '../../utils/auth'
 import './style.css'
 
@@ -13,30 +14,58 @@ function LoginCreateAccount() {
 
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
+    const [name, setName] = useState('')
 
     const usernameChange = (e) => setUsername(e.target.value)
     const passwordChange = (e) => setPassword(e.target.value)
+    const nameChange = (e) => setName(e.target.value)
 
     const usernameError = username === ''
     const passwordError = password === ''
+    const nameError = name === ''
 
     const toast = useToast()
     const statuses = ['success', 'error', 'loading']
 
-    const [login, { error }] = useMutation(LOGIN)
-  
-    const handleLogin = async () => {
-        try{
+    const [login, loginStatus] = useMutation(LOGIN)
+    const [createAccount, createAccountStatus] = useMutation(ADD_USER)
+
+    const handleLogin = async (event) => {
+        event.preventDefault()
+        try {
             const res = await login({
-                variables: {username: username, password: password}
+                variables: { username: username, password: password }
             })
             console.log(res)
             const token = res.data.login.token;
             Auth.login(token)
-        }catch(err){
+        } catch (err) {
             console.error(err)
         }
     }
+
+    const handleCreate = async (event) => {
+        event.preventDefault()
+        const examplePromise = new Promise((resolve, reject) => {
+            setTimeout(() => resolve(200), 3000)
+        })
+        toast.promise(examplePromise, {
+            success: { title: 'Success!', description: 'Your account has been created' },
+            error: { title: 'Error', description: 'There was a probelm creating your account. Please try again.' },
+            loading: { title: 'Sit tight...', description: 'We are creating your account' },
+        })
+        try {
+            const res = await createAccount({
+                variables: { username: username, password: password, name: name }
+            })
+            console.log(res)
+            // const token = res.data.login.token;
+            // Auth.login(token)
+        } catch (err) {
+            console.error(err)
+        }
+    }
+
 
     return (
         <>
@@ -49,92 +78,90 @@ function LoginCreateAccount() {
                         </TabList>
                         <TabPanels>
                             <TabPanel padding={3}>
+                                <form onSubmit={handleLogin}>
+                                    <FormControl isInvalid={usernameError}>
+                                        <FormLabel>Username</FormLabel>
+                                        <Input value={username} onChange={usernameChange} placeholder='Enter username' borderRadius={20} />
+                                        {!usernameError ? (
+                                            <FormHelperText>
 
-                                <FormControl isInvalid={usernameError}>
-                                    <FormLabel>Username</FormLabel>
-                                    <Input value={username} onChange={usernameChange} placeholder='Enter username' borderRadius={20} />
-                                    {!usernameError ? (
-                                        <FormHelperText>
-                        
-                                        </FormHelperText>
-                                    ) : (
-                                        <FormErrorMessage marginBottom={5}>Username is required.</FormErrorMessage>
-                                    )}
-                                </FormControl>
-
-                                <FormControl isInvalid={passwordError}>
-                                    <FormLabel>Password</FormLabel>
-                                    <InputGroup size='md'>
-                                        <Input 
-                                            value={password} 
-                                            onChange={passwordChange}
-                                            pr='4.5rem'
-                                            type={show ? 'text' : 'password'}
-                                            placeholder='Enter password'
-                                            borderRadius={20}
-                                        />
-                                        <InputRightElement width='4.5rem'>
-                                            <button className='show-button' h='1.75rem' size='sm' onClick={handleClick} mr={1}>
-                                                {show ? 'Hide' : 'Show'}
-                                            </button>
-                                        </InputRightElement>
-                                    </InputGroup>
-                                    {!passwordError ? (
-                                        <FormHelperText>
-                        
-                                        </FormHelperText>
-                                    ) : (
-                                        <FormErrorMessage marginBottom={5}>Password is required.</FormErrorMessage>
-                                    )}
-                                </FormControl>
-
-                                <button className='login-create-button' mt={5} onClick={handleLogin}>
-                                    Login
-                                </button>
-                            </TabPanel>
-                            <TabPanel padding={3}>
-                                <FormControl isRequired marginBottom={5}>
-                                    <FormLabel>Full Name</FormLabel>
-                                    <Input placeholder='Enter your full name' borderRadius={20} />
-                                </FormControl>
-
-                                <FormControl isRequired marginBottom={5}>
-                                    <FormLabel>Username</FormLabel>
-                                    <Input placeholder='Create a username' borderRadius={20} />
-                                </FormControl>
-
-                                <FormControl isRequired marginBottom={5}>
-                                    <FormLabel>Password</FormLabel>
-                                <InputGroup size='md'>
-                                        <Input 
-                                            pr='4.5rem'
-                                            type={show ? 'text' : 'password'}
-                                            placeholder='Create a password'
-                                            borderRadius={20}
-                                        />
-                                        <InputRightElement width='4.5rem'>
-                                            <button className='show-button' h='1.75rem' size='sm' onClick={handleClick} mr={1}>
-                                                {show ? 'Hide' : 'Show'}
-                                            </button>
-                                        </InputRightElement>
-                                    </InputGroup>
+                                            </FormHelperText>
+                                        ) : (
+                                            <FormErrorMessage marginBottom={5}>Username is required.</FormErrorMessage>
+                                        )}
                                     </FormControl>
 
-                                <button className='login-create-button' mt={5}
-                                onClick={() => {
-                                    const examplePromise = new Promise((resolve, reject) => {
-                                      setTimeout(() => resolve(200), 3000)
-                                    })
-                            
-                                    toast.promise(examplePromise, {
-                                      success: { title: 'Success!', description: 'Your account has been created' },
-                                      error: { title: 'Error', description: 'There was a probelm creating your account. Please try again.' },
-                                      loading: { title: 'Sit tight...', description: 'We are creating your account' },
-                                    })
-                                  }}
-                                >
-                                    Create Account
-                                </button>
+                                    <FormControl isInvalid={passwordError}>
+                                        <FormLabel>Password</FormLabel>
+                                        <InputGroup size='md'>
+                                            <Input
+                                                value={password}
+                                                onChange={passwordChange}
+                                                pr='4.5rem'
+                                                type={show ? 'text' : 'password'}
+                                                placeholder='Enter password'
+                                                borderRadius={20}
+                                            />
+                                            <InputRightElement width='4.5rem'>
+                                                <button className='show-button' h='1.75rem' size='sm' onClick={handleClick} mr={1}>
+                                                    {show ? 'Hide' : 'Show'}
+                                                </button>
+                                            </InputRightElement>
+                                        </InputGroup>
+                                        {!passwordError ? (
+                                            <FormHelperText>
+
+                                            </FormHelperText>
+                                        ) : (
+                                            <FormErrorMessage marginBottom={5}>Password is required.</FormErrorMessage>
+                                        )}
+                                    </FormControl>
+
+                                    <button className='login-create-button' mt={5} type='submit'>
+                                        Login
+                                    </button>
+                                </form>
+
+                            </TabPanel>
+                            <TabPanel padding={3}>
+                                <form onSubmit={handleCreate}>
+                                    <FormControl isRequired marginBottom={5} isInvalid={nameError}>
+                                        <FormLabel>Full Name</FormLabel>
+                                        <Input placeholder='Enter your full name'
+                                            borderRadius={20}
+                                            value={name}
+                                            onChange={nameChange} />
+                                    </FormControl>
+
+                                    <FormControl isRequired marginBottom={5}>
+                                        <FormLabel>Username</FormLabel>
+                                        <Input placeholder='Create a username' borderRadius={20} value={username}
+                                            onChange={usernameChange} />
+                                    </FormControl>
+
+                                    <FormControl isRequired marginBottom={5}>
+                                        <FormLabel>Password</FormLabel>
+                                        <InputGroup size='md'>
+                                            <Input
+                                                pr='4.5rem'
+                                                type={show ? 'text' : 'password'}
+                                                placeholder='Create a password'
+                                                borderRadius={20}
+                                                value={password}
+                                                onChange={passwordChange}
+                                            />
+                                            <InputRightElement width='4.5rem'>
+                                                <button className='show-button' h='1.75rem' size='sm' onClick={handleClick} mr={1}>
+                                                    {show ? 'Hide' : 'Show'}
+                                                </button>
+                                            </InputRightElement>
+                                        </InputGroup>
+                                    </FormControl>
+
+                                    <button className='login-create-button' mt={5} type='submit'>
+                                        Create Account
+                                    </button>
+                                </form>
 
                             </TabPanel>
                         </TabPanels>
