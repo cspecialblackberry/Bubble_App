@@ -62,9 +62,12 @@ const EditForm = (props) => {
             }
         })
         console.log(res)
+        setEditIsOpen(false)
+        window.location.reload()
     }
     const handleCloseClick = () => {
         setEditIsOpen(false);
+        window.location.reload()
     }
 
     return (
