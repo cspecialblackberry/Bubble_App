@@ -1,6 +1,6 @@
 import { Card, Avatar, CardHeader, CardBody, CardFooter, Stack, Heading, Button, Text } from '@chakra-ui/react';
 import { Link, useLocation } from 'react-router-dom';
-import './style.css'
+import './style.css';
 
 const YourPost = (props) => {
     const { url, name, color, text, userId } = props;
@@ -45,7 +45,7 @@ const YourPost = (props) => {
                 </CardFooter>
             </Stack>
             <Stack className='name-container' display='flex' flexDirection='column' alignItems='center'>
-                <Link to="/profile" state={{ from: 'yourUserId' }}>
+                <Link to="/profile" state={{ from: userId }}>
                     <h2>{name}</h2>
                     <Avatar
                         size='lg' src={url} name={name}
