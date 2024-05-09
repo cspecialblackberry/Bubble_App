@@ -1,9 +1,10 @@
 import { Link, useLocation } from 'react-router-dom';
 import './style.css'
+import Auth from '../../utils/auth'
 
 function NavTabs() {
     const currentPage = useLocation().pathname;
-    let isLoggedIn = true;
+    let isLoggedIn = Auth.loggedIn();
 
     return (
         <ul className="nav-tabs">
