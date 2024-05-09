@@ -40,7 +40,7 @@ const Profile = () => {
 
     if (userInfo.data) {
         console.log(userInfo.data)
-        posts = userInfo.data.user.posts
+        posts = userInfo.data.user.posts.toReversed()
         console.log(posts)
     }
 
