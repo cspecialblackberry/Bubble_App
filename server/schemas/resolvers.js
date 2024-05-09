@@ -79,15 +79,12 @@ const resolvers = {
         },
         //working
         addPost: async (parent, { userId, postText }, context) => {
-            console.log({ userId, postText })
             const user = await User.findById(userId)
-            console.log(user)
             try {
                 const post = await Post.create({
                     user: user._id,
                     postText: postText
                 })
-                console.log({ post })
                 await User.findByIdAndUpdate(userId, { $push: { posts: post } })
 
                 return post
@@ -102,14 +99,9 @@ const resolvers = {
         deletePost: async (parent, { userId, postId }) => {
             try {
                 const user = await User.findById(userId)
-                console.log(user)
-                console.log(user.posts[0]._id.toString() === postId)
                 const postIndex = user.posts.indexOf(user.posts.find((obj) => obj._id.toString() === postId))
-                console.log(postIndex)
                 user.posts.splice(postIndex, 1)
-                console.log(user.posts)
                 const update = await User.findByIdAndUpdate(userId, { posts: user.posts })
-                console.log('update', update._update)
                 await Post.findByIdAndDelete(postId)
             } catch (err) {
                 console.error(err)
@@ -119,16 +111,17 @@ const resolvers = {
         //working
         addReply: async (parent, { postId, userId, responseText }) => {
             const post = await Post.findById(postId)
-            console.log(post)
             post.replies.push({
                 user: userId,
                 responseText
             })
-            console.log(post)
             await Post.findByIdAndUpdate(postId, {$set: {replies: post.replies}})
         },
         deleteReply: async (parent, { postId, replyId }) => {
-            
+            const post = await Post.findById(postId)
+            const replyIndex = post.replies.indexOf(post.replies.find((reply) => reply._id.toString() === replyId))
+            post.replies.splice(replyIndex, 1)
+            return await Post.findByIdAndUpdate(postId, {replies: post.replies})
         }
     }
 }
