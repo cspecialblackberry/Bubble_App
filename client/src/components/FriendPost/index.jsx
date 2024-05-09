@@ -48,7 +48,7 @@ const FriendPost = (props) => {
             >
 
                 <Stack className='name-container' display='flex' flexDirection='column' alignItems='center'>
-                    <Link to="/profile" state={{ from: 'currentUserId' }}>
+                    <Link to="/profile" state={{ from: userId }}>
                         <h2>{userData.name || userData.username}</h2>
                         <Avatar
                             size='lg' src={url} name={userData.name}
