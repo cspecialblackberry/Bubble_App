@@ -59,8 +59,8 @@ function LoginCreateAccount() {
                 variables: { username: username, password: password, name: name }
             })
             console.log(res)
-            // const token = res.data.login.token;
-            // Auth.login(token)
+            const token = res.data.login.token;
+            Auth.login(token)
         } catch (err) {
             console.error(err)
         }
@@ -116,12 +116,10 @@ function LoginCreateAccount() {
                                             <FormErrorMessage marginBottom={5}>Password is required.</FormErrorMessage>
                                         )}
                                     </FormControl>
-
                                     <button className='login-create-button' mt={5} type='submit'>
                                         Login
                                     </button>
                                 </form>
-
                             </TabPanel>
                             <TabPanel padding={3}>
                                 <form onSubmit={handleCreate}>
@@ -157,20 +155,21 @@ function LoginCreateAccount() {
                                             </InputRightElement>
                                         </InputGroup>
                                     </FormControl>
-
                                     <button className='login-create-button' mt={5} type='submit'>
                                         Create Account
                                     </button>
                                 </form>
-
                             </TabPanel>
                         </TabPanels>
                     </Tabs>
                 </CardBody>
             </Card>
-
         </>
     )
 }
 
 export default LoginCreateAccount
+
+// TODO: login and create account final touches
+// TODO: replies - each has a delete btn
+// TODO: map through array of replies - tied into yourpost and friendpost

@@ -38,6 +38,7 @@
     display: block;
     list-style: none;
     background-color: #fff;
+    z-index: -1;
     border-radius: 50%;
     width: 0px;
     height: 0px;
@@ -67,7 +68,7 @@
 }
 
 .new-post-icon:hover .floating-bubbles li:nth-child(2) {
-    top: 20%; left: 40%;
+    top: 40%; left: 40%;
     width: 55px;
     height: 55px;
     animation-delay: 2s;
