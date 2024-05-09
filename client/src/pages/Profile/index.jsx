@@ -7,6 +7,8 @@ import FriendPost from '../../components/FriendPost';
 import { useState } from 'react';
 import './style.css';
 import { useLocation } from 'react-router-dom';
+import { QUERY_USER } from '../../utils/queries'
+import { useQuery } from '@apollo/client'
 
 //Profile will contain:
 //A given user ID (yours, or the person you clicked on)
@@ -30,6 +32,17 @@ const Profile = () => {
     const location = useLocation();
     const { from } = location.state;
     console.log(from);
+    const userId = from.data._id
+    console.log(userId)
+
+    const userInfo = useQuery(QUERY_USER, { variables: { _id: from.data._id } })
+    let posts =[]
+
+    if (userInfo.data) {
+        console.log(userInfo.data)
+        posts = userInfo.data.user.posts
+        console.log(posts)
+    }
 
     const handleEditButtonClick = () => {
         console.log('hit');
@@ -42,17 +55,23 @@ const Profile = () => {
 
     return (
         <>
-            <h1>{name}</h1>
-            <UserAvatar url={image} name={name}></UserAvatar>
-            <Text bgColor={color}>{bio}</Text>
+            {userInfo.loading ? 
+            <h2>...loading</h2>
+            : 
+            <>
+            <h1>{userInfo.data.user.name || userInfo.data.user.username}</h1>
+            <UserAvatar url={userInfo.data.user.avatar} name={userInfo.data.user.name}></UserAvatar>
+            <Text bgColor={userInfo.data.user.color}>{userInfo.data.user.bio || "New to bubble!"}</Text>
             {editIsOpen ? <EditForm editIsOpen={editIsOpen} setEditIsOpen={setEditIsOpen}></EditForm> : <IconButton aria-label='Edit Profile' icon={<EditIcon />} onClick={handleEditButtonClick} ></IconButton>}
             <h2>Recent Bubbles:</h2>
-            {bubbles.map((bubble, index) => {
+            {posts.map((post, index) => {
                 return (
-                    <YourPost key={index} name={name} url={image} text={bubble} color={color}></YourPost>
+                    <YourPost key={post._id} name={userInfo.data.user.name || userInfo.data.user.username} url={userInfo.data.user.avatar} text={post.postText} color={userInfo.data.user.color}></YourPost>
                 )
             })}
+            </>}
         </>
+
     )
 }
 
