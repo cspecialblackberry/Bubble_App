@@ -7,6 +7,9 @@ import FriendPost from '../../components/FriendPost';
 import { useState } from 'react';
 import './style.css';
 import { useLocation } from 'react-router-dom';
+import { QUERY_USER } from '../../utils/queries'
+import { useQuery } from '@apollo/client'
+import Auth from '../../utils/auth'
 
 //Profile will contain:
 //A given user ID (yours, or the person you clicked on)
@@ -26,10 +29,25 @@ const color = '#FFD073';
 const bubbles = ['Let\'s go Phillies! Big win tonight!', 'Stop judging people for what they put on their bagels! Chocolate sauce is good!', 'Anyone want to go to the mall later on?'];
 
 const Profile = () => {
+    if(Auth.loggedIn() === false){
+        console.log('hit')
+        window.location.replace('/')
+    }
     const [editIsOpen, setEditIsOpen] = useState(false);
     const location = useLocation();
     const { from } = location.state;
     console.log(from);
+    const userId = from.data._id
+    console.log(userId)
+
+    const userInfo = useQuery(QUERY_USER, { variables: { _id: from.data._id } })
+    let posts =[]
+
+    if (userInfo.data) {
+        console.log(userInfo.data)
+        posts = userInfo.data.user.posts.toReversed()
+        console.log(posts)
+    }
 
     const handleEditButtonClick = () => {
         console.log('hit');
@@ -42,17 +60,23 @@ const Profile = () => {
 
     return (
         <>
-            <h1>{name}</h1>
-            <UserAvatar url={image} name={name}></UserAvatar>
-            <Text bgColor={color}>{bio}</Text>
-            {editIsOpen ? <EditForm editIsOpen={editIsOpen} setEditIsOpen={setEditIsOpen}></EditForm> : <IconButton aria-label='Edit Profile' icon={<EditIcon />} onClick={handleEditButtonClick} ></IconButton>}
+            {userInfo.loading ? 
+            <h2>...loading</h2>
+            : 
+            <>
+            <h1>{userInfo.data.user.name || userInfo.data.user.username}</h1>
+            <UserAvatar url={userInfo.data.user.avatar} name={userInfo.data.user.name}></UserAvatar>
+            <Text bgColor={userInfo.data.user.color}>{userInfo.data.user.bio || "New to bubble!"}</Text>
+            {editIsOpen ? <EditForm editIsOpen={editIsOpen} setEditIsOpen={setEditIsOpen} userInfo={userInfo.data.user}></EditForm> : <IconButton aria-label='Edit Profile' icon={<EditIcon />} onClick={handleEditButtonClick} ></IconButton>}
             <h2>Recent Bubbles:</h2>
-            {bubbles.map((bubble, index) => {
+            {posts.map((post, index) => {
                 return (
-                    <YourPost key={index} name={name} url={image} text={bubble} color={color}></YourPost>
+                    <YourPost key={post._id} name={userInfo.data.user.name || userInfo.data.user.username} url={userInfo.data.user.avatar} text={post.postText} color={userInfo.data.user.color}></YourPost>
                 )
             })}
+            </>}
         </>
+
     )
 }
 

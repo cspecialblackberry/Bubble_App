@@ -1,9 +1,15 @@
 import { Link, useLocation } from 'react-router-dom';
 import './style.css'
+import Auth from '../../utils/auth'
 
 function NavTabs() {
     const currentPage = useLocation().pathname;
-    let isLoggedIn = true;
+    let isLoggedIn = Auth.loggedIn();
+    let loggedInUser
+    if (isLoggedIn) {
+        loggedInUser = Auth.getProfile()
+    }
+    console.log(loggedInUser)
 
     return (
         <ul className="nav-tabs">
@@ -18,7 +24,7 @@ function NavTabs() {
             <li className="profile-icon">
                 <Link
                     to="/profile"
-                    state={{ from: 'yourUserId' }}
+                    state={{ from: loggedInUser }}
                     className={currentPage === '/profile' ? 'nav-link-active' : 'nav-link'}
                 >
                     <img src="profile-icon.svg" alt="My Profile" />
@@ -52,7 +58,7 @@ function NavTabs() {
                     to="/"
                     className={currentPage === '/login' ? 'nav-link-active' : 'nav-link'}
                 >
-                    {isLoggedIn ? <img src="logout-icon.svg" alt="Logout" /> : <img src="login-icon.svg" alt="Login" />}
+                    {isLoggedIn ? <img src="logout-icon.svg" alt="Logout" /> : <img src="login-icon.svg" alt="Login" onClick={() => Auth.logout()} />}
                 </Link>
             </li>
         </ul>

@@ -7,11 +7,13 @@ import {
     Radio,
     RadioGroup,
     SimpleGrid,
-    Image, 
+    Image,
     Card,
     CardBody,
     CloseButton
 } from '@chakra-ui/react';
+import { EDIT_USER } from '../../utils/mutations'
+import { useMutation } from '@apollo/client'
 
 const imageArray = ['/avatarImages/andrewKeymaster.jpg', //Photo by Andrew Keymaster on Unsplash 
     '/avatarImages/braedonMcCloud.jpg', //Photo by Braedon McLeod on Unsplash 
@@ -28,11 +30,16 @@ const imageArray = ['/avatarImages/andrewKeymaster.jpg', //Photo by Andrew Keyma
 ]
 
 const EditForm = (props) => {
+    const { userInfo } = props
+    console.log(userInfo)
     const { setEditIsOpen } = props;
-    const [nameInput, setNameInput] = useState('');
-    const [bioInput, setBioInput] = useState('');
-    const [value, setColorValue] = useState('');
-    const [avatarImage, setAvatarImage] = useState('');
+    const [nameInput, setNameInput] = useState(userInfo.name);
+    const [bioInput, setBioInput] = useState(userInfo.bio);
+    const [value, setColorValue] = useState(userInfo.color);
+    const [avatarImage, setAvatarImage] = useState(userInfo.avatar);
+
+
+    const [editUser, { error }] = useMutation(EDIT_USER)
 
     const handleNameInputChange = (e) => {
         setNameInput(e.target.value);
@@ -43,16 +50,29 @@ const EditForm = (props) => {
     const handleColorInputChange = (e) => {
         setColorValue(e);
     }
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         console.log(nameInput, bioInput, value, avatarImage);
+        const res = await editUser({
+            variables: {
+                userId: userInfo._id,
+                name: nameInput,
+                bio: bioInput,
+                color: value,
+                avatar: avatarImage
+            }
+        })
+        console.log(res)
+        setEditIsOpen(false)
+        window.location.reload()
     }
     const handleCloseClick = () => {
         setEditIsOpen(false);
+        window.location.reload()
     }
 
     return (
         <Card bgColor='#F4F4F4'>
-            <CloseButton onClick={handleCloseClick} alignSelf='end'/>
+            <CloseButton onClick={handleCloseClick} alignSelf='end' />
             <CardBody>
                 <h2>Edit Profile:</h2>
                 <FormControl>
@@ -70,7 +90,10 @@ const EditForm = (props) => {
                                     borderRadius='full'
                                     boxSize='100px'
                                     src={image}
-                                    onClick={() => setAvatarImage(image)}
+                                    onClick={() => {
+                                        console.log(image)
+                                        setAvatarImage(image)
+                                    }}
                                 />
                             )
                         })}
