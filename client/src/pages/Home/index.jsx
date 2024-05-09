@@ -62,7 +62,7 @@ export default function Home() {
       {homePosts.toReversed().map((post) => {
         if (post.user === token.data._id) {
           return (
-            <YourPost key={post._id} name={user.name} url={user.avatar} text={post.postText} color={user.color}></YourPost>
+            <YourPost key={post._id} name={user.name} url={user.avatar} text={post.postText} color={user.color} userId={user._id}></YourPost>
           )
         } else {
           return (
