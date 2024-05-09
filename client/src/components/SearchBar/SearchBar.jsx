@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { FaSearch } from "react-icons/fa";
-import { SEARCH_FRIEND_PAGE } from '../../utils/queries'
+import { SEARCH_FRIEND_PAGE, SEARCH_USERS } from '../../utils/queries'
 import { useQuery } from '@apollo/client'
 
 import "./style.css";
@@ -9,7 +9,7 @@ export const SearchBar = ({ setResults }) => {
 
     const [input, setInput] = useState("");
 
-    const userSearch = useQuery(SEARCH_FRIEND_PAGE)
+    const userSearch = useQuery(SEARCH_USERS)
     let users = []
 
     if (userSearch.data) {
