@@ -11,6 +11,16 @@ const resolvers = {
         user: async (parent, { _id }) => {
             return await User.findById(_id)
         },
+        userSearch: async (parent, { username }) => {
+            console.log("parameter,username")
+            let username1 = "Reed3"
+            User.find({"username":{'$regex':username1,'$options':'i'}})
+            .then(data => {
+                console.log(data)
+                return data
+            })
+            //return await User.find({"username":{'$regex':username1,'$options':'i'}})
+        },
         posts: async () => {
             return await Post.find({}).populate("replies")
         },
