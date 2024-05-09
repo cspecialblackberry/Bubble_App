@@ -16,7 +16,6 @@ function LoginCreateAccount() {
     const [password, setPassword] = useState('')
     const [name, setName] = useState('')
 
-
     const usernameChange = (e) => setUsername(e.target.value)
     const passwordChange = (e) => setPassword(e.target.value)
     const nameChange = (e) => setName(e.target.value)
@@ -30,7 +29,6 @@ function LoginCreateAccount() {
 
     const [login, loginStatus] = useMutation(LOGIN)
     const [createAccount, createAccountStatus] = useMutation(ADD_USER)
-
 
     const handleLogin = async (event) => {
         event.preventDefault()
@@ -46,24 +44,16 @@ function LoginCreateAccount() {
         }
     }
 
-    // add useMutation hook
-    // pass user input data to mutation function
-    // handle response from mutation - token and user data
-    // save token to local storage
-
-
     const handleCreate = async (event) => {
         event.preventDefault()
-        // const examplePromise = new Promise((resolve, reject) => {
-        //     setTimeout(() => resolve(200), 3000)
-        // })
-
-        // toast.promise(examplePromise, {
-        //     success: { title: 'Success!', description: 'Your account has been created' },
-        //     error: { title: 'Error', description: 'There was a probelm creating your account. Please try again.' },
-        //     loading: { title: 'Sit tight...', description: 'We are creating your account' },
-        // }) 
-
+        const examplePromise = new Promise((resolve, reject) => {
+            setTimeout(() => resolve(200), 3000)
+        })
+        toast.promise(examplePromise, {
+            success: { title: 'Success!', description: 'Your account has been created' },
+            error: { title: 'Error', description: 'There was a probelm creating your account. Please try again.' },
+            loading: { title: 'Sit tight...', description: 'We are creating your account' },
+        })
         try {
             const res = await createAccount({
                 variables: { username: username, password: password, name: name }
@@ -146,7 +136,7 @@ function LoginCreateAccount() {
                                     <FormControl isRequired marginBottom={5}>
                                         <FormLabel>Username</FormLabel>
                                         <Input placeholder='Create a username' borderRadius={20} value={username}
-                                            onChange={usernameChange}/>
+                                            onChange={usernameChange} />
                                     </FormControl>
 
                                     <FormControl isRequired marginBottom={5}>
@@ -158,7 +148,7 @@ function LoginCreateAccount() {
                                                 placeholder='Create a password'
                                                 borderRadius={20}
                                                 value={password}
-                                            onChange={passwordChange}
+                                                onChange={passwordChange}
                                             />
                                             <InputRightElement width='4.5rem'>
                                                 <button className='show-button' h='1.75rem' size='sm' onClick={handleClick} mr={1}>
