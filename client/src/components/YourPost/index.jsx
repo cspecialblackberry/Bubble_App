@@ -87,7 +87,6 @@ const YourPost = (props) => {
                     />
                 </Link>
             </Stack>
-
         </Card>
         </>
     )
