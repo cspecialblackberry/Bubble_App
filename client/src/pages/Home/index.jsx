@@ -4,6 +4,7 @@ import './style.css';
 import Auth from '../../utils/auth'
 import { QUERY_USER, QUERY_POSTS } from '../../utils/queries';
 import { useQuery, useLazyQuery } from '@apollo/client';
+import Reply from "../../components/Reply";
 
 export default function Home() {
   if (Auth.loggedIn() === false) {
@@ -28,7 +29,7 @@ export default function Home() {
       {postData && data && postData.posts && data.user && postData.posts.filter(({ user }) => user === token.data._id || data.user.friends.includes(user)).toReversed().map((post) => {
         if (post.user === token.data._id) {
           return (
-            <YourPost key={post._id} name={data.user.name} url={data.user.avatar} text={post.postText} color={data.user.color} userId={data.user._id}></YourPost>
+            <Reply key={post._id} type='main' name={data.user.name} url={data.user.avatar} text={post.postText} color={data.user.color} userId={data.user._id}></Reply>
           )
         } else {
           return (
