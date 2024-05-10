@@ -1,9 +1,10 @@
-import { Card, Avatar, CardHeader, CardBody, CardFooter, Stack } from '@chakra-ui/react';
+import { Card, CardBody, CardFooter, Stack } from '@chakra-ui/react';
 import { Link, useLocation } from 'react-router-dom';
 import './style.css';
 
 const Reply = (props) => {
     const { url, name, color, text, userId } = props;
+
     return (
         <Card
             className='reply-container'
@@ -13,8 +14,8 @@ const Reply = (props) => {
             border='1px'
             borderColor={color}
             borderRadius={35}
-            width={350}
-            minHeight={200}
+            width={325}
+            minHeight={150}
             display='flex'
             flexDirection='row'
             padding={5}
@@ -41,7 +42,6 @@ const Reply = (props) => {
                     <h2>{name}</h2>
                 </Link>
             </Stack>
-
         </Card>
     )
 }
