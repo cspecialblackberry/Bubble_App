@@ -4,7 +4,6 @@ import './style.css';
 import Auth from '../../utils/auth'
 import { QUERY_USER, QUERY_POSTS } from '../../utils/queries';
 import { useQuery, useLazyQuery } from '@apollo/client';
-import Search from "../../components/SearchBar";
 
 const name = ['Jimmy Smith', 'Marie Travolta', 'Billy Lou', 'Gren Thalamus', 'Kristine Sinclair', 'Benjamin Phonics'];
 const image = ['/avatarImages/braedonMcCloud.jpg', '/avatarImages/davidClode.jpg', '/avatarImages/alexanderDummer.jpg', '/avatarImages/marcelStrauss.jpg', '/avatarImages/forestSimon.jpg', '/avatarImages/maxKleinen.jpg']
@@ -21,48 +20,22 @@ export default function Home() {
   const token = Auth.getProfile()
   console.log(token.data._id)
 
-  const [getUser, { called, loading, data }] = useLazyQuery(
+  const { loading, data } = useQuery(
     QUERY_USER, { variables: { _id: token.data._id } }
   )
 
-  const userResult = useQuery(
-    QUERY_USER, { variables: { _id: token.data._id } }
+  const { loading:l, data:postData } = useQuery(
+    QUERY_POSTS, { fetchPolicy: 'network-only' }
   )
-  if (userResult.loading) console.log('loading')
-  if (userResult.data) console.log(userResult.data)
-  if (userResult.error) console.log(userResult.error)
-
-  let posts = []
-  let homePosts = []
-  const user = userResult.data?.user
-  console.log(user)
-
-  const postsResult = useQuery(
-    QUERY_POSTS
-  )
-
-  if (postsResult.data) {
-    console.log(postsResult.data)
-    posts = postsResult.data.posts
-    console.log(posts)
-    homePosts = posts.filter((post) => {
-      if (post.user === token.data._id) {
-        return post
-      } else if (user.friends.includes(post.user)) {
-        return post
-      }
-    })
-    console.log(homePosts)
-  }
 
   return (
     <>
       <h1>Here's what's poppin'</h1>
 
-      {homePosts.toReversed().map((post) => {
+      {postData && data && postData.posts && data.user && postData.posts.filter(({user}) => user === token.data._id || data.user.friends.includes(user)).toReversed().map((post) => {
         if (post.user === token.data._id) {
           return (
-            <YourPost key={post._id} name={user.name} url={user.avatar} text={post.postText} color={user.color} userId={user._id}></YourPost>
+            <YourPost key={post._id} name={data.user.name} url={data.user.avatar} text={post.postText} color={data.user.color} userId={data.user._id}></YourPost>
           )
         } else {
           return (
