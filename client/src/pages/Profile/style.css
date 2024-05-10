@@ -1,7 +1,7 @@
 main {
     display: flex;
     flex-direction: column;
-
+    align-items: center;
 }
 
 .bio {
@@ -10,4 +10,13 @@ main {
 
 p {
     margin-bottom: 0;
+}
+
+h1 {
+    font-weight: 900;
+}
+
+.button-size {
+    height: 32px;
+    width: 32px;
 }
