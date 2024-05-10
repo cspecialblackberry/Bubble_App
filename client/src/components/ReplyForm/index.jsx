@@ -3,13 +3,13 @@
 const replyForm = () => {
     return (
         <>
-            <form onSubmit={handleReplySubmit}>
+            <form className='reply-form' onSubmit={handleReplySubmit}>
                 <textarea
                     value={replyContent}
                     onChange={(e) => setReplyContent(e.target.value)}
-                    placeholder="Write your reply here"
+                    placeholder='Reply to the bubble'
                 />
-                <button type="submit">Submit Reply</button>
+                <button type='submit'>Submit</button>
             </form>
         </>
     )
