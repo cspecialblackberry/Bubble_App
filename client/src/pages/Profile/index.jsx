@@ -36,7 +36,7 @@ const Profile = () => {
     }, []);
 
 
-    const userInfo = useQuery(QUERY_USER, { variables: { _id: from } })
+    const userInfo = useQuery(QUERY_USER, { variables: { _id: from }, fetchPolicy: 'network-only' })
     let posts = []
 
     if (userInfo.data) {

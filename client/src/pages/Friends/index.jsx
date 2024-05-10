@@ -31,6 +31,10 @@ export default function Friends() {
     )
   }
 
+  if (Auth.loggedIn() === false) {
+    console.log('hit')
+    window.location.replace('/')
+  }
   return (
     <>
       <Search />

@@ -111,10 +111,12 @@ const resolvers = {
         //working
         addReply: async (parent, { postId, userId, responseText }) => {
             const post = await Post.findById(postId)
+            console.log('post original', post)
             post.replies.push({
                 user: userId,
                 responseText
             })
+            console.log(post)
             await Post.findByIdAndUpdate(postId, {$set: {replies: post.replies}})
         },
         deleteReply: async (parent, { postId, replyId }) => {
