@@ -59,7 +59,7 @@ const Profile = () => {
                 <h2>...loading</h2>
                 :
                 <>
-                    <Box padding={5} bgColor={userInfo.data.user.color} marginBottom={5} borderRadius='50%'>
+                    <Box padding={5} bgColor={userInfo.data.user.color} marginBottom={5} borderRadius='50%' minWidth={300}>
                         <h1>{userInfo.data.user.name || userInfo.data.user.username}</h1>
                         <UserAvatar url={userInfo.data.user.avatar} name={userInfo.data.user.name}></UserAvatar>
                         <Text color='black' bgColor='white' border='2px' borderColor={userInfo.data.user.color}>{userInfo.data.user.bio || "New to bubble!"}</Text>
