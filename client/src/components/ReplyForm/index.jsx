@@ -3,7 +3,7 @@
 const replyForm = () => {
     return (
         <>
-            <form className='reply-form' onSubmit={handleReplySubmit}>
+            <form className='reply-form' onSubmit={handleReply}>
                 <textarea
                     value={replyContent}
                     onChange={(e) => setReplyContent(e.target.value)}

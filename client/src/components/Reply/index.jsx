@@ -104,16 +104,6 @@ const Reply = (props) => {
                     </Link>
                 </Stack>
             </Card>
-
-            <form className='reply-form' onSubmit={handleReply}>
-                {isReply ? 'show reply' : ''}
-                <textarea
-                    value='here/s a reply'
-                    onChange={(e) => setReplyContent(e.target.value)}
-                    placeholder='Reply to the bubble'
-                />
-                <button type='submit'>Submit</button>
-            </form>
         </>
     )
 }

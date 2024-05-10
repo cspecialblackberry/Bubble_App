@@ -29,7 +29,21 @@ export default function Home() {
       {postData && data && postData.posts && data.user && postData.posts.filter(({ user }) => user === token.data._id || data.user.friends.includes(user)).toReversed().map((post) => {
         if (post.user === token.data._id) {
           return (
-            <Reply key={post._id} type='main' name={data.user.name} url={data.user.avatar} text={post.postText} color={data.user.color} userId={data.user._id}></Reply>
+            <div key={post._id}>
+              <Reply type='main' name={data.user.name} url={data.user.avatar} text={post.postText} color={data.user.color} userId={data.user._id}></Reply>
+              {post.replies.map(reply => (
+                <Reply key={reply._id} type='reply' name={reply.user.name} url={reply.userAvatar} text={reply.responseText} color={reply.user.color} userId={reply.userId} ></Reply>
+              ))}
+            </div>
+
+
+            //  <div key={post._id}>
+            //    <Reply type='main' name={userData.user.name} url={userData.user.avatar} text={post.postText} color={userData.user.color} userId={userData.user._id} />
+            //    {post.replies.map(reply => (
+            //    <Reply key={reply._id} type='reply' name={reply.userName} url={reply.userAvatar} text={reply.replyText} color={reply.userColor} userId={reply.userId} />
+            //    )}
+            //</div>
+
           )
         } else {
           return (
