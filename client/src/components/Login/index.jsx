@@ -103,7 +103,7 @@ function LoginCreateAccount() {
                                                 borderRadius={20}
                                             />
                                             <InputRightElement width='4.5rem'>
-                                                <button className='show-button' h='1.75rem' size='sm' onClick={handleClick} mr={1}>
+                                                <button className='show-button' type='button' h='1.75rem' size='sm' onClick={handleClick} mr={1}>
                                                     {show ? 'Hide' : 'Show'}
                                                 </button>
                                             </InputRightElement>
@@ -149,7 +149,7 @@ function LoginCreateAccount() {
                                                 onChange={passwordChange}
                                             />
                                             <InputRightElement width='4.5rem'>
-                                                <button className='show-button' h='1.75rem' size='sm' onClick={handleClick} mr={1}>
+                                                <button className='show-button' type='button' h='1.75rem' size='sm' onClick={handleClick} mr={1}>
                                                     {show ? 'Hide' : 'Show'}
                                                 </button>
                                             </InputRightElement>
