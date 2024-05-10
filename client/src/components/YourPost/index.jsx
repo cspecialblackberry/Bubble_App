@@ -1,10 +1,43 @@
 import { Card, Avatar, CardHeader, CardBody, CardFooter, Stack, Heading, Button, Text } from '@chakra-ui/react';
 import { Link, useLocation } from 'react-router-dom';
+import { useMutation } from '@apollo/client';
 import './style.css';
+import { ADD_REPLY } from '../../utils/mutations';
+import { useState } from 'react'
 
 const YourPost = (props) => {
     const { url, name, color, text, userId } = props;
+    const [openReply, setOpenReply] = useState(false);
+    const [replyContent, setReplyContent] = useState();
+
+    const [addReply, addReplyStatus] = useMutation(ADD_REPLY)
+
+    const openReplyForm = () => setOpenReply(true);
+
+
+    const handleReply = () => {
+        try {
+
+        } catch (error) {
+
+        }
+    }
+
+    // click reply, blank card appears beneath
+    // submit reply button
+
+
     return (
+        <>
+        {/* <div>
+        {post.replies.map(reply => (
+          <div key={reply.id}>
+            <p>{reply.content}</p>
+            <p>By: {reply.author}</p>
+          </div>
+        ))}
+      </div> */}
+
         <Card
             className='your-bubble'
             direction={{ base: 'column', sm: 'row' }}
@@ -30,8 +63,10 @@ const YourPost = (props) => {
                 <CardFooter padding={0}>
                     <button
                         className='reply-button'
+                        type='button'
                         variant='solid'
                         style={{ backgroundColor: color }}
+                        onClick={openReplyForm}
                     >
                         REPLY
                     </button>
@@ -54,6 +89,7 @@ const YourPost = (props) => {
             </Stack>
 
         </Card>
+        </>
     )
 }
 
