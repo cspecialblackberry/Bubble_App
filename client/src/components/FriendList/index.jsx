@@ -35,13 +35,6 @@ const FriendList = (props) => {
                         View profile
                     </button>
                     <button
-                        className='add-friend-btn'
-                        variant='solid'
-                        style= {{backgroundColor: color}}
-                    >
-                        Add Friend
-                    </button>
-                    <button
                         className='remove-friend-btn'
                         variant='solid'
                         style= {{backgroundColor: color}}
