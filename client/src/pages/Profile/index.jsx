@@ -1,4 +1,4 @@
-import { Card, CardHeader, CardBody, CardFooter, Text, IconButton } from '@chakra-ui/react';
+import { Card, CardHeader, CardBody, CardFooter, Text, IconButton, Box } from '@chakra-ui/react';
 import { EditIcon } from '@chakra-ui/icons';
 import UserAvatar from '../../components/ProfileImage';
 import EditForm from '../../components/EditForm';
@@ -59,22 +59,25 @@ const Profile = () => {
                 <h2>...loading</h2>
                 :
                 <>
-                    <h1>{userInfo.data.user.name || userInfo.data.user.username}</h1>
-                    <UserAvatar url={userInfo.data.user.avatar} name={userInfo.data.user.name}></UserAvatar>
-                    <Text bgColor={userInfo.data.user.color}>{userInfo.data.user.bio || "New to bubble!"}</Text>
-                    {hasEditButton? editIsOpen ? <EditForm editIsOpen={editIsOpen} setEditIsOpen={setEditIsOpen} userInfo={userInfo.data.user}></EditForm> 
-                    : <IconButton aria-label='Edit Profile' icon={<EditIcon />} onClick={handleEditButtonClick} ></IconButton> : <></>}
+                    <Box padding={5} bgColor={userInfo.data.user.color} marginBottom={5} borderRadius='50%'>
+                    {hasEditButton ? editIsOpen ? <EditForm editIsOpen={editIsOpen} setEditIsOpen={setEditIsOpen} userInfo={userInfo.data.user}></EditForm>
+                        : <IconButton aria-label='Edit Profile' icon={<EditIcon />} onClick={handleEditButtonClick} alignSelf='end'></IconButton> : <></>}
+                        <h1>{userInfo.data.user.name || userInfo.data.user.username}</h1>
+                        <UserAvatar url={userInfo.data.user.avatar} name={userInfo.data.user.name}></UserAvatar>
+                        <Text color='white' bgColor='black'>{userInfo.data.user.bio || "New to bubble!"}</Text>
+                    </Box >
+
                     <h2>Recent Bubbles:</h2>
                     {hasEditButton ? posts.map((post) => {
                         return (
                             <YourPost key={post._id} name={userInfo.data.user.name || userInfo.data.user.username} url={userInfo.data.user.avatar} text={post.postText} color={userInfo.data.user.color} userId={from}></YourPost>
                         )
-                    }) : 
-                    posts.map((post) => {
-                        return (
-                            <FriendPost key={post._id} name={userInfo.data.user.name || userInfo.data.user.username} url={userInfo.data.user.avatar} text={post.postText} color={userInfo.data.user.color} userId={from}></FriendPost>
-                        )
-                    })}
+                    }) :
+                        posts.map((post) => {
+                            return (
+                                <FriendPost key={post._id} name={userInfo.data.user.name || userInfo.data.user.username} url={userInfo.data.user.avatar} text={post.postText} color={userInfo.data.user.color} userId={from}></FriendPost>
+                            )
+                        })}
                 </>}
         </>
 
