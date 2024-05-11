@@ -29,10 +29,22 @@ export default function Home() {
         if (post.user === token.data._id) {
           return (
             <article key={post._id} className="post-block">
-              <Reply type='main' name={data.user.name} url={data.user.avatar} text={post.postText} color={data.user.color} userId={data.user._id}></Reply>
+              <Reply
+                type='main'
+                name={data.user.name}
+                url={data.user.avatar}
+                text={post.postText}
+                color={data.user.color}
+                userId={data.user._id}>
+              </Reply>
               {post.replies.map(reply => (
-                console.log('REPLIER ID:', reply),
-                <Reply key={reply._id} type='reply' name={reply.username} text={reply.responseText} userId={reply.user} ></Reply>
+                <Reply
+                  key={reply._id}
+                  type='reply'
+                  name={reply.username}
+                  text={reply.responseText}
+                  userId={reply.user}>
+                </Reply>
               ))
               }
             </article>
