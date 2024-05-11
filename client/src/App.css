@@ -80,6 +80,11 @@ h2 {
   text-transform: uppercase;
 }
 
+h3 {
+  font-family: var(--heading-font);
+  font-size: 1em;
+}
+
 button {
   font-family: var(--main-text-font);
   text-transform: uppercase;

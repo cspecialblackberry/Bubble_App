@@ -105,7 +105,7 @@ const Reply = (props) => {
                 </Stack>
                 <Stack className='name-container' display='flex' flexDirection='column' alignItems='center'>
                     <Link to="/profile" state={{ from: userData._id }}>
-                        <h2>{userData.name || userData.username}</h2>
+                        <h3>{userData.name || userData.username}</h3>
                         <Avatar
                             size={isMainPost ? 'lg' : 'md'} src={userData.avatar} name={name}
                         />
