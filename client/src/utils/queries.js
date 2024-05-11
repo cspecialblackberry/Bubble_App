@@ -87,13 +87,3 @@ export const QUERY_POST = gql`
         }
     }
 `
-
-export const SEARCH_FRIEND_PAGE = gql `
-query userSearch($username: String!) {
-    userSearch(username: $username) {
-      _id
-      name
-      username
-    }
-  }
-`

@@ -1,48 +1,52 @@
 import { useState } from "react";
 import { FaSearch } from "react-icons/fa";
-import { SEARCH_FRIEND_PAGE, SEARCH_USERS } from '../../utils/queries'
+import { SEARCH_USERS } from '../../utils/queries'
 import { useQuery } from '@apollo/client'
 
 import "./style.css";
 
 export const SearchBar = ({ setResults }) => {
 
-    const [input, setInput] = useState("");
-
-    const userSearch = useQuery(SEARCH_USERS)
+    const getUsers = useQuery(SEARCH_USERS)
     let users = []
 
-    if (userSearch.data) {
-        users = userSearch.data
+    if (getUsers.data) {
+        users = getUsers.data
         console.log(users)
     }
 
-    const fetchData = (value) => {
+    const [filteredResults, setFilteredResults] = useState(users)
+    const [searchQuery, setSearchQuery] = useState('')
 
-        const results = users.filter((user) => {
-            return (
-                {
-                    _id,
-                    username
-                }
-            );
-        });
-        setResults(results);
-    };
+    const handleSearch = (event) => {
+        const query = event.target.value
+        setSearchQuery(query)
 
-    const handleChange = (event) => {
-        setInput(event.target.value);
-        fetchData(input);
-    };
+        const results = filteredResults.filter((result) => {
+            return result.username.toLowerCase().indexOf(query.toLowerCase()) !== -1
+        })
+
+        setFilteredResults(results)
+    }
+
+    // let users = []
+
+    // if (getUsers.data) {
+    //     users = getUsers.data
+    //     console.log(users)
+    // }
 
     return (
         <div className="input-wrapper">
             <FaSearch id="search-icon" />
             <input
+                type="text"
+                name="search"
                 placeholder="Search people..."
-                value={input}
-                onChange={(e) => handleChange(e.target.value)}
+                value={searchQuery}
+                onChange={handleSearch}
             />
         </div>
+
     );
 };
