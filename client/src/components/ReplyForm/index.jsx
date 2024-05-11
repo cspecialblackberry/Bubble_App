@@ -1,6 +1,4 @@
-
-
-const replyForm = () => {
+const ReplyForm = () => {
     return (
         <>
             <form className='reply-form' onSubmit={handleReply}>
@@ -15,4 +13,4 @@ const replyForm = () => {
     )
 }
 
-export default replyForm
+export default ReplyForm

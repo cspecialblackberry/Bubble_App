@@ -64,15 +64,15 @@ const Reply = (props) => {
 
             {/* classname changes based on boolean conditions */}
             <Card
-                className='your-bubble'
+                className={isMainPost ? 'your-bubble' : 'reply-bubble'}
                 direction={{ base: 'column', sm: 'row' }}
                 overflow='hidden'
                 variant='outline'
                 border='1px'
                 borderColor={userData.color}
                 borderRadius={35}
-                width={350}
-                minHeight={200}
+                // width={350}
+                // minHeight={200}
                 display='flex'
                 flexDirection='row'
                 padding={5}
@@ -109,7 +109,7 @@ const Reply = (props) => {
                     <Link to="/profile" state={{ from: userData._id }}>
                         <h2>{userData.name || userData.username}</h2>
                         <Avatar
-                            size='lg' src={userData.avatar} name={name}
+                            size={isMainPost ? 'lg' : 'md'} src={userData.avatar} name={name}
                         />
                     </Link>
                 </Stack>

@@ -1,0 +1,8 @@
+.post-block {
+    display: flex;
+    flex-direction: column;
+}
+
+.reply-bubble {
+    justify-content: flex-end;
+}

@@ -28,14 +28,14 @@ export default function Home() {
       {postData && data && postData.posts && data.user && postData.posts.filter(({ user }) => user === token.data._id || data.user.friends.includes(user)).toReversed().map((post) => {
         if (post.user === token.data._id) {
           return (
-            <div key={post._id}>
+            <article key={post._id} className="post-block">
               <Reply type='main' name={data.user.name} url={data.user.avatar} text={post.postText} color={data.user.color} userId={data.user._id}></Reply>
               {post.replies.map(reply => (
                 console.log('REPLIER ID:', reply),
                 <Reply key={reply._id} type='reply' name={reply.username} text={reply.responseText} userId={reply.user} ></Reply>
               ))
               }
-            </div>
+            </article>
           )
         } else {
           return (

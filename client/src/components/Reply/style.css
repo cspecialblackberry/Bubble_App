@@ -1,0 +1,16 @@
+.your-bubble {
+    width: 350px;
+    min-height: 200px;
+}
+
+.reply-bubble {
+    width: 300px;
+    min-height: 100px;
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.reply-bubble h2 {
+    font-size: 1em;
+}
+
