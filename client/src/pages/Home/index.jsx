@@ -2,13 +2,12 @@ import YourPost from "../../components/YourPost";
 import FriendPost from "../../components/FriendPost";
 import './style.css';
 import Auth from '../../utils/auth'
-import { QUERY_USER, QUERY_POSTS } from '../../utils/queries';
+import { QUERY_USER, QUERY_POSTS, QUERY_USER_INFO } from '../../utils/queries';
 import { useQuery, useLazyQuery } from '@apollo/client';
 import Reply from "../../components/Reply";
 
 export default function Home() {
   if (Auth.loggedIn() === false) {
-    console.log('hit')
     window.location.replace('/')
   }
 
@@ -32,18 +31,11 @@ export default function Home() {
             <div key={post._id}>
               <Reply type='main' name={data.user.name} url={data.user.avatar} text={post.postText} color={data.user.color} userId={data.user._id}></Reply>
               {post.replies.map(reply => (
-                <Reply key={reply._id} type='reply' name={reply.user.name} url={reply.userAvatar} text={reply.responseText} color={reply.user.color} userId={reply.userId} ></Reply>
-              ))}
+                console.log('REPLIER ID:', reply),
+                <Reply key={reply._id} type='reply' name={reply.username} text={reply.responseText} userId={reply.user} ></Reply>
+              ))
+              }
             </div>
-
-
-            //  <div key={post._id}>
-            //    <Reply type='main' name={userData.user.name} url={userData.user.avatar} text={post.postText} color={userData.user.color} userId={userData.user._id} />
-            //    {post.replies.map(reply => (
-            //    <Reply key={reply._id} type='reply' name={reply.userName} url={reply.userAvatar} text={reply.replyText} color={reply.userColor} userId={reply.userId} />
-            //    )}
-            //</div>
-
           )
         } else {
           return (

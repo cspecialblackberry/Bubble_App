@@ -1,13 +1,15 @@
 import { Card, Avatar, CardHeader, CardBody, CardFooter, Stack, Heading, Button, Text } from '@chakra-ui/react';
 import { Link, useLocation } from 'react-router-dom';
-import { useMutation } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import './style.css';
 import { ADD_REPLY } from '../../utils/mutations';
 import { useState } from 'react'
 import Auth from '../../utils/auth';
+import { QUERY_USER_INFO } from '../../utils/queries';
 
 const Reply = (props) => {
     const { url, name, color, text, userId, type } = props;
+
     const [openReply, setOpenReply] = useState(false);
     const [replyContent, setReplyContent] = useState();
 
@@ -21,7 +23,12 @@ const Reply = (props) => {
     const isReply = type === 'reply';
     const isOwnPost = userId === token.data._id;
     const isMainPost = type === 'main';
-    const canReply = isMainPost && !isOwnPost;
+    // const canReply = isMainPost && !isOwnPost;
+
+
+    const userQuery = useQuery(QUERY_USER_INFO, {
+        variables: { _id: userId }
+    })
 
 
     const handleReply = async () => {
@@ -38,18 +45,21 @@ const Reply = (props) => {
     // click reply, blank card appears beneath
     // submit reply button
 
+    let userData
+    if (userQuery.data) {
+        userData = userQuery.data.user
+    }
+    if (userQuery.error) {
+        console.log(userQuery.error)
+    }
+    if (userQuery.loading) {
+        return (
+            <h1>...loading</h1>
+        )
+    } else {
 
     return (
         <>
-            {/* <div>
-        {post.replies.map(reply => (
-          <div key={reply.id}>
-            <p>{reply.content}</p>
-            <p>By: {reply.author}</p>
-          </div>
-        ))}
-      </div> */}
-
             {/* on the home page - put a post and all replies into a box */}
 
             {/* classname changes based on boolean conditions */}
@@ -59,7 +69,7 @@ const Reply = (props) => {
                 overflow='hidden'
                 variant='outline'
                 border='1px'
-                borderColor={color}
+                borderColor={userData.color}
                 borderRadius={35}
                 width={350}
                 minHeight={200}
@@ -76,11 +86,11 @@ const Reply = (props) => {
                     </CardBody>
                     <CardFooter padding={0}>
                         {openReply ? 'show form' : ''}
-                        {canReply ? <button
+                        {isMainPost ? <button
                             className='reply-button'
                             type='button'
                             variant='solid'
-                            style={{ backgroundColor: color }}
+                            style={{ backgroundColor: userData.color }}
                             onClick={openReplyForm}
                         >
                             REPLY
@@ -88,7 +98,7 @@ const Reply = (props) => {
                         {isOwnPost ? <button
                             className='reply-button'
                             variant='solid'
-                            style={{ backgroundColor: color }}
+                            style={{ backgroundColor: userData.color }}
                         >
                             DELETE
                         </button> : ''}
@@ -96,16 +106,16 @@ const Reply = (props) => {
                     </CardFooter>
                 </Stack>
                 <Stack className='name-container' display='flex' flexDirection='column' alignItems='center'>
-                    <Link to="/profile" state={{ from: userId }}>
-                        <h2>{name}</h2>
+                    <Link to="/profile" state={{ from: userData._id }}>
+                        <h2>{userData.name || userData.username}</h2>
                         <Avatar
-                            size='lg' src={url} name={name}
+                            size='lg' src={userData.avatar} name={name}
                         />
                     </Link>
                 </Stack>
             </Card>
         </>
     )
-}
+}}
 
 export default Reply;
