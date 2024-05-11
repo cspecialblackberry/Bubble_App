@@ -3,7 +3,3 @@
     flex-direction: column;
     margin-top: 10px;
 }
-
-.reply-bubble {
-    justify-content: flex-end;
-}

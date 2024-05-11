@@ -71,14 +71,12 @@ const Reply = (props) => {
                 border='1px'
                 borderColor={userData.color}
                 borderRadius={35}
-                // width={350}
-                // minHeight={200}
                 display='flex'
-                flexDirection='row'
+                flexDirection={isOwnPost ? 'row' : 'row-reverse'}
                 padding={5}
                 marginTop={3}
             >
-                <Stack className='content-container'>
+                <Stack className='content-container' textAlign={isOwnPost ? 'left' : 'right'}>
                     <CardBody padding={0}>
                         <p className='bubble-text'>
                             {text}
