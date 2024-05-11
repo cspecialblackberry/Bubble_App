@@ -44,11 +44,6 @@ export default function Friends() {
       <Search />
       <h1>Your Friends</h1>
 
-      {/* {friends.map((friend, index) => {
-        return (
-          <FriendList key={index} name={name[index]} url={avatar[index]} text={friends[index]} color={color[index]}></FriendList>
-        )
-      })} */}
       {userData.friends.map((friend, index) => {
         return (
           <FriendList key={friend} userId={friend}></FriendList>
