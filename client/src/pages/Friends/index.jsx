@@ -24,34 +24,50 @@ export default function Friends() {
   const userId = Auth.getProfile().data._id
   console.log(userId)
 
-  const userQuery = useQuery(QUERY_USER, {
+  let { loading: loading1, data: userData } = useQuery(QUERY_USER, {
     variables: { _id: userId }
   })
-  let userData
 
-  const {loading: loading, data: users} = useQuery(
+  let { loading: loading2, data: users } = useQuery(
     QUERY_USERS, { fetchPolicy: 'network-only' })
 
-  if (userQuery.data) {
-    userData = userQuery.data.user
+  if (userData) {
+    userData = userData.user
+    console.log(userData)
   }
 
-  if(users)console.log(users.users)
+  if (users) {
+    users = users.users
+    console.log(users)
+  }
 
-  if(userQuery.loading){
-    return(
+  if (loading1 || loading2) {
+    return (
       <h2>...Loading</h2>
     )
   }
+
+  console.log(users.filter((user) => userData.friends.includes(user._id)))
 
   return (
     <>
       <Search />
       <h1>Your Friends</h1>
 
-      {userData.friends.map((friend, index) => {
+      {/* {userData.friends.toReversed().map((friend) => {
         return (
           <FriendList key={friend} userId={friend}></FriendList>
+        )
+      })} */}
+      {users.filter((user) => userData.friends.includes(user._id)).toReversed().map((user) => {
+        return (
+          <FriendList
+            key={user._id}
+            userId={user._id}
+            name={user.name || user.username}
+            avatar={user.avatar}
+            color={user.color}>
+          </FriendList>
         )
       })}
     </>
