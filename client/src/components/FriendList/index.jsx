@@ -2,6 +2,7 @@ import { Card, CardBody, CardFooter, Stack, Avatar, AbsoluteCenter } from '@chak
 import './style.css'
 import { QUERY_USER } from '../../utils/queries';
 import { useQuery } from '@apollo/client'
+import {Link} from 'react-router-dom'
 
 const FriendList = (props) => {
     const { url, name, color, text, userId } = props;
@@ -48,6 +49,7 @@ const FriendList = (props) => {
                             size='md' src={userData.avatar} name={userData.name}
                         />
                         <div className="button-container"></div>
+                        <Link to='/profile' state={{from: userId}}>
                         <button
                             className='view-profile-btn'
                             variant='solid'
@@ -55,6 +57,7 @@ const FriendList = (props) => {
                         >
                             View profile
                         </button>
+                        </Link>
                         <button
                             className='remove-friend-btn'
                             variant='solid'

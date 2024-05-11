@@ -3,7 +3,7 @@ import FriendList from "../../components/FriendList"
 import Search from "../../components/SearchBar";
 import './style.css';
 import Auth from '../../utils/auth'
-import { QUERY_USER } from '../../utils/queries';
+import { QUERY_USER, QUERY_USERS } from '../../utils/queries';
 import { useQuery } from '@apollo/client';
 import { useNavigate } from 'react-router';
 
@@ -29,9 +29,14 @@ export default function Friends() {
   })
   let userData
 
+  const {loading: loading, data: users} = useQuery(
+    QUERY_USERS, { fetchPolicy: 'network-only' })
+
   if (userQuery.data) {
     userData = userQuery.data.user
   }
+
+  if(users)console.log(users.users)
 
   if(userQuery.loading){
     return(
