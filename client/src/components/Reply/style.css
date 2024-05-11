@@ -2,7 +2,7 @@
     width: 350px;
     min-height: 200px;
     border-radius: 35px;
-    /* gap: 10px; */
+    gap: 10px;
 }
 
 .reply-bubble {

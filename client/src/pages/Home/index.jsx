@@ -35,7 +35,8 @@ export default function Home() {
                 url={data.user.avatar}
                 text={post.postText}
                 color={data.user.color}
-                userId={data.user._id}>
+                userId={data.user._id}
+              >
               </Reply>
               {post.replies.map(reply => (
                 <Reply
@@ -43,7 +44,8 @@ export default function Home() {
                   type='reply'
                   name={reply.username}
                   text={reply.responseText}
-                  userId={reply.user}>
+                  userId={reply.user}
+                >
                 </Reply>
               ))
               }

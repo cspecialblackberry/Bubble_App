@@ -66,11 +66,33 @@ const Profile = () => {
                         <Text color='black' bgColor='white' border='2px' borderColor={userInfo.data.user.color}>{userInfo.data.user.bio || "New to bubble!"}</Text>
                     </Box >
                     {hasEditButton ? editIsOpen ? <EditForm editIsOpen={editIsOpen} setEditIsOpen={setEditIsOpen} userInfo={userInfo.data.user}></EditForm>
-                        : <IconButton aria-label='Edit Profile' backgroundColor='white' icon={<EditIcon  className='button-size'/>} onClick={handleEditButtonClick} alignSelf='end'></IconButton> : <></>}
+                        : <IconButton aria-label='Edit Profile' backgroundColor='white' icon={<EditIcon className='button-size' />} onClick={handleEditButtonClick} alignSelf='end'></IconButton> : <></>}
                     <h2>Recent Bubbles:</h2>
                     {hasEditButton ? posts.map((post) => {
                         return (
-                            <Reply key={post._id} type='main' name={userInfo.data.user.name || userInfo.data.user.username} url={userInfo.data.user.avatar} text={post.postText} color={userInfo.data.user.color} userId={from}></Reply>
+                            <article key={post._id} className="post-block">
+                                <Reply
+                                    key={post._id}
+                                    type='main'
+                                    name={userInfo.data.user.name || userInfo.data.user.username}
+                                    url={userInfo.data.user.avatar}
+                                    text={post.postText}
+                                    color={userInfo.data.user.color}
+                                    userId={from}
+                                >
+                                </Reply>
+                                {/* {post.replies.map(reply => (
+                                    <Reply
+                                        key={reply._id}
+                                        type='reply'
+                                        name={reply.username}
+                                        text={reply.responseText}
+                                        userId={reply.user}
+                                    >
+                                    </Reply>
+                                ))
+                                } */}
+                            </article>
                         )
                     }) :
                         posts.map((post) => {
