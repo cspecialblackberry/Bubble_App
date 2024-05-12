@@ -27,11 +27,11 @@ const Reply = (props) => {
         variables: { _id: userId }
     })
 
-    const postData = useQuery(QUERY_POSTS, {
-        variables: {
-            _id: postId }
-    })
-    console.log('POSTDATA', postData.data)
+    // const postData = useQuery(QUERY_POSTS, {
+    //     variables: {
+    //         _id: postId }
+    // })
+    // console.log('POSTDATA', postData.data)
 
     let userData
     if (userQuery.data) {

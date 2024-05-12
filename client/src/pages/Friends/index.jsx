@@ -12,13 +12,15 @@ import { REMOVE_FRIEND } from '../../utils/mutations';
 export default function Friends() {
   const navigate = useNavigate()
 
+  let userId
+
   useEffect(() => {
     if (!Auth.loggedIn()) {
       navigate('/')
+    }else{
+      userId = Auth.getProfile().data._id
     }
-  }, [navigate]);
-
-  const userId = Auth.getProfile().data._id;
+  }, []);
 
   const { loading: loading1, data: userData } = useQuery(QUERY_USER, {
     variables: { _id: userId }
