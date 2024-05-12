@@ -9,7 +9,7 @@ import { QUERY_POSTS, QUERY_USER_INFO } from '../../utils/queries';
 import ReplyForm from '../ReplyForm';
 
 const Reply = (props) => {
-    const { url, name, color, text, userId, type, postId } = props;
+    const { url, name, color, text, userId, type, postId, handleDelete, index } = props;
 
     const [openReply, setOpenReply] = useState(false);
 
@@ -83,6 +83,7 @@ const Reply = (props) => {
                                 className='reply-button'
                                 variant='solid'
                                 style={{ backgroundColor: userData.color }}
+                                onClick={() => handleDelete(userId, postId, index)}
                             >
                                 DELETE
                             </button>
