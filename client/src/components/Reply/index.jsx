@@ -68,7 +68,7 @@ const Reply = (props) => {
                             </p>
                         </CardBody>
                         <CardFooter padding={0}>
-                            {openReply && <ReplyForm openReply={openReply} setOpenReply={setOpenReply}></ReplyForm>}
+                            {openReply && <ReplyForm openReply={openReply} setOpenReply={setOpenReply} postId={postId}></ReplyForm>}
                             {isMainPost && <button
                                 className='reply-button'
                                 type='button'
