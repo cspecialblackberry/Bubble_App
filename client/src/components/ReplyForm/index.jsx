@@ -34,6 +34,7 @@ function ReplyForm(props) {
                 }
             });
             console.log('hit');
+            onClose();
         } catch (error) {
             console.error(error);
         }
