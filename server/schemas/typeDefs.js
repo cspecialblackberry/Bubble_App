@@ -32,6 +32,7 @@ type Auth {
 type Query {
     users: [User]
     user(_id: ID!): User
+    userSearch(username:String!): User
     posts: [Post]
     post(_id: ID!): Post
     replies: Response
