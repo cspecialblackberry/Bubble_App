@@ -1,12 +1,13 @@
+import { Link } from 'react-router-dom';
 import "./style.css";
 
 export const SearchResult = ({ result }) => {
+
   return (
-    <div
+    <Link to="/profile" state={{ from: result.id }}
       className="search-result"
-      onClick={(e) => alert(`You selected ${result}!`)}
     >
       {result}
-    </div>
+    </Link>
   );
 };

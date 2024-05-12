@@ -14,7 +14,7 @@ const resolvers = {
         userSearch: async (parent, { username }) => {
             console.log("parameter,username")
             let username1 = "Reed3"
-            User.find({"username":{'$regex':username1,'$options':'i'}})
+            await User.find({"username":{'$regex':username1,'$options':'i'}})
             .then(data => {
                 console.log(data)
                 return data
