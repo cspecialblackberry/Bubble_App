@@ -9,7 +9,9 @@ import { QUERY_POSTS, QUERY_USER_INFO } from '../../utils/queries';
 import ReplyForm from '../ReplyForm';
 
 const Reply = (props) => {
-    const { url, name, color, text, userId, type, postId } = props;
+    const { url, name, color, text, userId, type, postId, handleDelete, index } = props;
+
+    console.log(userId, postId, index)
 
     const [openReply, setOpenReply] = useState(false);
 
@@ -27,11 +29,11 @@ const Reply = (props) => {
         variables: { _id: userId }
     })
 
-    const postData = useQuery(QUERY_POSTS, {
-        variables: {
-            _id: postId }
-    })
-    console.log('POSTDATA', postData.data)
+    // const postData = useQuery(QUERY_POSTS, {
+    //     variables: {
+    //         _id: postId }
+    // })
+    // console.log('POSTDATA', postData.data)
 
     let userData
     if (userQuery.data) {
@@ -83,6 +85,7 @@ const Reply = (props) => {
                                 className='reply-button'
                                 variant='solid'
                                 style={{ backgroundColor: userData.color }}
+                                onClick={() => handleDelete(userId, postId, index)}
                             >
                                 DELETE
                             </button>

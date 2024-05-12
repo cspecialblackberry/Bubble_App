@@ -4,12 +4,12 @@ import UserAvatar from '../../components/ProfileImage';
 import EditForm from '../../components/EditForm';
 import YourPost from '../../components/YourPost';
 import FriendPost from '../../components/FriendPost';
-import { useState } from 'react';
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import './style.css';
 import { useLocation } from 'react-router-dom';
 import { QUERY_USER } from '../../utils/queries';
-import { useQuery } from '@apollo/client';
+import { DELETE_POST } from '../../utils/mutations';
+import { useQuery, useMutation } from '@apollo/client';
 import Auth from '../../utils/auth';
 import Reply from '../../components/Reply';
 
@@ -20,6 +20,7 @@ const Profile = () => {
     }
     const [editIsOpen, setEditIsOpen] = useState(false);
     const [hasEditButton, setHasEditButton] = useState(false);
+    const [postsArr, setPostsArr] = useState([])
 
     const location = useLocation();
     const { from } = location.state;
@@ -40,8 +41,31 @@ const Profile = () => {
     const userInfo = useQuery(QUERY_USER, { variables: { _id: from }, fetchPolicy: 'network-only' })
     let posts = []
 
+    useEffect(() => {
+        if(userInfo?.data?.user?.posts){
+            setPostsArr(userInfo.data.user.posts.toReversed())
+        }
+    }, [userInfo])
+
+    const [deletePost] = useMutation(DELETE_POST)
+
+    const handleDelete = async (userId, postId, index) => {
+      try {
+        console.log(userId, postId, index)
+        await deletePost({
+          variables: { userId: userId, postId: postId }
+        })
+        let updatedPosts = [...postsArr]
+        updatedPosts.splice(index, 1)
+        setPostsArr(updatedPosts)
+      } catch (err) {
+        console.error(err)
+      }
+    }
+
     if (userInfo.data) {
         console.log(userInfo.data)
+        console.log(userInfo)
         posts = userInfo.data.user.posts.toReversed()
         console.log(posts, 'posts')
     }
@@ -53,6 +77,8 @@ const Profile = () => {
             setEditIsOpen(true);
         }
     }
+
+    console.log(postsArr)
 
     return (
         <>
@@ -68,7 +94,7 @@ const Profile = () => {
                     {hasEditButton ? editIsOpen ? <EditForm editIsOpen={editIsOpen} setEditIsOpen={setEditIsOpen} userInfo={userInfo.data.user}></EditForm>
                         : <IconButton aria-label='Edit Profile' icon={<EditIcon  className='button-size'/>} onClick={handleEditButtonClick} alignSelf='end'></IconButton> : <></>}
                     <h2>Recent Bubbles:</h2>
-                    {hasEditButton ? posts.map((post) => {
+                    {hasEditButton ? postsArr.map((post, index) => {
                         return (
                             <article key={post._id} className="post-block">
                                 <Reply
@@ -79,6 +105,9 @@ const Profile = () => {
                                     text={post.postText}
                                     color={userInfo.data.user.color}
                                     userId={from}
+                                    postId={post._id}
+                                    index={index}
+                                    handleDelete={handleDelete}
                                 >
                                 </Reply>
                                 {/* {post.replies.map(reply => (
