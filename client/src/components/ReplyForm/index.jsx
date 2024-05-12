@@ -13,7 +13,8 @@ import { ADD_REPLY } from '../../utils/mutations';
 import { useMutation } from '@apollo/client';
 import { useState } from 'react';
 import Auth from '../../utils/auth';
-
+import { useNavigate } from 'react-router';
+import './style.css'
 
 function ReplyForm(props) {
     const { postId } = props;
@@ -22,8 +23,10 @@ function ReplyForm(props) {
     const [addReply] = useMutation(ADD_REPLY);
     const token = Auth.getProfile();
     const userId = token.data._id;
+    let navigate = useNavigate();
 
-    const handleReply = async () => {
+    const handleReply = async (event) => {
+        event.preventDefault();
         try {
             console.log('POSTID', postId)
             const res = await addReply({
@@ -34,9 +37,11 @@ function ReplyForm(props) {
                 }
             });
             console.log('hit');
+            onClose();
         } catch (error) {
             console.error(error);
         }
+        navigate('/home')
     }
 
     return (
@@ -45,44 +50,29 @@ function ReplyForm(props) {
 
             <Modal isOpen={isOpen} onClose={onClose}>
                 <ModalOverlay />
-                <ModalContent>
-                    <ModalHeader>Modal Title</ModalHeader>
-                    <ModalCloseButton />
+                <ModalContent className='reply-modal'>
+                    <h2>Add a reply</h2>
+                    <ModalCloseButton className='close-btn' />
                     <ModalBody>
-                        <p>Repy to the bubble</p>
                         <textarea
                             value={replyContent}
                             onChange={(e) => setReplyContent(e.target.value)}
                             placeholder='Enter your reply'
                         />
+                        <div>
+                            {/* <button type='button' mr={3} onClick={onClose}>Close</button> */}
+                            <button type='button' className='submit-reply' onClick={handleReply}>Submit Reply</button>
+                        </div>
                     </ModalBody>
 
                     <ModalFooter>
-                        <button type='button' mr={3} onClick={onClose}>
-                            Close
-                        </button>
-                        <button type='button' onClick={handleReply}>Submit Reply</button>
+
                     </ModalFooter>
                 </ModalContent>
             </Modal>
         </>
     )
 }
-
-// const ReplyForm = () => {
-//     return (
-//         <>
-//             <form className='reply-form' onSubmit={handleReply}>
-//                 <textarea
-//                     value={replyContent}
-//                     onChange={(e) => setReplyContent(e.target.value)}
-//                     placeholder='Reply to the bubble'
-//                 />
-//                 <button type='submit'>Submit</button>
-//             </form>
-//         </>
-//     )
-// }
 
 export default ReplyForm
 
