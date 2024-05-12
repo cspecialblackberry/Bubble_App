@@ -4,53 +4,57 @@ import Search from "../../components/SearchBar";
 import './style.css';
 import Auth from '../../utils/auth'
 import { QUERY_USER, QUERY_USERS } from '../../utils/queries';
-import { useQuery } from '@apollo/client';
+import { useQuery, useMutation } from '@apollo/client';
 import { useNavigate } from 'react-router';
 import { useState, useEffect } from 'react';
-
-const name = ['Jimmy Smith', 'Marie Travolta', 'Billy Lou', 'Gren Thalamus', 'Kristine Sinclair', 'Benjamin Phonics'];
-const avatar = ['/avatarImages/braedonMcCloud.jpg', '/avatarImages/davidClode.jpg', '/avatarImages/alexanderDummer.jpg', '/avatarImages/marcelStrauss.jpg', '/avatarImages/forestSimon.jpg', '/avatarImages/maxKleinen.jpg']
-const color = ['#FFDAE7', '#FFD073', '#FFF0B5', '#D8FFA5', '#B9E5FF', '#D9C5FF']
-const friends = ['1', '2', '3', '4', '5'];
+import { REMOVE_FRIEND } from '../../utils/mutations';
 
 export default function Friends() {
-  const [usersState, setUsersState] = useState(true)
-  console.log(usersState)
-
-  let users = []
-  let loading 
+  const navigate = useNavigate()
 
   useEffect(() => {
-    console.log(users)
-  }, [users])
+    if (!Auth.loggedIn()) {
+      navigate('/')
+    }
+  }, [navigate]);
 
-  const navigate = useNavigate
+  const userId = Auth.getProfile().data._id;
 
-  if (Auth.loggedIn() === false) {
-    navigate('/')
-  }
-
-  const userId = Auth.getProfile().data._id
-
-  let { loading: loading1, data: userData } = useQuery(QUERY_USER, {
+  const { loading: loading1, data: userData } = useQuery(QUERY_USER, {
     variables: { _id: userId }
-  })
+  });
 
-  let { loading: loading2, data: users1 } = useQuery(
-    QUERY_USERS, { fetchPolicy: 'network-only' })
+  const { loading: loading2, data: usersData, refetch } = useQuery(
+    QUERY_USERS, { fetchPolicy: 'network-only' }
+  );
 
-  if (userData) userData = userData.user
+  const [usersState, setUsersState] = useState([])
 
-  if (users1) {
-    console.log('hit')
-    users = users1.users.filter((user) => userData.friends.includes(user._id)).toReversed()
-    console.log(users)
-  }
+  useEffect(() => {
+    if (usersData && usersData.users) {
+      const filteredUsers = usersData.users.filter(user => userData.user.friends.includes(user._id))
+      setUsersState(filteredUsers.reverse())
+    }
+  }, [userData, usersData]);
+
+  const [removeFriend] = useMutation(REMOVE_FRIEND)
+
+  const handleRemove = async (userId, friendId, index) => {
+    try {
+      await removeFriend({
+        variables: { userId: userId, friendId: friendId }
+      })
+
+      const updatedUsers = [...usersState]
+      updatedUsers.splice(index, 1)
+      setUsersState(updatedUsers)
+    } catch (err) {
+      console.error(err)
+    }
+  };
 
   if (loading1 || loading2) {
-    return (
-      <h2>...Loading</h2>
-    )
+    return <h2>Loading...</h2>
   }
 
   return (
@@ -58,22 +62,18 @@ export default function Friends() {
       <Search />
       <h1>Your Friends</h1>
 
-      {users.map((user, index) => {
-        return (
-          <FriendList
-            key={user._id}
-            friendId={user._id}
-            userId={userId}
-            name={user.name || user.username}
-            avatar={user.avatar}
-            color={user.color}
-            state={usersState}
-            setUsersState={setUsersState}
-            index={index}
-            arr={users}>
-          </FriendList>
-        )
-      })}
+      {usersState.map((user, index) => (
+        <FriendList
+          key={user._id}
+          friendId={user._id}
+          userId={userId}
+          name={user.name || user.username}
+          avatar={user.avatar}
+          color={user.color}
+          index={index}
+          handleRemove={handleRemove}
+        />
+      ))}
     </>
-  );
+  )
 }
