@@ -11,6 +11,8 @@ import ReplyForm from '../ReplyForm';
 const Reply = (props) => {
     const { url, name, color, text, userId, type, postId, handleDelete, index } = props;
 
+    console.log(userId, postId, index)
+
     const [openReply, setOpenReply] = useState(false);
 
     const openReplyForm = () => {
