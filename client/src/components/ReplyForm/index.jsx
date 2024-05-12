@@ -1,3 +1,4 @@
+import React from 'react';
 import {
     Modal,
     ModalOverlay,
@@ -7,15 +8,40 @@ import {
     ModalBody,
     ModalCloseButton,
 } from '@chakra-ui/react'
+import { useDisclosure } from '@chakra-ui/react';
 import { ADD_REPLY } from '../../utils/mutations';
 import { useMutation } from '@apollo/client';
-import './style.css';
+import { useState } from 'react';
+import Auth from '../../utils/auth';
 
-function ReplyForm() {
-    const { isOpen, onOpen, onClose } = useDisclosure()
+
+function ReplyForm(props) {
+    const { postId } = props;
+    const { isOpen, onOpen, onClose } = useDisclosure();
+    const [replyContent, setReplyContent] = useState('');
+    const [addReply] = useMutation(ADD_REPLY);
+    const token = Auth.getProfile();
+    const userId = token.data._id;
+
+    const handleReply = async () => {
+        try {
+            console.log('POSTID', postId)
+            const res = await addReply({
+                variables: {
+                    postId: postId,
+                    userId: userId,
+                    responseText: replyContent,
+                }
+            });
+            console.log('hit');
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
     return (
         <>
-            <Button onClick={onOpen}>Open Modal</Button>
+            <button onClick={onOpen}>Open Modal</button>
 
             <Modal isOpen={isOpen} onClose={onClose}>
                 <ModalOverlay />
@@ -23,14 +49,19 @@ function ReplyForm() {
                     <ModalHeader>Modal Title</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody>
-                        <Lorem count={2} />
+                        <p>Repy to the bubble</p>
+                        <textarea
+                            value={replyContent}
+                            onChange={(e) => setReplyContent(e.target.value)}
+                            placeholder='Enter your reply'
+                        />
                     </ModalBody>
 
                     <ModalFooter>
-                        <Button colorScheme='blue' mr={3} onClick={onClose}>
+                        <button type='button' mr={3} onClick={onClose}>
                             Close
-                        </Button>
-                        <Button variant='ghost'>Secondary Action</Button>
+                        </button>
+                        <button type='button' onClick={handleReply}>Submit Reply</button>
                     </ModalFooter>
                 </ModalContent>
             </Modal>

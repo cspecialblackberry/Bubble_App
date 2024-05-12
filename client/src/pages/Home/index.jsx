@@ -36,6 +36,7 @@ export default function Home() {
                 text={post.postText}
                 color={data.user.color}
                 userId={data.user._id}
+                postId={post._id}
               >
               </Reply>
               {post.replies.map(reply => (
