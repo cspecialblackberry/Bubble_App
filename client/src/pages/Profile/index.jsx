@@ -4,8 +4,7 @@ import UserAvatar from '../../components/ProfileImage';
 import EditForm from '../../components/EditForm';
 import YourPost from '../../components/YourPost';
 import FriendPost from '../../components/FriendPost';
-import { useState } from 'react';
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import './style.css';
 import { useLocation } from 'react-router-dom';
 import { QUERY_USER } from '../../utils/queries';
@@ -20,6 +19,7 @@ const Profile = () => {
     }
     const [editIsOpen, setEditIsOpen] = useState(false);
     const [hasEditButton, setHasEditButton] = useState(false);
+    const [postsArr, setPostsArr] = useState([])
 
     const location = useLocation();
     const { from } = location.state;
@@ -40,8 +40,15 @@ const Profile = () => {
     const userInfo = useQuery(QUERY_USER, { variables: { _id: from }, fetchPolicy: 'network-only' })
     let posts = []
 
+    // useEffect(() => {
+    //     if(userInfo && userInfo.data.user){
+    //         setPostsArr(userInfo.data.user.posts.toReversed)
+    //     }
+    // }, [userInfo])
+
     if (userInfo.data) {
         console.log(userInfo.data)
+        console.log(userInfo)
         posts = userInfo.data.user.posts.toReversed()
         console.log(posts, 'posts')
     }
@@ -53,6 +60,8 @@ const Profile = () => {
             setEditIsOpen(true);
         }
     }
+
+    console.log(postsArr)
 
     return (
         <>
