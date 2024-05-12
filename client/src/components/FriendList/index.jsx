@@ -1,9 +1,23 @@
 import { Card, CardBody, Stack, Avatar, AbsoluteCenter } from '@chakra-ui/react';
 import './style.css'
 import {Link} from 'react-router-dom'
+import { useMutation } from '@apollo/client';
+import { REMOVE_FRIEND } from '../../utils/mutations';
+import auth from '../../utils/auth';
 
 const FriendList = (props) => {
-    const { avatar, name, color, userId } = props
+    const { avatar, name, color, userId, friendId, state, setUsersState, index, arr } = props
+
+    const [removeFriend, {error}] = useMutation(REMOVE_FRIEND)
+
+    console.log(state, index)
+
+    const handleRemove = () => {
+        removeFriend({
+            variables: {userId: userId, friendId: friendId}
+        })
+        setUsersState(!state)
+    }
 
     return (
         <Card
@@ -29,7 +43,7 @@ const FriendList = (props) => {
                             size='md' src={avatar} name={name}
                         />
                         <div className="button-container"></div>
-                        <Link to='/profile' state={{from: userId}}>
+                        <Link to='/profile' state={{from: friendId}}>
                         <button
                             className='view-profile-btn'
                             variant='solid'
@@ -42,6 +56,7 @@ const FriendList = (props) => {
                             className='remove-friend-btn'
                             variant='solid'
                             style={{ backgroundColor: color }}
+                            onClick={handleRemove}
                         >
                             Remove friend
                         </button>
