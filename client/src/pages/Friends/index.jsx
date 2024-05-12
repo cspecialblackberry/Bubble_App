@@ -4,7 +4,7 @@ import Search from "../../components/SearchBar";
 import './style.css';
 import Auth from '../../utils/auth'
 import { QUERY_USER, QUERY_USERS } from '../../utils/queries';
-import { useQuery, useMutation } from '@apollo/client';
+import { useQuery, useMutation, useLazyQuery } from '@apollo/client';
 import { useNavigate } from 'react-router';
 import { useState, useEffect } from 'react';
 import { REMOVE_FRIEND } from '../../utils/mutations';
@@ -19,12 +19,14 @@ export default function Friends() {
       navigate('/')
     }else{
       userId = Auth.getProfile().data._id
+      console.log(userId)
+      getUser({
+        variables: {_id: userId}
+      })
     }
-  }, []);
+  }, [])
 
-  const { loading: loading1, data: userData } = useQuery(QUERY_USER, {
-    variables: { _id: userId }
-  });
+  const [ getUser, { loading: loading1, data: userData }] = useLazyQuery(QUERY_USER)
 
   const { loading: loading2, data: usersData, refetch } = useQuery(
     QUERY_USERS, { fetchPolicy: 'network-only' }
@@ -33,18 +35,22 @@ export default function Friends() {
   const [usersState, setUsersState] = useState([])
 
   useEffect(() => {
-    if (usersData && usersData.users) {
-      const filteredUsers = usersData.users.filter(user => userData.user.friends.includes(user._id))
+    console.log('hit')
+    if (usersData && usersData.users && userData) {
+      
+      console.log(userData)
+      const filteredUsers = usersData.users.filter((user) => userData.user.friends.includes(user._id))
       setUsersState(filteredUsers.reverse())
     }
   }, [userData, usersData]);
 
   const [removeFriend] = useMutation(REMOVE_FRIEND)
 
-  const handleRemove = async (userId, friendId, index) => {
+  const handleRemove = async (user, friendId, index) => {
     try {
+      console.log(user, friendId, index)
       await removeFriend({
-        variables: { userId: userId, friendId: friendId }
+        variables: { userId: user, friendId: friendId }
       })
 
       const updatedUsers = [...usersState]
@@ -54,6 +60,8 @@ export default function Friends() {
       console.error(err)
     }
   };
+
+ 
 
   if (loading1 || loading2) {
     return <h2>Loading...</h2>
@@ -68,7 +76,7 @@ export default function Friends() {
         <FriendList
           key={user._id}
           friendId={user._id}
-          userId={userId}
+          userId={userData.user._id}
           name={user.name || user.username}
           avatar={user.avatar}
           color={user.color}

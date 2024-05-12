@@ -40,11 +40,11 @@ const Profile = () => {
     const userInfo = useQuery(QUERY_USER, { variables: { _id: from }, fetchPolicy: 'network-only' })
     let posts = []
 
-    // useEffect(() => {
-    //     if(userInfo && userInfo.data.user){
-    //         setPostsArr(userInfo.data.user.posts.toReversed)
-    //     }
-    // }, [userInfo])
+    useEffect(() => {
+        if(userInfo?.data?.user?.posts){
+            setPostsArr(userInfo.data.user.posts.toReversed())
+        }
+    }, [userInfo])
 
     if (userInfo.data) {
         console.log(userInfo.data)

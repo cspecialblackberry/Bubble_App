@@ -4,6 +4,8 @@ import {Link} from 'react-router-dom'
 
 const FriendList = ({ avatar, name, color, userId, friendId, handleRemove, index }) => {
 
+    console.log(userId)
+
     return (
         <Card
             className='friend-bubble'
