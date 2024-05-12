@@ -1,0 +1,35 @@
+.reply-modal {
+    min-height: 300px;
+    min-width: 325px;
+    display: flex;
+    border-radius: 35px;
+}
+
+.reply-modal h2 {
+    text-align: center;
+}
+
+.reply-modal textarea {
+    display: flex;
+    justify-content: center;
+    min-height: 225px;
+    min-width: 330px;
+    resize: none;
+    border-radius: 35px;
+}
+
+.reply-modal textarea::placeholder {
+    padding: 15px;
+}
+
+.submit-reply {
+    margin: 10px;
+    width: 175px;
+}
+
+.close-btn {
+    width: 25px;
+    height: 25px;
+    margin: 10px;
+    border-radius: 50%;
+}

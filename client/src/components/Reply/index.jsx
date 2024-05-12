@@ -106,7 +106,8 @@ const Reply = (props) => {
 
 export default Reply;
 
-// CASEY-TODO: margin-top on replies
+// CASEY-TODO:
+// reply sizing - smaller delete & padding?
 // add reply form + function
 // delete reply if it's your reply or on your post
 // replies on profile page
