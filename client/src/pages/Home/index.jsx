@@ -22,6 +22,12 @@ export default function Home() {
     QUERY_POSTS, { fetchPolicy: 'network-only' }
   )
 
+  if(loading || l){
+    return(
+      <h2>...loading</h2>
+    )
+  }
+
   return (
     <>
       <h1>Here's what's poppin'</h1>
