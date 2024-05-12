@@ -17,7 +17,7 @@ function NavTabs() {
                     to="/home"
                     className={currentPage === '/' ? 'nav-link-active' : 'nav-link'}
                 >
-                    <img src="bubbles-icon.svg" alt="Home Page" />
+                    <img src="bubble-icon.svg" alt="Home Page" />
                 </Link>
             </li>
             <li className="profile-icon">
