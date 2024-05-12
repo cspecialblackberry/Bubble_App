@@ -11,6 +11,7 @@ import { useLocation } from 'react-router-dom';
 import { QUERY_USER } from '../../utils/queries';
 import { useQuery } from '@apollo/client';
 import Auth from '../../utils/auth';
+import Reply from '../../components/Reply';
 
 const Profile = () => {
     if (Auth.loggedIn() === false) {
@@ -69,7 +70,29 @@ const Profile = () => {
                     <h2>Recent Bubbles:</h2>
                     {hasEditButton ? posts.map((post) => {
                         return (
-                            <YourPost key={post._id} name={userInfo.data.user.name || userInfo.data.user.username} url={userInfo.data.user.avatar} text={post.postText} color={userInfo.data.user.color} userId={from}></YourPost>
+                            <article key={post._id} className="post-block">
+                                <Reply
+                                    key={post._id}
+                                    type='main'
+                                    name={userInfo.data.user.name || userInfo.data.user.username}
+                                    url={userInfo.data.user.avatar}
+                                    text={post.postText}
+                                    color={userInfo.data.user.color}
+                                    userId={from}
+                                >
+                                </Reply>
+                                {/* {post.replies.map(reply => (
+                                    <Reply
+                                        key={reply._id}
+                                        type='reply'
+                                        name={reply.username}
+                                        text={reply.responseText}
+                                        userId={reply.user}
+                                    >
+                                    </Reply>
+                                ))
+                                } */}
+                            </article>
                         )
                     }) :
                         posts.map((post) => {

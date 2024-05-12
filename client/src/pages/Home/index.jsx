@@ -2,12 +2,12 @@ import YourPost from "../../components/YourPost";
 import FriendPost from "../../components/FriendPost";
 import './style.css';
 import Auth from '../../utils/auth'
-import { QUERY_USER, QUERY_POSTS } from '../../utils/queries';
+import { QUERY_USER, QUERY_POSTS, QUERY_USER_INFO } from '../../utils/queries';
 import { useQuery, useLazyQuery } from '@apollo/client';
+import Reply from "../../components/Reply";
 
 export default function Home() {
   if (Auth.loggedIn() === false) {
-    console.log('hit')
     window.location.replace('/')
   }
 
@@ -28,7 +28,29 @@ export default function Home() {
       {postData && data && postData.posts && data.user && postData.posts.filter(({ user }) => user === token.data._id || data.user.friends.includes(user)).toReversed().map((post) => {
         if (post.user === token.data._id) {
           return (
-            <YourPost key={post._id} name={data.user.name} url={data.user.avatar} text={post.postText} color={data.user.color} userId={data.user._id}></YourPost>
+            <article key={post._id} className="post-block">
+              <Reply
+                type='main'
+                name={data.user.name}
+                url={data.user.avatar}
+                text={post.postText}
+                color={data.user.color}
+                userId={data.user._id}
+                postId={post._id}
+              >
+              </Reply>
+              {post.replies.map(reply => (
+                <Reply
+                  key={reply._id}
+                  type='reply'
+                  name={reply.username}
+                  text={reply.responseText}
+                  userId={reply.user}
+                >
+                </Reply>
+              ))
+              }
+            </article>
           )
         } else {
           return (
