@@ -59,7 +59,7 @@ const Reply = (props) => {
                     display='flex'
                     flexDirection={isOwnPost ? 'row' : 'row-reverse'}
                     padding={5}
-                    marginTop={3}
+                    marginTop={-.4}
                 >
                     <Stack className='content-container' textAlign={isOwnPost ? 'left' : 'right'}>
                         <CardBody padding={0}>
@@ -109,7 +109,6 @@ export default Reply;
 // CASEY-TODO: margin-top on replies
 // add reply form + function
 // delete reply if it's your reply or on your post
-// single bubble icon for home
 // replies on profile page
 // ensure friends' profile + replies show up using Reply component
 // comment out YourPost + FriendPost to ensure it works without them
