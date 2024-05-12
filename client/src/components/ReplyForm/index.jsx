@@ -13,6 +13,7 @@ import { ADD_REPLY } from '../../utils/mutations';
 import { useMutation } from '@apollo/client';
 import { useState } from 'react';
 import Auth from '../../utils/auth';
+import { useNavigate } from 'react-router';
 import './style.css'
 
 function ReplyForm(props) {
@@ -22,8 +23,10 @@ function ReplyForm(props) {
     const [addReply] = useMutation(ADD_REPLY);
     const token = Auth.getProfile();
     const userId = token.data._id;
+    let navigate = useNavigate();
 
-    const handleReply = async () => {
+    const handleReply = async (event) => {
+        event.preventDefault();
         try {
             console.log('POSTID', postId)
             const res = await addReply({
@@ -38,6 +41,7 @@ function ReplyForm(props) {
         } catch (error) {
             console.error(error);
         }
+        navigate('/home')
     }
 
     return (
