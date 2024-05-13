@@ -2,8 +2,6 @@ import { Card, CardHeader, CardBody, CardFooter, Text, IconButton, Box } from '@
 import { EditIcon } from '@chakra-ui/icons';
 import UserAvatar from '../../components/ProfileImage';
 import EditForm from '../../components/EditForm';
-import YourPost from '../../components/YourPost';
-import FriendPost from '../../components/FriendPost';
 import { useState, useEffect } from 'react';
 import './style.css';
 import { useLocation } from 'react-router-dom';
@@ -144,6 +142,17 @@ const Profile = () => {
                                     isFriend={isFriend}
                                 >
                                 </Reply>
+                                {post.replies.map(reply => (
+                                    <Reply
+                                        key={reply._id}
+                                        type='reply'
+                                        name={reply.username}
+                                        text={reply.responseText}
+                                        userId={reply.user}
+                                    >
+                                    </Reply>
+                                ))
+                                }
                             </article>
                         )
                     })}
