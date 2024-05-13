@@ -24,19 +24,20 @@ const Profile = () => {
 
     const yourId = Auth.getProfile().data._id;
 
-    useEffect(() => {
-        console.log('from effect')
-        if (from === yourId) {
-            setHasEditButton(true);
-        }
-    }, []);
 
     const yourInfo = useQuery(QUERY_USER, { variables: { _id: yourId }, fetchPolicy: 'network-only' })
     const { loading: loading, data: postsData } = useQuery(QUERY_POSTS)
     const { loading: userLoading, data: userInfo} = useQuery(QUERY_USER, { variables: { _id: from }, fetchPolicy: 'network-only' })
 
     useEffect(() => {
-        console.log('yourInfo effect')
+        console.log('effect1')
+        if (from === yourId) {
+            setHasEditButton(true);
+        }
+    }, [userInfo]);
+
+    useEffect(() => {
+        console.log('effect2')
         if (yourInfo.data) {
             if (yourId === from || yourInfo.data.user.friends.includes(from)) {
                 setIsFriend(true)
@@ -45,7 +46,7 @@ const Profile = () => {
                 setIsFriend(false)
             }
         }
-    }, [yourInfo])
+    }, [userInfo])
 
 // changing a state value rerenders the component
 // the component is rendering multiple times bc you are changing so many state variables
@@ -54,6 +55,9 @@ const Profile = () => {
 
     useEffect(() => {
         console.log('use effect:')
+        console.log(postsData, userInfo)
+        console.log(isFriend, hasEditButton)
+        console.log(postsArr, repliesArr)
 
         if (postsData && userInfo) {
             console.log(postsData.posts)
