@@ -9,9 +9,9 @@ import { QUERY_POSTS, QUERY_USER_INFO } from '../../utils/queries';
 import ReplyForm from '../ReplyForm';
 
 const Reply = (props) => {
-    const { url, name, color, text, userId, type, postId, handleDelete, index } = props;
+    const { url, name, color, text, userId, type, postId, handleDelete, index, replyId, handleDeleteReply } = props;
 
-    console.log(userId, postId, index)
+    console.log(userId, postId, index, replyId)
 
     const [openReply, setOpenReply] = useState(false);
 
@@ -26,7 +26,7 @@ const Reply = (props) => {
     const isMainPost = type === 'main';
 
     const userQuery = useQuery(QUERY_USER_INFO, {
-        variables: { _id: userId }
+        variables: { postId: postId, _id: userId }
     })
 
     // const postData = useQuery(QUERY_POSTS, {
@@ -85,7 +85,7 @@ const Reply = (props) => {
                                 className='reply-button'
                                 variant='solid'
                                 style={{ backgroundColor: userData.color }}
-                                onClick={isMainPost? () => handleDelete(userId, postId, index) : console.log('hello')}
+                                onClick={isMainPost? () => handleDelete(userId, postId, index) : () => handleDeleteReply(postId, replyId, index)}
                             >
                                 DELETE
                             </button>
