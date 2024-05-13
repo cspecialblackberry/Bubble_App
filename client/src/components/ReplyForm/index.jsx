@@ -48,7 +48,7 @@ function ReplyForm(props) {
         event.preventDefault();
         try {
             console.log('POSTID', postId)
-            const res = await addReply({
+            await addReply({
                 variables: {
                     postId: postId,
                     userId: userId,
