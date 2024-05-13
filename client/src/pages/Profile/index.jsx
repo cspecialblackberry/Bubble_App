@@ -166,6 +166,7 @@ const Profile = () => {
                                         userId={reply.user || post.user}
                                         handleDeleteReply={handleDeleteReply}
                                         index={index}
+                                        isOnYourPost={hasEditButton}
                                     >
                                     </Reply>
                                 ))
