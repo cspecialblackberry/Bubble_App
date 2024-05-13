@@ -127,7 +127,7 @@ const resolvers = {
                 responseText
             })
             console.log(post)
-            await Post.findByIdAndUpdate(postId, {$set: {replies: post.replies}})
+            return await Post.findByIdAndUpdate(postId, {$set: {replies: post.replies}})
         },
         deleteReply: async (parent, { postId, replyId }) => {
             const post = await Post.findById(postId)

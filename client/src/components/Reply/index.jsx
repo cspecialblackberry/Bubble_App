@@ -9,10 +9,10 @@ import { QUERY_POSTS, QUERY_USER_INFO } from '../../utils/queries';
 import ReplyForm from '../ReplyForm';
 
 const Reply = (props) => {
+    const { url, isFriend, name, color, text, userId, type, postId, handleDelete, index, replyId, handleDeleteReply, repliesArr, setRepliesArr } = props;
 
-    const { url, name, color, text, userId, type, postId, handleDelete, index, isFriend, replyId, handleDeleteReply } = props;
-
-    console.log(userId, postId, index, replyId)
+    // console.log(userId, postId, index, replyId)
+    console.log(repliesArr)
 
     const [openReply, setOpenReply] = useState(false);
 
@@ -71,7 +71,13 @@ const Reply = (props) => {
                             </p>
                         </CardBody>
                         <CardFooter padding={0}>
-                            {openReply && <ReplyForm openReply={openReply} setOpenReply={setOpenReply} postId={postId}></ReplyForm>}
+                            {openReply && <ReplyForm
+                                openReply={openReply}
+                                setOpenReply={setOpenReply}
+                                postId={postId}
+                                repliesArr={repliesArr}
+                                setRepliesArr={setRepliesArr}
+                            ></ReplyForm>}
                             {isFriend ? isMainPost ? <button
                                 className='reply-button'
                                 type='button'
@@ -86,7 +92,7 @@ const Reply = (props) => {
                                 className='reply-button'
                                 variant='solid'
                                 style={{ backgroundColor: userData.color }}
-                                onClick={isMainPost? () => handleDelete(userId, postId, index) : () => handleDeleteReply(postId, replyId, index)}
+                                onClick={isMainPost ? () => handleDelete(userId, postId, index) : () => handleDeleteReply(postId, replyId, index)}
                             >
                                 DELETE
                             </button>
