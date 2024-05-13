@@ -9,7 +9,7 @@ import { QUERY_USER, QUERY_POSTS } from '../../utils/queries';
 import { DELETE_POST, DELETE_REPLY } from '../../utils/mutations';
 import { useQuery, useMutation } from '@apollo/client';
 import Auth from '../../utils/auth';
-import Reply from '../../components/Reply';
+import Reply from '../../components/Post';
 import { ADD_FRIEND } from '../../utils/mutations';
 
 const Profile = () => {
@@ -24,35 +24,45 @@ const Profile = () => {
 
     const yourId = Auth.getProfile().data._id;
 
+
+
+    const yourInfo = useQuery(QUERY_USER, { variables: { _id: yourId }, fetchPolicy: 'network-only' })
+    const { loading: loading, data: postsData } = useQuery(QUERY_POSTS)
+    const { loading: userLoading, data: userInfo} = useQuery(QUERY_USER, { variables: { _id: from }, fetchPolicy: 'network-only' })
+
     useEffect(() => {
         if (from === yourId) {
             setHasEditButton(true);
         }
-    }, []);
-
-    const yourInfo = useQuery(QUERY_USER, { variables: { _id: yourId }, fetchPolicy: 'network-only' })
-    const { loading: loading, data: postsData } = useQuery(QUERY_POSTS)
-    const userInfo = useQuery(QUERY_USER, { variables: { _id: from }, fetchPolicy: 'network-only' })
+    }, [userInfo]);
 
     useEffect(() => {
         if (yourInfo.data) {
             if (yourId === from || yourInfo.data.user.friends.includes(from)) {
                 setIsFriend(true)
+                
             } else {
                 setIsFriend(false)
             }
         }
-    }, [yourInfo])
+    }, [userInfo])
+
+// changing a state value rerenders the component
+// the component is rendering multiple times bc you are changing so many state variables
+// change them at the right time and it will work correctly
+// the replies array is correct on the first render and wrong on the second one
 
     useEffect(() => {
-        if (postsData && userInfo.data) {
-            console.log(postsData)
-            console.log(userInfo.data.user._id)
-            const filteredPosts = postsData.posts.filter((post) => post.user === userInfo.data.user._id).toReversed()
-            console.log(filteredPosts)
+        console.log('use effect:')
+
+        if (postsData && userInfo) {
+            const filteredPosts = postsData.posts.filter((post) => post.user === userInfo.user._id).toReversed()
             setPostsArr(filteredPosts)
             let replies = []
-            filteredPosts.map((post) => post.replies.map((reply) => replies.push({ ...reply, postId: post._id })))
+            filteredPosts.map((post) => post.replies.map((reply) => {
+                replies.push({ ...reply, postId: post._id })
+            }))
+            console.log(replies)
             setRepliesArr(replies)
         }
     }, [postsData, userInfo])
@@ -112,18 +122,16 @@ const Profile = () => {
         }
     };
 
-    console.log(postsArr, repliesArr)
-
     return (
         <>
-            {userInfo.loading ?
+            {userLoading ?
                 <h2>...loading</h2>
                 :
                 <>
-                    <Box padding={5} bgColor={userInfo.data.user.color} marginBottom={5} borderRadius='50%' minWidth={300}>
-                        <h1>{userInfo.data.user.name || userInfo.data.user.username}</h1>
-                        <UserAvatar url={userInfo.data.user.avatar} name={userInfo.data.user.name}></UserAvatar>
-                        <Text color='black' bgColor='white' border='2px' borderColor={userInfo.data.user.color}>{userInfo.data.user.bio || "New to bubble!"}</Text>
+                    <Box padding={5} bgColor={userInfo.user.color} marginBottom={5} borderRadius='50%' minWidth={300}>
+                        <h1>{userInfo.user.name || userInfo.user.username}</h1>
+                        <UserAvatar url={userInfo.user.avatar} name={userInfo.user.name}></UserAvatar>
+                        <Text color='black' bgColor='white' border='2px' borderColor={userInfo.user.color}>{userInfo.user.bio || "New to bubble!"}</Text>
                     </Box >
                     {hasEditButton ? editIsOpen ? <EditForm editIsOpen={editIsOpen} setEditIsOpen={setEditIsOpen} userInfo={userInfo.data.user}></EditForm>
                         : <IconButton className='edit-prof-btn' aria-label='Edit Profile' icon={<EditIcon className='button-size' />} onClick={handleEditButtonClick}></IconButton> : <></>}
@@ -139,10 +147,10 @@ const Profile = () => {
                                 <Reply
                                     key={post._id}
                                     type='main'
-                                    name={userInfo.data.user.name || userInfo.data.user.username}
-                                    url={userInfo.data.user.avatar}
+                                    name={userInfo.user.name || userInfo.user.username}
+                                    url={userInfo.user.avatar}
                                     text={post.postText}
-                                    color={userInfo.data.user.color}
+                                    color={userInfo.user.color}
                                     userId={post.user}
                                     postId={post._id}
                                     index={index}

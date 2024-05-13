@@ -19,8 +19,6 @@ import './style.css'
 function ReplyForm(props) {
     const { postId, repliesArr, setRepliesArr, color } = props;
 
-    console.log(repliesArr)
-
     const { isOpen, onOpen, onClose } = useDisclosure();
 
     const [replyContent, setReplyContent] = useState('');

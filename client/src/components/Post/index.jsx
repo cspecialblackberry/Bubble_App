@@ -8,10 +8,11 @@ import Auth from '../../utils/auth';
 import { QUERY_POSTS, QUERY_USER_INFO } from '../../utils/queries';
 import ReplyForm from '../ReplyForm';
 
-const Reply = (props) => {
+const Post = (props) => {
     const { url, isFriend, name, color, text, userId, type, postId, handleDelete, index, replyId, handleDeleteReply, repliesArr, setRepliesArr, isOnYourPost } = props;
 
-    console.log('userid', userId)
+    // console.log(userId, postId, index, replyId)
+    // console.log(repliesArr)
 
     const [openReply, setOpenReply] = useState(false);
 
@@ -25,6 +26,11 @@ const Reply = (props) => {
     const userQuery = useQuery(QUERY_USER_INFO, {
         variables: { _id: userId }
     })
+
+    // const postData = useQuery(QUERY_POSTS, {
+    //     variables: {
+    //         _id: postId }
+    // })
 
     let userData
     if (userQuery.data) {
@@ -81,8 +87,9 @@ const Reply = (props) => {
                                         handleDeleteReply(postId, replyId, index);
                                     }
                                 }}
+                                // onClick={isMainPost ? () => handleDelete(userId, postId, index) : () => handleDeleteReply(postId, replyId, index)}
                             >
-                                BURST
+                                DELETE
                             </button>
                             }
                             {/* add in something if both are empty */}
@@ -102,11 +109,15 @@ const Reply = (props) => {
     }
 }
 
-export default Reply;
+export default Post;
 
 // CASEY-TODO:
+// replies on profile page refresh
 // ensure friends' profile + replies show up using Reply component
+// delete reply if it's on your post
+// reply sizing - smaller delete & padding?
+// "burst" instead of delete
 // remove console logs
 // comment out YourPost + FriendPost to ensure it works without them
-
-// footer to text
+// media queries
+// auto login?

@@ -1,11 +1,9 @@
-import YourPost from "../../components/YourPost";
-import FriendPost from "../../components/FriendPost";
 import './style.css';
 import Auth from '../../utils/auth'
 import { QUERY_USER, QUERY_POSTS, QUERY_USER_INFO } from '../../utils/queries';
 import { DELETE_POST, DELETE_REPLY } from "../../utils/mutations";
 import { useQuery, useMutation } from '@apollo/client';
-import Reply from "../../components/Reply";
+import Reply from "../../components/Post";
 import { useState, useEffect } from 'react'
 
 export default function Home() {
@@ -30,11 +28,10 @@ export default function Home() {
       filteredPosts.map((post) => {
         post.replies.map((reply) => replies.push({ ...reply, postId: post._id }))
       })
-      console.log(replies)
+      console.log('replies:', replies)
       setRepliesArr(replies)
     }
   }, [data, postData])
-  console.log(postData)
 
   const [deletePost] = useMutation(DELETE_POST)
   const [deleteReply] = useMutation(DELETE_REPLY)
