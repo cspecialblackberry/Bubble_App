@@ -18,14 +18,38 @@ function LoginCreateAccount() {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [name, setName] = useState('')
+    const [usernameError, setUsernameError] = useState(false)
+    const [passwordError, setPasswordError] = useState(false)
+    const [nameError, setNameError] = useState(false)
 
-    const usernameChange = (e) => setUsername(e.target.value)
-    const passwordChange = (e) => setPassword(e.target.value)
-    const nameChange = (e) => setName(e.target.value)
+    const usernameChange = (e) => {
+        if(!e.target.value){
+            setUsernameError(true)
+        }else{
+            setUsernameError(false)
+        }
+        setUsername(e.target.value)
+    }
+    const passwordChange = (e) => {
+        if(!e.target.value){
+            setPasswordError(true)
+        }else{
+            setPasswordError(false)
+        }
+        setPassword(e.target.value)
+    }
+    const nameChange = (e) => {
+        if(!e.target.value){
+            setNameError(true)
+        }else{
+            setNameError(false)
+        }
+        setName(e.target.value)
+    }
 
-    const usernameError = username === ''
-    const passwordError = password === ''
-    const nameError = name === ''
+    // const usernameError = username === ''
+    // const passwordError = password === ''
+    // const nameError = name === ''
 
     const toast = useToast()
     const statuses = ['success', 'error', 'loading']
@@ -42,7 +66,7 @@ function LoginCreateAccount() {
             console.log(res)
             const token = res.data.login.token;
             Auth.login(token)
-            if(Auth.loggedIn()){
+            if (Auth.loggedIn()) {
                 navigate('/home')
             }
         } catch (err) {
