@@ -1,7 +1,7 @@
 # Bubble_App
 https://bubblesocial.netlify.app/
 
-![Screenshot of App](/public/screenshot.png)
+![Screenshot of App](/screenshot.png)
 
 ## Description
 
