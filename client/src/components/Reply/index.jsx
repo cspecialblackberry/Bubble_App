@@ -117,11 +117,9 @@ const Reply = (props) => {
 export default Reply;
 
 // CASEY-TODO:
-// replies on profile page
-// rerendering page when reply is added
+// replies on profile page refresh
 // ensure friends' profile + replies show up using Reply component
-
-// delete reply if it's your reply or on your post
+// delete reply if it's on your post
 // reply sizing - smaller delete & padding?
 // "burst" instead of delete
 // remove console logs
