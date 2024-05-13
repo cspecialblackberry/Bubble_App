@@ -32,6 +32,7 @@ export default function Home() {
       setPostsArr(filteredPosts)
     }
   }, [data, postData])
+  console.log(postData)
   
   const [deletePost] = useMutation(DELETE_POST)
   const [deleteReply] = useMutation(DELETE_REPLY)

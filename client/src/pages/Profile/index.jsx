@@ -7,7 +7,7 @@ import FriendPost from '../../components/FriendPost';
 import { useState, useEffect } from 'react';
 import './style.css';
 import { useLocation } from 'react-router-dom';
-import { QUERY_USER } from '../../utils/queries';
+import { QUERY_USER, QUERY_POST } from '../../utils/queries';
 import { DELETE_POST } from '../../utils/mutations';
 import { useQuery, useMutation } from '@apollo/client';
 import Auth from '../../utils/auth';
@@ -37,9 +37,14 @@ const Profile = () => {
     const userInfo = useQuery(QUERY_USER, { variables: { _id: from }, fetchPolicy: 'network-only' })
     let posts = []
 
+    const postData = useQuery(
+        QUERY_POST, { fetchPolicy: 'network-only' }
+      )
+
     useEffect(() => {
         if (userInfo?.data?.user?.posts) {
             setPostsArr(userInfo.data.user.posts.toReversed())
+            console.log(posts[0].replies)
         }
     }, [userInfo])
 
@@ -61,6 +66,7 @@ const Profile = () => {
     if (userInfo.data) {
         posts = userInfo.data.user.posts.toReversed()
     }
+    console.log(posts)
 
     const handleEditButtonClick = () => {
         if (editIsOpen) {
@@ -84,7 +90,7 @@ const Profile = () => {
                     {hasEditButton ? editIsOpen ? <EditForm editIsOpen={editIsOpen} setEditIsOpen={setEditIsOpen} userInfo={userInfo.data.user}></EditForm>
                         : <IconButton aria-label='Edit Profile' icon={<EditIcon className='button-size' />} onClick={handleEditButtonClick} alignSelf='end'></IconButton> : <></>}
                     <h2>Recent Bubbles:</h2>
-                    {hasEditButton ? postsArr.map((post, index) => {
+                    {postsArr.length && postsArr.map((post, index) => {
                         return (
                             <article key={post._id} className="post-block">
                                 <Reply
@@ -109,31 +115,15 @@ const Profile = () => {
                                         name={reply.username}
                                         text={reply.responseText}
                                         userId={reply.user}
-                                        handleDeleteReply={handleDeleteReply}
+                                        // handleDeleteReply={handleDeleteReply}
                                         index={index}
                                     >
                                     </Reply>
                                 ))
                                 }
-                                {/* {post.replies.map(reply => (
-                                    <Reply
-                                        key={reply._id}
-                                        type='reply'
-                                        name={reply.username}
-                                        text={reply.responseText}
-                                        userId={reply.user}
-                                    >
-                                    </Reply>
-                                ))
-                                } */}
                             </article>
                         )
-                    }) :
-                        posts.map((post) => {
-                            return (
-                                <FriendPost key={post._id} name={userInfo.data.user.name || userInfo.data.user.username} url={userInfo.data.user.avatar} text={post.postText} color={userInfo.data.user.color} userId={from}></FriendPost>
-                            )
-                        })}
+                    })}
                 </>}
         </>
 
