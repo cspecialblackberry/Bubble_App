@@ -30,15 +30,12 @@ const Profile = () => {
     const { loading: userLoading, data: userInfo } = useQuery(QUERY_USER, { variables: { _id: from }, fetchPolicy: 'network-only' })
 
     useEffect(() => {
-        console.log('effect1')
         if (from === yourId) {
             setHasEditButton(true);
         }
     }, [userInfo]);
 
     useEffect(() => {
-        console.log('effect2')
-        console.log(isFriend, '1')
         if (yourInfo.data) {
             if (yourId === from || yourInfo.data.user.friends.includes(from)) {
                 setIsFriend(true)
@@ -47,37 +44,20 @@ const Profile = () => {
                 setIsFriend(false)
             }
         }
-        console.log(isFriend, '2')
     }, [userInfo])
 
     useEffect(() => {
-        console.log('use effect:')
-        console.log(postsData, userInfo)
-        console.log(isFriend, hasEditButton)
-        console.log(postsArr, repliesArr)
-
         if (postsData && userInfo) {
-            console.log('postsdata', postsData.posts)
             let posts = postsData.posts
             const filteredPosts = posts.filter((post) => post.user === userInfo.user._id).toReversed()
-            console.log(filteredPosts)
             setPostsArr(filteredPosts)
             let replies = []
-            console.log(filteredPosts)
             filteredPosts.map((post) => post.replies.map((reply) => {
                 replies.push({ ...reply, postId: post._id })
             }))
-            console.log(replies)
             setRepliesArr(replies)
         }
     }, [userInfo])
-
-    // changing a state value rerenders the component
-    // the component is rendering multiple times bc you are changing so many state variables
-    // change them at the right time and it will work correctly
-    // the replies array is correct on the first render and wrong on the second one
-
-
 
     const [deletePost] = useMutation(DELETE_POST)
 
@@ -103,7 +83,6 @@ const Profile = () => {
                 variables: { postId: postId, replyId: replyId }
             })
             const index = repliesArr.indexOf(repliesArr.find((reply) => reply._id === replyId))
-            console.log(index)
             let updatedReplies = [...repliesArr]
             updatedReplies.splice(index, 1)
             setRepliesArr(updatedReplies)
