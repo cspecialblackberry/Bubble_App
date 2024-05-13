@@ -105,16 +105,8 @@ const Reply = (props) => {
 export default Reply;
 
 // CASEY-TODO:
-// replies on profile page refresh
 // ensure friends' profile + replies show up using Reply component
-// reply sizing - smaller delete & padding?
 // remove console logs
 // comment out YourPost + FriendPost to ensure it works without them
-// auto login?
 
-// media queries:
-// logo bigger
-// h1 bigger
-// posts wider
-// edit button to center
-// footer more compact - text
+// footer to text
