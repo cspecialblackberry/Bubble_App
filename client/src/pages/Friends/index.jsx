@@ -28,7 +28,7 @@ export default function Friends() {
 
   const [ getUser, { loading: loading1, data: userData }] = useLazyQuery(QUERY_USER)
 
-  const { loading: loading2, data: usersData, refetch } = useQuery(
+  const { loading: loading2, data: usersData } = useQuery(
     QUERY_USERS, { fetchPolicy: 'network-only' }
   );
 

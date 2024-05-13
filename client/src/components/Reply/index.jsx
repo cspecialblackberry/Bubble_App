@@ -85,7 +85,7 @@ const Reply = (props) => {
                                 className='reply-button'
                                 variant='solid'
                                 style={{ backgroundColor: userData.color }}
-                                onClick={() => handleDelete(userId, postId, index)}
+                                onClick={isMainPost? () => handleDelete(userId, postId, index) : console.log('hello')}
                             >
                                 DELETE
                             </button>
