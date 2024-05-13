@@ -12,11 +12,15 @@ import { DELETE_POST } from '../../utils/mutations';
 import { useQuery, useMutation } from '@apollo/client';
 import Auth from '../../utils/auth';
 import Reply from '../../components/Reply';
+import { useNavigate } from 'react-router';
 
 const Profile = () => {
+
+    const navigate = useNavigate()
+
     if (Auth.loggedIn() === false) {
         console.log('hit')
-        window.location.replace('/')
+        navigate('/')
     }
     const [editIsOpen, setEditIsOpen] = useState(false);
     const [hasEditButton, setHasEditButton] = useState(false);

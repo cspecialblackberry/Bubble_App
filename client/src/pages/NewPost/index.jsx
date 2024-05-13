@@ -8,12 +8,14 @@ import Auth from '../../utils/auth'
 import { useNavigate } from 'react-router-dom'
 
 export default function NewPost() {
+
+    let navigate = useNavigate();
+
     if (Auth.loggedIn() === false) {
         console.log('hit')
-        window.location.replace('/')
+        navigate('/')
     }
     let [value, setValue] = React.useState('')
-    let navigate = useNavigate();
 
     let handleInputChange = (event) => {
         let inputValue = event.target.value

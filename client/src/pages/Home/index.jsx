@@ -7,11 +7,17 @@ import { DELETE_POST, DELETE_REPLY } from "../../utils/mutations";
 import { useQuery, useMutation } from '@apollo/client';
 import Reply from "../../components/Reply";
 import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router';
 
 export default function Home() {
-  if (Auth.loggedIn() === false) {
-    window.location.replace('/')
-  }
+
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if (Auth.loggedIn() === false) {
+      navigate('/')
+    }
+  })
 
   const [postsArr, setPostsArr] = useState([])
   const [repliesArr, setRepliesArr] = useState([])
