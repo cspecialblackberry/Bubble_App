@@ -9,7 +9,7 @@ import { QUERY_USER, QUERY_POSTS } from '../../utils/queries';
 import { DELETE_POST, DELETE_REPLY } from '../../utils/mutations';
 import { useQuery, useMutation } from '@apollo/client';
 import Auth from '../../utils/auth';
-import Reply from '../../components/Reply';
+import Reply from '../../components/Post';
 import { ADD_FRIEND } from '../../utils/mutations';
 
 const Profile = () => {
