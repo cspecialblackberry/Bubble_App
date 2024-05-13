@@ -9,7 +9,7 @@ import { QUERY_POSTS, QUERY_USER_INFO } from '../../utils/queries';
 import ReplyForm from '../ReplyForm';
 
 const Reply = (props) => {
-    const { url, name, color, text, userId, type, postId, handleDelete, index } = props;
+    const { url, name, color, text, userId, type, postId, handleDelete, index, isFriend } = props;
 
     console.log(userId, postId, index)
 
@@ -71,7 +71,7 @@ const Reply = (props) => {
                         </CardBody>
                         <CardFooter padding={0}>
                             {openReply && <ReplyForm openReply={openReply} setOpenReply={setOpenReply} postId={postId}></ReplyForm>}
-                            {isMainPost && <button
+                            {isFriend ? isMainPost ? <button
                                 className='reply-button'
                                 type='button'
                                 variant='solid'
@@ -79,7 +79,7 @@ const Reply = (props) => {
                                 onClick={openReplyForm}
                             >
                                 REPLY
-                            </button>
+                            </button> : <></> :<></>
                             }
                             {isOwnPost && <button
                                 className='reply-button'
