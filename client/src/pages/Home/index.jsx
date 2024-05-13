@@ -30,6 +30,12 @@ export default function Home() {
     if (postData && postData.posts && data && data.user) {
       let filteredPosts = postData.posts.filter(({ user }) => user === token.data._id || data.user.friends.includes(user)).toReversed()
       setPostsArr(filteredPosts)
+      let replies = []
+      filteredPosts.map((post) => {
+        post.replies.map((reply) => replies.push({...reply, postId: post._id}))
+      })
+      console.log(replies)
+      setRepliesArr(replies)
     }
   }, [data, postData])
   console.log(postData)
@@ -37,7 +43,7 @@ export default function Home() {
   const [deletePost] = useMutation(DELETE_POST)
   const [deleteReply] = useMutation(DELETE_REPLY)
 
-  const handleDelete = async (userId, postId, replyId, index) => {
+  const handleDelete = async (userId, postId, index) => {
     try {
       await deletePost({
         variables: { userId: userId, postId: postId }
@@ -50,11 +56,14 @@ export default function Home() {
     }
   }
 
-  const handleDeleteReply = async ( postId, replyId, index) => {
+  const handleDeleteReply = async ( postId, replyId) => {
+    console.log(postId, replyId)
     try {
       await deleteReply({
         variables: { postId: postId, replyId: replyId }
       })
+      const index = repliesArr.indexOf(repliesArr.find((reply) => reply._id === replyId))
+      console.log(index)
       let updatedReplies = [...repliesArr]
       updatedReplies.splice(index, 1)
       setRepliesArr(updatedReplies)
@@ -84,11 +93,13 @@ export default function Home() {
                 color={data.user.color}
                 userId={data.user._id}
                 postId={post._id}
+                repliesArr={repliesArr}
+                setRepliesArr={setRepliesArr}
                 handleDelete={handleDelete}
                 index={index}
               >
               </Reply>
-              {post.replies.map(reply => (
+              {repliesArr.filter((reply) => reply.postId === post._id).map(reply => (
                 <Reply
                   key={reply._id}
                   replyId={reply._id}

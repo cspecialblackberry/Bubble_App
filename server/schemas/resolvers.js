@@ -122,7 +122,12 @@ const resolvers = {
                 user: userId,
                 responseText
             })
+<<<<<<< HEAD
             await Post.findByIdAndUpdate(postId, {$set: {replies: post.replies}})
+=======
+            console.log(post)
+            return await Post.findByIdAndUpdate(postId, {$set: {replies: post.replies}})
+>>>>>>> 40e2db191e92668c22a6671c81f7f990e67905c6
         },
         deleteReply: async (parent, { postId, replyId }) => {
             const post = await Post.findById(postId)

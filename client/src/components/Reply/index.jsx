@@ -9,7 +9,10 @@ import { QUERY_POSTS, QUERY_USER_INFO } from '../../utils/queries';
 import ReplyForm from '../ReplyForm';
 
 const Reply = (props) => {
-    const { url, name, color, text, userId, type, postId, handleDelete, index, replyId, handleDeleteReply } = props;
+    const { url, isFriend, name, color, text, userId, type, postId, handleDelete, index, replyId, handleDeleteReply, repliesArr, setRepliesArr } = props;
+
+    // console.log(userId, postId, index, replyId)
+    console.log(repliesArr)
 
     const [openReply, setOpenReply] = useState(false);
 
@@ -67,8 +70,14 @@ const Reply = (props) => {
                             </p>
                         </CardBody>
                         <CardFooter padding={0}>
-                            {openReply && <ReplyForm openReply={openReply} setOpenReply={setOpenReply} postId={postId}></ReplyForm>}
-                            {isMainPost && <button
+                            {openReply && <ReplyForm
+                                openReply={openReply}
+                                setOpenReply={setOpenReply}
+                                postId={postId}
+                                repliesArr={repliesArr}
+                                setRepliesArr={setRepliesArr}
+                            ></ReplyForm>}
+                            {isFriend ? isMainPost ? <button
                                 className='reply-button'
                                 type='button'
                                 variant='solid'
@@ -76,13 +85,13 @@ const Reply = (props) => {
                                 onClick={openReplyForm}
                             >
                                 REPLY
-                            </button>
+                            </button> : <></> :<></>
                             }
                             {isOwnPost && <button
                                 className='reply-button'
                                 variant='solid'
                                 style={{ backgroundColor: userData.color }}
-                                onClick={isMainPost? () => handleDelete(userId, postId, index) : () => handleDeleteReply(postId, replyId, index)}
+                                onClick={isMainPost ? () => handleDelete(userId, postId, index) : () => handleDeleteReply(postId, replyId, index)}
                             >
                                 DELETE
                             </button>

@@ -17,12 +17,13 @@ import { useNavigate, useLocation } from 'react-router';
 import './style.css'
 
 function ReplyForm(props) {
-    const { postId } = props;
+    const { postId, repliesArr, setRepliesArr } = props;
+
+    console.log(repliesArr)
     
     const { isOpen, onOpen, onClose } = useDisclosure();
 
     const [replyContent, setReplyContent] = useState('');
-    const [replyAdded, setReplyAdded] = useState(false);
 
     const [addReply] = useMutation(ADD_REPLY);
     const token = Auth.getProfile();
@@ -31,17 +32,6 @@ function ReplyForm(props) {
     let navigate = useNavigate();
     const location = useLocation();
     const currentPage = location.pathname;
-
-    useEffect(() => {
-        if (replyAdded) {
-            // window.location.reload();
-            if (currentPage === '/home') {
-                navigate('/home')
-            } else if (currentPage === '/profile') {
-                navigate('/profile')
-            }
-        }
-    }, [replyAdded]);
 
     const handleReply = async (event) => {
         event.preventDefault();
@@ -53,8 +43,18 @@ function ReplyForm(props) {
                     responseText: replyContent,
                 }
             });
+            console.log(res.data.addReply._id)
+            const newReply = {
+                postId,
+                responseText: replyContent,
+                user: userId,
+                _id: res.data.addReply._id
+            }
+            const newReplies = [...repliesArr]
+            newReplies.push(newReply)
+            setRepliesArr(newReplies)
+            console.log('hit');
             onClose();
-            setReplyAdded(true);
         } catch (error) {
             console.error(error);
         }

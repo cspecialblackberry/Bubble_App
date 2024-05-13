@@ -2,8 +2,6 @@ import { Card, CardHeader, CardBody, CardFooter, Text, IconButton, Box } from '@
 import { EditIcon } from '@chakra-ui/icons';
 import UserAvatar from '../../components/ProfileImage';
 import EditForm from '../../components/EditForm';
-import YourPost from '../../components/YourPost';
-import FriendPost from '../../components/FriendPost';
 import { useState, useEffect } from 'react';
 import './style.css';
 import { useLocation } from 'react-router-dom';
@@ -12,6 +10,7 @@ import { DELETE_POST } from '../../utils/mutations';
 import { useQuery, useMutation } from '@apollo/client';
 import Auth from '../../utils/auth';
 import Reply from '../../components/Reply';
+import { ADD_FRIEND } from '../../utils/mutations';
 
 const Profile = () => {
     if (Auth.loggedIn() === false) {
@@ -20,6 +19,7 @@ const Profile = () => {
     const [editIsOpen, setEditIsOpen] = useState(false);
     const [hasEditButton, setHasEditButton] = useState(false);
     const [postsArr, setPostsArr] = useState([])
+    const [isFriend, setIsFriend] = useState(true);
 
     const location = useLocation();
     const { from } = location.state;
@@ -33,6 +33,21 @@ const Profile = () => {
         }
     }, []);
 
+    const yourInfo = useQuery(QUERY_USER, { variables: { _id: yourId }, fetchPolicy: 'network-only' })
+
+    useEffect(() => {
+        if (yourInfo.data) {
+            console.log('hits yourinfo')
+            console.log(yourInfo.data.user.friends, 'friends');
+            if (yourId === userId || yourInfo.data.user.friends.includes(userId)) {
+                setIsFriend(true)
+            } else {
+                setIsFriend(false)
+            }
+        }
+    }, [yourInfo])
+
+    console.log(isFriend, 'isFriend')
 
     const userInfo = useQuery(QUERY_USER, { variables: { _id: from }, fetchPolicy: 'network-only' })
     let posts = []
@@ -52,6 +67,10 @@ const Profile = () => {
 
     const handleDelete = async (userId, postId, index) => {
         try {
+<<<<<<< HEAD
+=======
+            console.log(userId, postId, index)
+>>>>>>> 40e2db191e92668c22a6671c81f7f990e67905c6
             await deletePost({
                 variables: { userId: userId, postId: postId }
             })
@@ -76,6 +95,21 @@ const Profile = () => {
         }
     }
 
+    const [addFriend] = useMutation(ADD_FRIEND);
+
+
+    const handleAdd = async (user, your) => {
+        setIsFriend(true);
+        try {
+            console.log(userId, yourId)
+            await addFriend({
+                variables: { userId: your, friendId: user }
+            })
+        } catch (err) {
+            console.error(err)
+        }
+    };
+
     return (
         <>
             {userInfo.loading ?
@@ -89,8 +123,13 @@ const Profile = () => {
                     </Box >
                     {hasEditButton ? editIsOpen ? <EditForm editIsOpen={editIsOpen} setEditIsOpen={setEditIsOpen} userInfo={userInfo.data.user}></EditForm>
                         : <IconButton aria-label='Edit Profile' icon={<EditIcon className='button-size' />} onClick={handleEditButtonClick} alignSelf='end'></IconButton> : <></>}
+                    {!isFriend ? <button
+                        variant='solid'
+                        // style={{ backgroundColor: color }}
+                        onClick={() => handleAdd(userId, yourId)}
+                    >Add Friend</button> : <></>}
                     <h2>Recent Bubbles:</h2>
-                    {postsArr.length && postsArr.map((post, index) => {
+                    {postsArr.map((post, index) => {
                         return (
                             <article key={post._id} className="post-block">
                                 <Reply
@@ -104,6 +143,7 @@ const Profile = () => {
                                     postId={post._id}
                                     index={index}
                                     handleDelete={handleDelete}
+                                    isFriend={isFriend}
                                 >
                                 </Reply>
                                 {post.replies.map(reply => (
