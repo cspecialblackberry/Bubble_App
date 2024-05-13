@@ -9,10 +9,6 @@ import Reply from "../../components/Reply";
 import { useState, useEffect } from 'react'
 
 export default function Home() {
-  if (Auth.loggedIn() === false) {
-    window.location.replace('/')
-  }
-
   const [postsArr, setPostsArr] = useState([])
   const [repliesArr, setRepliesArr] = useState([])
 

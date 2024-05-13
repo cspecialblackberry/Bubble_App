@@ -13,9 +13,6 @@ import Reply from '../../components/Reply';
 import { ADD_FRIEND } from '../../utils/mutations';
 
 const Profile = () => {
-    if (Auth.loggedIn() === false) {
-        window.location.replace('/')
-    }
     const [editIsOpen, setEditIsOpen] = useState(false);
     const [hasEditButton, setHasEditButton] = useState(false);
     const [postsArr, setPostsArr] = useState([])
