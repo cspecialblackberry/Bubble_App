@@ -84,3 +84,14 @@ export const ADD_REPLY = gql`
         }
     }
 `
+
+export const DELETE_REPLY = gql`
+    mutation deleteReply($postId: ID!, $replyId: ID!){
+        deleteReply(postId: $postId, replyId: $replyId){
+        _id
+        replies {
+            _id
+        }
+        }
+    }
+`
