@@ -95,6 +95,7 @@ export default function Home() {
                 color={data.user.color}
                 userId={data.user._id}
                 postId={post._id}
+                repliesArr={repliesArr}
                 handleDelete={handleDelete}
                 index={index}
               >

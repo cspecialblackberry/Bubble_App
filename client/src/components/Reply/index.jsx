@@ -9,9 +9,10 @@ import { QUERY_POSTS, QUERY_USER_INFO } from '../../utils/queries';
 import ReplyForm from '../ReplyForm';
 
 const Reply = (props) => {
-    const { url, name, color, text, userId, type, postId, handleDelete, index, replyId, handleDeleteReply } = props;
+    const { url, name, color, text, userId, type, postId, handleDelete, index, replyId, handleDeleteReply, repliesArr } = props;
 
     // console.log(userId, postId, index, replyId)
+    console.log(repliesArr)
 
     const [openReply, setOpenReply] = useState(false);
 
@@ -70,7 +71,7 @@ const Reply = (props) => {
                             </p>
                         </CardBody>
                         <CardFooter padding={0}>
-                            {openReply && <ReplyForm openReply={openReply} setOpenReply={setOpenReply} postId={postId}></ReplyForm>}
+                            {openReply && <ReplyForm openReply={openReply} setOpenReply={setOpenReply} postId={postId} repliesArr={repliesArr}></ReplyForm>}
                             {isMainPost && <button
                                 className='reply-button'
                                 type='button'
