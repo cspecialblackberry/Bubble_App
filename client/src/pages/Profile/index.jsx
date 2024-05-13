@@ -65,7 +65,7 @@ const Profile = () => {
             console.log(replies)
             setRepliesArr(replies)
         }
-    }, [postsData, userInfo])
+    }, [userInfo])
 
     const [deletePost] = useMutation(DELETE_POST)
 
@@ -92,7 +92,6 @@ const Profile = () => {
             })
             const index = repliesArr.indexOf(repliesArr.find((reply) => reply._id === replyId))
             console.log(index)
-            let updatedReplies = [...repliesArr]
             updatedReplies.splice(index, 1)
             setRepliesArr(updatedReplies)
         } catch (err) {
