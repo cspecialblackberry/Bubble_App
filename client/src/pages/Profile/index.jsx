@@ -133,7 +133,7 @@ const Profile = () => {
                         <UserAvatar url={userInfo.user.avatar} name={userInfo.user.name}></UserAvatar>
                         <Text color='black' bgColor='white' border='2px' borderColor={userInfo.user.color}>{userInfo.user.bio || "New to bubble!"}</Text>
                     </Box >
-                    {hasEditButton ? editIsOpen ? <EditForm editIsOpen={editIsOpen} setEditIsOpen={setEditIsOpen} userInfo={userInfo.data.user}></EditForm>
+                    {hasEditButton ? editIsOpen ? <EditForm editIsOpen={editIsOpen} setEditIsOpen={setEditIsOpen} userInfo={userInfo.user}></EditForm>
                         : <IconButton className='edit-prof-btn' aria-label='Edit Profile' icon={<EditIcon className='button-size' />} onClick={handleEditButtonClick}></IconButton> : <></>}
                     {!isFriend ? <button
                         variant='solid'
