@@ -25,6 +25,7 @@ const Profile = () => {
     const yourId = Auth.getProfile().data._id;
 
     useEffect(() => {
+        console.log('from effect')
         if (from === yourId) {
             setHasEditButton(true);
         }
@@ -35,6 +36,7 @@ const Profile = () => {
     const { loading: userLoading, data: userInfo} = useQuery(QUERY_USER, { variables: { _id: from }, fetchPolicy: 'network-only' })
 
     useEffect(() => {
+        console.log('yourInfo effect')
         if (yourInfo.data) {
             if (yourId === from || yourInfo.data.user.friends.includes(from)) {
                 setIsFriend(true)
@@ -54,7 +56,9 @@ const Profile = () => {
         console.log('use effect:')
 
         if (postsData && userInfo) {
-            const filteredPosts = postsData.posts.filter((post) => post.user === userInfo.user._id).toReversed()
+            console.log(postsData.posts)
+            let posts = postsData.posts
+            const filteredPosts = posts.filter((post) => post.user === userInfo.user._id).toReversed()
             setPostsArr(filteredPosts)
             let replies = []
             filteredPosts.map((post) => post.replies.map((reply) => {
