@@ -111,6 +111,7 @@ export default function Home() {
                   userId={reply.user}
                   handleDeleteReply={handleDeleteReply}
                   index={index}
+                  isOnYourPost={true}
                 >
                 </Reply>
               ))

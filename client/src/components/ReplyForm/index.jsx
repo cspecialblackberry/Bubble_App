@@ -76,7 +76,6 @@ function ReplyForm(props) {
                             placeholder='Enter your reply'
                         />
                         <div>
-                            {/* <button type='button' mr={3} onClick={onClose}>Close</button> */}
                             <button type='button' className='submit-reply' onClick={handleReply}>Submit Reply</button>
                         </div>
                     </ModalBody>
