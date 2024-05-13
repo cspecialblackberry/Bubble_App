@@ -30,11 +30,10 @@ export default function Home() {
       filteredPosts.map((post) => {
         post.replies.map((reply) => replies.push({ ...reply, postId: post._id }))
       })
-      console.log(replies)
+      console.log('replies:', replies)
       setRepliesArr(replies)
     }
   }, [data, postData])
-  console.log(postData)
 
   const [deletePost] = useMutation(DELETE_POST)
   const [deleteReply] = useMutation(DELETE_REPLY)
