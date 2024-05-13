@@ -1,7 +1,5 @@
 import { jwtDecode } from 'jwt-decode'
-import { useNavigate } from 'react-router';
-
-const navigate = useNavigate()
+import { useNavigate } from 'react-router-dom'
 
 class AuthService {
   getProfile() {
@@ -41,7 +39,7 @@ class AuthService {
     // Clear user token and profile data from localStorage
     localStorage.clear()
     // this will reload the page and reset the state of the application
-    navigate('/')
+    window.location.assign('/')
   }
 }
 

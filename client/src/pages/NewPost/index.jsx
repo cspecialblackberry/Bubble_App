@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Text, Textarea } from '@chakra-ui/react'
 import './style.css'
 import { useMutation } from '@apollo/client'
@@ -11,10 +11,19 @@ export default function NewPost() {
 
     let navigate = useNavigate();
 
-    if (Auth.loggedIn() === false) {
-        console.log('hit')
-        navigate('/')
+    let userId
+
+    useEffect(() => {
+        if (Auth.loggedIn() === false) {
+            console.log('hit')
+            navigate('/')
+        } else {
+            userId = Auth.getProfile().data._id
+            console.log(userId)
+        }
     }
+    )
+
     let [value, setValue] = React.useState('')
 
     let handleInputChange = (event) => {
@@ -23,19 +32,19 @@ export default function NewPost() {
         console.log(inputValue)
     }
 
-    const [addPost, {error}] = useMutation(ADD_POST)
+    const [addPost, { error }] = useMutation(ADD_POST)
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         const token = Auth.getProfile()
         console.log(token.data._id)
         console.log(value)
-        try{
+        try {
             const res = await addPost({
-                variables: {userId: token.data._id, postText: value}
+                variables: { userId: token.data._id, postText: value }
             })
             console.log(res)
-        }catch(error){
+        } catch (error) {
             console.error(error)
         }
         navigate('/home');

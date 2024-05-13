@@ -18,10 +18,13 @@ const Profile = () => {
 
     const navigate = useNavigate()
 
-    if (Auth.loggedIn() === false) {
-        console.log('hit')
-        navigate('/')
-    }
+    useEffect(() => {
+        if (Auth.loggedIn() === false) {
+            console.log('hit')
+            navigate('/')
+        }
+    })
+
     const [editIsOpen, setEditIsOpen] = useState(false);
     const [hasEditButton, setHasEditButton] = useState(false);
     const [postsArr, setPostsArr] = useState([])
@@ -46,7 +49,7 @@ const Profile = () => {
     let posts = []
 
     useEffect(() => {
-        if(userInfo?.data?.user?.posts){
+        if (userInfo?.data?.user?.posts) {
             setPostsArr(userInfo.data.user.posts.toReversed())
         }
     }, [userInfo])
@@ -54,17 +57,17 @@ const Profile = () => {
     const [deletePost] = useMutation(DELETE_POST)
 
     const handleDelete = async (userId, postId, index) => {
-      try {
-        console.log(userId, postId, index)
-        await deletePost({
-          variables: { userId: userId, postId: postId }
-        })
-        let updatedPosts = [...postsArr]
-        updatedPosts.splice(index, 1)
-        setPostsArr(updatedPosts)
-      } catch (err) {
-        console.error(err)
-      }
+        try {
+            console.log(userId, postId, index)
+            await deletePost({
+                variables: { userId: userId, postId: postId }
+            })
+            let updatedPosts = [...postsArr]
+            updatedPosts.splice(index, 1)
+            setPostsArr(updatedPosts)
+        } catch (err) {
+            console.error(err)
+        }
     }
 
     if (userInfo.data) {
@@ -96,7 +99,7 @@ const Profile = () => {
                         <Text color='black' bgColor='white' border='2px' borderColor={userInfo.data.user.color}>{userInfo.data.user.bio || "New to bubble!"}</Text>
                     </Box >
                     {hasEditButton ? editIsOpen ? <EditForm editIsOpen={editIsOpen} setEditIsOpen={setEditIsOpen} userInfo={userInfo.data.user}></EditForm>
-                        : <IconButton aria-label='Edit Profile' icon={<EditIcon  className='button-size'/>} onClick={handleEditButtonClick} alignSelf='end'></IconButton> : <></>}
+                        : <IconButton aria-label='Edit Profile' icon={<EditIcon className='button-size' />} onClick={handleEditButtonClick} alignSelf='end'></IconButton> : <></>}
                     <h2>Recent Bubbles:</h2>
                     {hasEditButton ? postsArr.map((post, index) => {
                         return (

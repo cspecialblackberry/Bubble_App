@@ -13,6 +13,8 @@ export default function Home() {
 
   const navigate = useNavigate()
 
+  let userId
+
   useEffect(() => {
     if (Auth.loggedIn() === false) {
       navigate('/')
