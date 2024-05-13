@@ -48,3 +48,18 @@
     width: 40%;
     margin-bottom: 10px;
 }
+
+@media screen and (min-width: 480px) {
+    .your-bubble {
+        width: 600px;
+    }
+
+    .reply-bubble {
+        width: 400px;
+    }
+
+    .content-container {
+        padding: 10px;
+    }
+
+}

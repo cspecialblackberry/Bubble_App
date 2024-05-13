@@ -126,7 +126,7 @@ const Profile = () => {
                         <Text color='black' bgColor='white' border='2px' borderColor={userInfo.data.user.color}>{userInfo.data.user.bio || "New to bubble!"}</Text>
                     </Box >
                     {hasEditButton ? editIsOpen ? <EditForm editIsOpen={editIsOpen} setEditIsOpen={setEditIsOpen} userInfo={userInfo.data.user}></EditForm>
-                        : <IconButton aria-label='Edit Profile' icon={<EditIcon className='button-size' />} onClick={handleEditButtonClick} alignSelf='end'></IconButton> : <></>}
+                        : <IconButton className='edit-prof-btn' aria-label='Edit Profile' icon={<EditIcon className='button-size' />} onClick={handleEditButtonClick}></IconButton> : <></>}
                     {!isFriend ? <button
                         variant='solid'
                         // style={{ backgroundColor: color }}
