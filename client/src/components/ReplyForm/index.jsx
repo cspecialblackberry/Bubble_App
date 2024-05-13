@@ -31,7 +31,6 @@ function ReplyForm(props) {
     let navigate = useNavigate();
     const location = useLocation();
     const currentPage = location.pathname;
-    console.log(currentPage, 'CURRENT')
 
     useEffect(() => {
         if (replyAdded) {
@@ -47,7 +46,6 @@ function ReplyForm(props) {
     const handleReply = async (event) => {
         event.preventDefault();
         try {
-            console.log('POSTID', postId)
             const res = await addReply({
                 variables: {
                     postId: postId,
@@ -55,7 +53,6 @@ function ReplyForm(props) {
                     responseText: replyContent,
                 }
             });
-            console.log('hit');
             onClose();
             setReplyAdded(true);
         } catch (error) {

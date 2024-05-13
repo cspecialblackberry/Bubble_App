@@ -15,7 +15,6 @@ import Reply from '../../components/Reply';
 
 const Profile = () => {
     if (Auth.loggedIn() === false) {
-        console.log('hit')
         window.location.replace('/')
     }
     const [editIsOpen, setEditIsOpen] = useState(false);
@@ -24,12 +23,9 @@ const Profile = () => {
 
     const location = useLocation();
     const { from } = location.state;
-    console.log(from)
     const userId = from;
 
     const yourId = Auth.getProfile().data._id;
-    console.log(userId, 'userId');
-    console.log(yourId, 'yourId');
 
     useEffect(() => {
         if (userId === yourId) {
@@ -42,7 +38,7 @@ const Profile = () => {
     let posts = []
 
     useEffect(() => {
-        if(userInfo?.data?.user?.posts){
+        if (userInfo?.data?.user?.posts) {
             setPostsArr(userInfo.data.user.posts.toReversed())
         }
     }, [userInfo])
@@ -50,24 +46,20 @@ const Profile = () => {
     const [deletePost] = useMutation(DELETE_POST)
 
     const handleDelete = async (userId, postId, index) => {
-      try {
-        console.log(userId, postId, index)
-        await deletePost({
-          variables: { userId: userId, postId: postId }
-        })
-        let updatedPosts = [...postsArr]
-        updatedPosts.splice(index, 1)
-        setPostsArr(updatedPosts)
-      } catch (err) {
-        console.error(err)
-      }
+        try {
+            await deletePost({
+                variables: { userId: userId, postId: postId }
+            })
+            let updatedPosts = [...postsArr]
+            updatedPosts.splice(index, 1)
+            setPostsArr(updatedPosts)
+        } catch (err) {
+            console.error(err)
+        }
     }
 
     if (userInfo.data) {
-        console.log(userInfo.data)
-        console.log(userInfo)
         posts = userInfo.data.user.posts.toReversed()
-        console.log(posts, 'posts')
     }
 
     const handleEditButtonClick = () => {
@@ -77,8 +69,6 @@ const Profile = () => {
             setEditIsOpen(true);
         }
     }
-
-    console.log(postsArr)
 
     return (
         <>
@@ -92,7 +82,7 @@ const Profile = () => {
                         <Text color='black' bgColor='white' border='2px' borderColor={userInfo.data.user.color}>{userInfo.data.user.bio || "New to bubble!"}</Text>
                     </Box >
                     {hasEditButton ? editIsOpen ? <EditForm editIsOpen={editIsOpen} setEditIsOpen={setEditIsOpen} userInfo={userInfo.data.user}></EditForm>
-                        : <IconButton aria-label='Edit Profile' icon={<EditIcon  className='button-size'/>} onClick={handleEditButtonClick} alignSelf='end'></IconButton> : <></>}
+                        : <IconButton aria-label='Edit Profile' icon={<EditIcon className='button-size' />} onClick={handleEditButtonClick} alignSelf='end'></IconButton> : <></>}
                     <h2>Recent Bubbles:</h2>
                     {hasEditButton ? postsArr.map((post, index) => {
                         return (
@@ -110,6 +100,21 @@ const Profile = () => {
                                     handleDelete={handleDelete}
                                 >
                                 </Reply>
+                                {post.replies.map(reply => (
+                                    <Reply
+                                        key={reply._id}
+                                        replyId={reply._id}
+                                        postId={post._id}
+                                        type='reply'
+                                        name={reply.username}
+                                        text={reply.responseText}
+                                        userId={reply.user}
+                                        handleDeleteReply={handleDeleteReply}
+                                        index={index}
+                                    >
+                                    </Reply>
+                                ))
+                                }
                                 {/* {post.replies.map(reply => (
                                     <Reply
                                         key={reply._id}

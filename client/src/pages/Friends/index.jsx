@@ -19,7 +19,6 @@ export default function Friends() {
       navigate('/')
     }else{
       userId = Auth.getProfile().data._id
-      console.log(userId)
       getUser({
         variables: {_id: userId}
       })
@@ -35,10 +34,8 @@ export default function Friends() {
   const [usersState, setUsersState] = useState([])
 
   useEffect(() => {
-    console.log('hit')
     if (usersData && usersData.users && userData) {
       
-      console.log(userData)
       const filteredUsers = usersData.users.filter((user) => userData.user.friends.includes(user._id))
       setUsersState(filteredUsers.reverse())
     }
@@ -48,7 +45,6 @@ export default function Friends() {
 
   const handleRemove = async (user, friendId, index) => {
     try {
-      console.log(user, friendId, index)
       await removeFriend({
         variables: { userId: user, friendId: friendId }
       })

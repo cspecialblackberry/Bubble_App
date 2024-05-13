@@ -11,8 +11,6 @@ import ReplyForm from '../ReplyForm';
 const Reply = (props) => {
     const { url, name, color, text, userId, type, postId, handleDelete, index, replyId, handleDeleteReply } = props;
 
-    console.log(userId, postId, index, replyId)
-
     const [openReply, setOpenReply] = useState(false);
 
     const openReplyForm = () => {
@@ -33,14 +31,13 @@ const Reply = (props) => {
     //     variables: {
     //         _id: postId }
     // })
-    // console.log('POSTDATA', postData.data)
 
     let userData
     if (userQuery.data) {
         userData = userQuery.data.user
     }
     if (userQuery.error) {
-        console.log(userQuery.error)
+        console.error(userQuery.error)
     }
     if (userQuery.loading) {
         return (

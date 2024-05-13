@@ -63,7 +63,6 @@ function LoginCreateAccount() {
             const res = await login({
                 variables: { username: username, password: password }
             })
-            console.log(res)
             const token = res.data.login.token;
             Auth.login(token)
             if (Auth.loggedIn()) {
@@ -88,7 +87,6 @@ function LoginCreateAccount() {
             const res = await createAccount({
                 variables: { username: username, password: password, name: name }
             })
-            console.log(res)
             const token = res.data.login.token;
             Auth.login(token)
         } catch (err) {
@@ -199,7 +197,3 @@ function LoginCreateAccount() {
 }
 
 export default LoginCreateAccount
-
-// TODO: login and create account final touches
-// TODO: replies - each has a delete btn
-// TODO: map through array of replies - tied into yourpost and friendpost
