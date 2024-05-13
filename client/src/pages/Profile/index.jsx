@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react';
 import './style.css';
 import { useLocation } from 'react-router-dom';
 import { QUERY_USER, QUERY_POSTS } from '../../utils/queries';
-import { DELETE_POST } from '../../utils/mutations';
+import { DELETE_POST, DELETE_REPLY } from '../../utils/mutations';
 import { useQuery, useMutation } from '@apollo/client';
 import Auth from '../../utils/auth';
 import Reply from '../../components/Reply';
@@ -75,6 +75,8 @@ const Profile = () => {
         }
     }
 
+    const [deleteReply] = useMutation(DELETE_REPLY)
+
     const handleDeleteReply = async (postId, replyId) => {
         console.log(postId, replyId)
         try {
@@ -113,6 +115,8 @@ const Profile = () => {
             console.error(err)
         }
     };
+
+    console.log(postsArr, repliesArr)
 
     return (
         <>
