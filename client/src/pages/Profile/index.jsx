@@ -107,7 +107,6 @@ const Profile = () => {
     const handleAdd = async (user, your) => {
         setIsFriend(true);
         try {
-            // console.log(userId, yourId)
             await addFriend({
                 variables: { userId: your, friendId: user }
             })
@@ -134,7 +133,7 @@ const Profile = () => {
                     {!isFriend ? <button
                         variant='solid'
                         // style={{ backgroundColor: color }}
-                        onClick={() => handleAdd(userId, yourId)}
+                        onClick={() => handleAdd(from, yourId)}
                     >Add Friend</button> : <></>}
                     <h2>Recent Bubbles:</h2>
                     {postsArr.map((post, index) => {
