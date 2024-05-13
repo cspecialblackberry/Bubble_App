@@ -9,7 +9,7 @@ import { QUERY_USER, QUERY_POSTS } from '../../utils/queries';
 import { DELETE_POST, DELETE_REPLY } from '../../utils/mutations';
 import { useQuery, useMutation } from '@apollo/client';
 import Auth from '../../utils/auth';
-import Reply from '../../components/Reply';
+import Reply from '../../components/Post';
 import { ADD_FRIEND } from '../../utils/mutations';
 
 const Profile = () => {
@@ -146,7 +146,7 @@ const Profile = () => {
                         <Text color='black' bgColor='white' border='2px' borderColor={userInfo.user.color}>{userInfo.user.bio || "New to bubble!"}</Text>
                     </Box >
                     {hasEditButton ? editIsOpen ? <EditForm editIsOpen={editIsOpen} setEditIsOpen={setEditIsOpen} userInfo={userInfo.user}></EditForm>
-                        : <IconButton aria-label='Edit Profile' icon={<EditIcon className='button-size' />} onClick={handleEditButtonClick} alignSelf='end'></IconButton> : <></>}
+                        : <IconButton className='edit-prof-btn' aria-label='Edit Profile' icon={<EditIcon className='button-size' />} onClick={handleEditButtonClick}></IconButton> : <></>}
                     {!isFriend ? <button
                         variant='solid'
                         // style={{ backgroundColor: color }}
