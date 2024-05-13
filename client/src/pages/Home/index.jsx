@@ -3,7 +3,7 @@ import FriendPost from "../../components/FriendPost";
 import './style.css';
 import Auth from '../../utils/auth'
 import { QUERY_USER, QUERY_POSTS, QUERY_USER_INFO } from '../../utils/queries';
-import { DELETE_POST } from "../../utils/mutations";
+import { DELETE_POST, DELETE_REPLY } from "../../utils/mutations";
 import { useQuery, useMutation } from '@apollo/client';
 import Reply from "../../components/Reply";
 import { useState, useEffect } from 'react'
@@ -14,6 +14,7 @@ export default function Home() {
   }
 
   const [postsArr, setPostsArr] = useState([])
+  const [repliesArr, setRepliesArr] = useState([])
 
   const token = Auth.getProfile()
   console.log(token.data._id)
@@ -32,10 +33,11 @@ export default function Home() {
       setPostsArr(filteredPosts)
     }
   }, [data, postData])
-
+  
   const [deletePost] = useMutation(DELETE_POST)
+  const [deleteReply] = useMutation(DELETE_REPLY)
 
-  const handleDelete = async (userId, postId, index) => {
+  const handleDelete = async (userId, postId, replyId, index) => {
     try {
       console.log(userId, postId, index)
       await deletePost({
@@ -49,6 +51,20 @@ export default function Home() {
     }
   }
 
+  const handleDeleteReply = async ( postId, replyId, index) => {
+    console.log(postId, replyId, index)
+    try {
+      await deleteReply({
+        variables: { postId: postId, replyId: replyId }
+      })
+      let updatedReplies = [...repliesArr]
+      updatedReplies.splice(index, 1)
+      setRepliesArr(updatedReplies)
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
   if (loading || l) {
     return (
       <h2>...loading</h2>
@@ -56,6 +72,7 @@ export default function Home() {
   }
 
   console.log(postsArr)
+  console.log("REPLIES ARRAY", repliesArr)
 
   return (
     <>
@@ -79,10 +96,14 @@ export default function Home() {
               {post.replies.map(reply => (
                 <Reply
                   key={reply._id}
+                  replyId={reply._id}
+                  postId={post._id}
                   type='reply'
                   name={reply.username}
                   text={reply.responseText}
                   userId={reply.user}
+                  handleDeleteReply={handleDeleteReply}
+                  index={index}
                 >
                 </Reply>
               ))
