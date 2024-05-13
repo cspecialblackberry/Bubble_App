@@ -89,6 +89,7 @@ button {
   font-family: var(--main-text-font);
   text-transform: uppercase;
   letter-spacing: 1px;
+  color: #000;
   background-color: var(--light-purple);
   display: flex;
   justify-content: center;
