@@ -11,7 +11,6 @@ import ReplyForm from '../ReplyForm';
 const Reply = (props) => {
     const { url, isFriend, name, color, text, userId, type, postId, handleDelete, index, replyId, handleDeleteReply, repliesArr, setRepliesArr, isOnYourPost } = props;
 
-    console.log('userid', userId)
     // console.log(userId, postId, index, replyId)
     // console.log(repliesArr)
 
