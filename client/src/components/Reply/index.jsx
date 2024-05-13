@@ -34,14 +34,13 @@ const Reply = (props) => {
     //     variables: {
     //         _id: postId }
     // })
-    // console.log('POSTDATA', postData.data)
 
     let userData
     if (userQuery.data) {
         userData = userQuery.data.user
     }
     if (userQuery.error) {
-        console.log(userQuery.error)
+        console.error(userQuery.error)
     }
     if (userQuery.loading) {
         return (

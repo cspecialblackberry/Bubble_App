@@ -32,12 +32,10 @@ function ReplyForm(props) {
     let navigate = useNavigate();
     const location = useLocation();
     const currentPage = location.pathname;
-    console.log(currentPage, 'CURRENT')
 
     const handleReply = async (event) => {
         event.preventDefault();
         try {
-            console.log('POSTID', postId)
             const res = await addReply({
                 variables: {
                     postId: postId,

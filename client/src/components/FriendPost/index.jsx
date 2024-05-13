@@ -6,22 +6,17 @@ import { useQuery } from '@apollo/client'
 
 const FriendPost = (props) => {
     const { url, name, color, text, userId, postId } = props;
-    // console.log(text, postId, userId)
 
     const userQuery = useQuery(QUERY_USER_INFO, {
         variables: { _id: userId }
     })
     let userData
-    // console.log(userQuery)
     if (userQuery.data) {
         userData = userQuery.data.user
-        // console.log(userData)
     }
     if (userQuery.error) {
-        console.log(userQuery.error)
+        console.error(userQuery.error)
     }
-
-    // console.log(userData)
 
     if (userQuery.loading) {
         return (

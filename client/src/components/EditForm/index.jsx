@@ -55,7 +55,6 @@ const imageArray = ['/bubble-favicon.svg', //Photo by David Clode on Unsplash
 
 const EditForm = (props) => {
     const { userInfo } = props
-    console.log(userInfo)
     const { setEditIsOpen } = props;
     const [nameInput, setNameInput] = useState(userInfo.name);
     const [bioInput, setBioInput] = useState(userInfo.bio);
@@ -76,10 +75,8 @@ const EditForm = (props) => {
     }
     const handleAvatarImageChange = (image) => {
         setAvatarImage(image)
-        console.log(avatarImage)
     }
     const handleSubmit = async () => {
-        console.log(nameInput, bioInput, value, avatarImage);
         const res = await editUser({
             variables: {
                 userId: userInfo._id,
@@ -89,7 +86,6 @@ const EditForm = (props) => {
                 avatar: avatarImage
             }
         })
-        console.log(res)
         setEditIsOpen(false)
         window.location.reload()
     }

@@ -17,7 +17,6 @@ export default function Home() {
   const [repliesArr, setRepliesArr] = useState([])
 
   const token = Auth.getProfile()
-  // console.log(token.data._id)
 
   const { loading, data } = useQuery(
     QUERY_USER, { variables: { _id: token.data._id } }
@@ -39,13 +38,13 @@ export default function Home() {
       setRepliesArr(replies)
     }
   }, [data, postData])
+  console.log(postData)
   
   const [deletePost] = useMutation(DELETE_POST)
   const [deleteReply] = useMutation(DELETE_REPLY)
 
   const handleDelete = async (userId, postId, index) => {
     try {
-      console.log(userId, postId, index)
       await deletePost({
         variables: { userId: userId, postId: postId }
       })
@@ -78,9 +77,6 @@ export default function Home() {
       <h2>...loading</h2>
     )
   }
-
-  console.log(postsArr)
-  console.log("REPLIES ARRAY", repliesArr)
 
   return (
     <>

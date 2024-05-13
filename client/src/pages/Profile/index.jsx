@@ -5,7 +5,7 @@ import EditForm from '../../components/EditForm';
 import { useState, useEffect } from 'react';
 import './style.css';
 import { useLocation } from 'react-router-dom';
-import { QUERY_USER } from '../../utils/queries';
+import { QUERY_USER, QUERY_POSTS } from '../../utils/queries';
 import { DELETE_POST } from '../../utils/mutations';
 import { useQuery, useMutation } from '@apollo/client';
 import Auth from '../../utils/auth';
@@ -14,7 +14,6 @@ import { ADD_FRIEND } from '../../utils/mutations';
 
 const Profile = () => {
     if (Auth.loggedIn() === false) {
-        console.log('hit')
         window.location.replace('/')
     }
     const [editIsOpen, setEditIsOpen] = useState(false);
@@ -24,7 +23,6 @@ const Profile = () => {
 
     const location = useLocation();
     const { from } = location.state;
-    console.log(from)
     const userId = from;
 
     const yourId = Auth.getProfile().data._id;
@@ -54,9 +52,14 @@ const Profile = () => {
     const userInfo = useQuery(QUERY_USER, { variables: { _id: from }, fetchPolicy: 'network-only' })
     let posts = []
 
+    const postData = useQuery(
+        QUERY_POSTS, { fetchPolicy: 'network-only' }
+      )
+
     useEffect(() => {
         if (userInfo?.data?.user?.posts) {
             setPostsArr(userInfo.data.user.posts.toReversed())
+            console.log(posts[0].replies)
         }
     }, [userInfo])
 
@@ -64,7 +67,10 @@ const Profile = () => {
 
     const handleDelete = async (userId, postId, index) => {
         try {
+<<<<<<< HEAD
+=======
             console.log(userId, postId, index)
+>>>>>>> 40e2db191e92668c22a6671c81f7f990e67905c6
             await deletePost({
                 variables: { userId: userId, postId: postId }
             })
@@ -77,11 +83,9 @@ const Profile = () => {
     }
 
     if (userInfo.data) {
-        console.log(userInfo.data)
-        console.log(userInfo)
         posts = userInfo.data.user.posts.toReversed()
-        console.log(posts, 'posts')
     }
+    console.log(posts)
 
     const handleEditButtonClick = () => {
         if (editIsOpen) {
@@ -142,17 +146,21 @@ const Profile = () => {
                                     isFriend={isFriend}
                                 >
                                 </Reply>
-                                {/* {post.replies.map(reply => (
+                                {post.replies.map(reply => (
                                     <Reply
                                         key={reply._id}
+                                        replyId={reply._id}
+                                        postId={post._id}
                                         type='reply'
                                         name={reply.username}
                                         text={reply.responseText}
                                         userId={reply.user}
+                                        // handleDeleteReply={handleDeleteReply}
+                                        index={index}
                                     >
                                     </Reply>
                                 ))
-                                } */}
+                                }
                             </article>
                         )
                     })}
