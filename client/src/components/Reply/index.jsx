@@ -108,10 +108,8 @@ export default Reply;
 // replies on profile page refresh
 // ensure friends' profile + replies show up using Reply component
 // reply sizing - smaller delete & padding?
-// "burst" instead of delete
 // remove console logs
 // comment out YourPost + FriendPost to ensure it works without them
-// media queries
 // auto login?
 
 // media queries:
