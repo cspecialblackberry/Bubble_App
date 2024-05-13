@@ -10,7 +10,7 @@ import ReplyForm from '../ReplyForm';
 
 const Reply = (props) => {
 
-    const { url, name, color, text, userId, type, postId, handleDelete, index, isFriend replyId, handleDeleteReply } = props;
+    const { url, name, color, text, userId, type, postId, handleDelete, index, isFriend, replyId, handleDeleteReply } = props;
 
     console.log(userId, postId, index, replyId)
 
