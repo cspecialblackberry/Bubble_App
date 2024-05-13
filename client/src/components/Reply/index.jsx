@@ -12,8 +12,6 @@ const Reply = (props) => {
     const { url, isFriend, name, color, text, userId, type, postId, handleDelete, index, replyId, handleDeleteReply, repliesArr, setRepliesArr, isOnYourPost } = props;
 
     console.log('userid', userId)
-    // console.log(userId, postId, index, replyId)
-    // console.log(repliesArr)
 
     const [openReply, setOpenReply] = useState(false);
 
@@ -27,11 +25,6 @@ const Reply = (props) => {
     const userQuery = useQuery(QUERY_USER_INFO, {
         variables: { _id: userId }
     })
-
-    // const postData = useQuery(QUERY_POSTS, {
-    //     variables: {
-    //         _id: postId }
-    // })
 
     let userData
     if (userQuery.data) {
@@ -88,9 +81,8 @@ const Reply = (props) => {
                                         handleDeleteReply(postId, replyId, index);
                                     }
                                 }}
-                                // onClick={isMainPost ? () => handleDelete(userId, postId, index) : () => handleDeleteReply(postId, replyId, index)}
                             >
-                                DELETE
+                                BURST
                             </button>
                             }
                             {/* add in something if both are empty */}
@@ -115,10 +107,16 @@ export default Reply;
 // CASEY-TODO:
 // replies on profile page refresh
 // ensure friends' profile + replies show up using Reply component
-// delete reply if it's on your post
 // reply sizing - smaller delete & padding?
 // "burst" instead of delete
 // remove console logs
 // comment out YourPost + FriendPost to ensure it works without them
 // media queries
 // auto login?
+
+// media queries:
+// logo bigger
+// h1 bigger
+// posts wider
+// edit button to center
+// footer more compact - text
