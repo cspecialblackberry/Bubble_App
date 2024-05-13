@@ -67,10 +67,6 @@ const Profile = () => {
 
     const handleDelete = async (userId, postId, index) => {
         try {
-<<<<<<< HEAD
-=======
-            console.log(userId, postId, index)
->>>>>>> 40e2db191e92668c22a6671c81f7f990e67905c6
             await deletePost({
                 variables: { userId: userId, postId: postId }
             })
