@@ -142,7 +142,7 @@ const Profile = () => {
                                     isFriend={isFriend}
                                 >
                                 </Reply>
-                                {post.replies.map(reply => (
+                                {/* {post.replies.map(reply => (
                                     <Reply
                                         key={reply._id}
                                         type='reply'
@@ -152,7 +152,7 @@ const Profile = () => {
                                     >
                                     </Reply>
                                 ))
-                                }
+                                } */}
                             </article>
                         )
                     })}
