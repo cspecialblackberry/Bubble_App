@@ -97,6 +97,7 @@ export default function Home() {
                 setRepliesArr={setRepliesArr}
                 handleDelete={handleDelete}
                 index={index}
+                isFriend={true}
               >
               </Reply>
               {repliesArr.filter((reply) => reply.postId === post._id).map(reply => (
@@ -127,6 +128,7 @@ export default function Home() {
               userId={post.user}
               repliesArr={repliesArr}
               setRepliesArr={setRepliesArr}
+              isFriend={true}
             >
             </Reply>
             {repliesArr.filter((reply) => reply.postId === post._id).map(reply => (
