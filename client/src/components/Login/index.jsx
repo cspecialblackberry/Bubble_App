@@ -152,8 +152,8 @@ function LoginCreateAccount() {
                             <TabPanel padding={3}>
                                 <form onSubmit={handleCreate}>
                                     <FormControl isRequired marginBottom={5} isInvalid={nameError}>
-                                        <FormLabel>Full Name</FormLabel>
-                                        <Input placeholder='Enter your full name'
+                                        <FormLabel>Name</FormLabel>
+                                        <Input placeholder='Enter your name'
                                             borderRadius={20}
                                             value={name}
                                             onChange={nameChange} />
