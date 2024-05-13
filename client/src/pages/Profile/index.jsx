@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react';
 import './style.css';
 import { useLocation } from 'react-router-dom';
 import { QUERY_USER, QUERY_POSTS } from '../../utils/queries';
-import { DELETE_POST } from '../../utils/mutations';
+import { DELETE_POST, DELETE_REPLY } from '../../utils/mutations';
 import { useQuery, useMutation } from '@apollo/client';
 import Auth from '../../utils/auth';
 import Reply from '../../components/Reply';
@@ -19,27 +19,27 @@ const Profile = () => {
     const [editIsOpen, setEditIsOpen] = useState(false);
     const [hasEditButton, setHasEditButton] = useState(false);
     const [postsArr, setPostsArr] = useState([])
+    const [repliesArr, setRepliesArr] = useState([])
     const [isFriend, setIsFriend] = useState(true);
 
     const location = useLocation();
     const { from } = location.state;
-    const userId = from;
 
     const yourId = Auth.getProfile().data._id;
 
     useEffect(() => {
-        if (userId === yourId) {
+        if (from === yourId) {
             setHasEditButton(true);
         }
     }, []);
 
     const yourInfo = useQuery(QUERY_USER, { variables: { _id: yourId }, fetchPolicy: 'network-only' })
+    const { loading: loading, data: postsData } = useQuery(QUERY_POSTS)
+    const userInfo = useQuery(QUERY_USER, { variables: { _id: from }, fetchPolicy: 'network-only' })
 
     useEffect(() => {
         if (yourInfo.data) {
-            console.log('hits yourinfo')
-            console.log(yourInfo.data.user.friends, 'friends');
-            if (yourId === userId || yourInfo.data.user.friends.includes(userId)) {
+            if (yourId === from || yourInfo.data.user.friends.includes(from)) {
                 setIsFriend(true)
             } else {
                 setIsFriend(false)
@@ -47,30 +47,23 @@ const Profile = () => {
         }
     }, [yourInfo])
 
-    console.log(isFriend, 'isFriend')
-
-    const userInfo = useQuery(QUERY_USER, { variables: { _id: from }, fetchPolicy: 'network-only' })
-    let posts = []
-
-    const postData = useQuery(
-        QUERY_POSTS, { fetchPolicy: 'network-only' }
-      )
-
     useEffect(() => {
-        if (userInfo?.data?.user?.posts) {
-            setPostsArr(userInfo.data.user.posts.toReversed())
-            console.log(posts[0].replies)
+        if (postsData && userInfo.data) {
+            console.log(postsData)
+            console.log(userInfo.data.user._id)
+            const filteredPosts = postsData.posts.filter((post) => post.user === userInfo.data.user._id).toReversed()
+            console.log(filteredPosts)
+            setPostsArr(filteredPosts)
+            let replies = []
+            filteredPosts.map((post) => post.replies.map((reply) => replies.push({ ...reply, postId: post._id })))
+            setRepliesArr(replies)
         }
-    }, [userInfo])
+    }, [postsData, userInfo])
 
     const [deletePost] = useMutation(DELETE_POST)
 
     const handleDelete = async (userId, postId, index) => {
         try {
-<<<<<<< HEAD
-=======
-            console.log(userId, postId, index)
->>>>>>> 40e2db191e92668c22a6671c81f7f990e67905c6
             await deletePost({
                 variables: { userId: userId, postId: postId }
             })
@@ -82,10 +75,23 @@ const Profile = () => {
         }
     }
 
-    if (userInfo.data) {
-        posts = userInfo.data.user.posts.toReversed()
+    const [deleteReply] = useMutation(DELETE_REPLY)
+
+    const handleDeleteReply = async (postId, replyId) => {
+        console.log(postId, replyId)
+        try {
+            await deleteReply({
+                variables: { postId: postId, replyId: replyId }
+            })
+            const index = repliesArr.indexOf(repliesArr.find((reply) => reply._id === replyId))
+            console.log(index)
+            let updatedReplies = [...repliesArr]
+            updatedReplies.splice(index, 1)
+            setRepliesArr(updatedReplies)
+        } catch (err) {
+            console.error(err)
+        }
     }
-    console.log(posts)
 
     const handleEditButtonClick = () => {
         if (editIsOpen) {
@@ -101,7 +107,7 @@ const Profile = () => {
     const handleAdd = async (user, your) => {
         setIsFriend(true);
         try {
-            console.log(userId, yourId)
+            // console.log(userId, yourId)
             await addFriend({
                 variables: { userId: your, friendId: user }
             })
@@ -109,6 +115,8 @@ const Profile = () => {
             console.error(err)
         }
     };
+
+    console.log(postsArr, repliesArr)
 
     return (
         <>
@@ -139,14 +147,16 @@ const Profile = () => {
                                     url={userInfo.data.user.avatar}
                                     text={post.postText}
                                     color={userInfo.data.user.color}
-                                    userId={from}
+                                    userId={post.user}
                                     postId={post._id}
                                     index={index}
+                                    repliesArr={repliesArr}
+                                    setRepliesArr={setRepliesArr}
                                     handleDelete={handleDelete}
                                     isFriend={isFriend}
                                 >
                                 </Reply>
-                                {post.replies.map(reply => (
+                                {repliesArr.filter((reply) => reply.postId === post._id).map(reply => (
                                     <Reply
                                         key={reply._id}
                                         replyId={reply._id}
@@ -154,8 +164,8 @@ const Profile = () => {
                                         type='reply'
                                         name={reply.username}
                                         text={reply.responseText}
-                                        userId={reply.user}
-                                        // handleDeleteReply={handleDeleteReply}
+                                        userId={reply.user || post.user}
+                                        handleDeleteReply={handleDeleteReply}
                                         index={index}
                                     >
                                     </Reply>

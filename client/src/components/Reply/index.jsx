@@ -11,8 +11,9 @@ import ReplyForm from '../ReplyForm';
 const Reply = (props) => {
     const { url, isFriend, name, color, text, userId, type, postId, handleDelete, index, replyId, handleDeleteReply, repliesArr, setRepliesArr } = props;
 
+    console.log('userid', userId)
     // console.log(userId, postId, index, replyId)
-    console.log(repliesArr)
+    // console.log(repliesArr)
 
     const [openReply, setOpenReply] = useState(false);
 
@@ -27,7 +28,7 @@ const Reply = (props) => {
     const isMainPost = type === 'main';
 
     const userQuery = useQuery(QUERY_USER_INFO, {
-        variables: { postId: postId, _id: userId }
+        variables: { _id: userId }
     })
 
     // const postData = useQuery(QUERY_POSTS, {
