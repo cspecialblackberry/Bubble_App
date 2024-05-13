@@ -11,19 +11,38 @@ import {
 import { useDisclosure } from '@chakra-ui/react';
 import { ADD_REPLY } from '../../utils/mutations';
 import { useMutation } from '@apollo/client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Auth from '../../utils/auth';
-import { useNavigate } from 'react-router';
+import { useNavigate, useLocation } from 'react-router';
 import './style.css'
 
 function ReplyForm(props) {
     const { postId } = props;
+    
     const { isOpen, onOpen, onClose } = useDisclosure();
+
     const [replyContent, setReplyContent] = useState('');
+    const [replyAdded, setReplyAdded] = useState(false);
+
     const [addReply] = useMutation(ADD_REPLY);
     const token = Auth.getProfile();
     const userId = token.data._id;
+
     let navigate = useNavigate();
+    const location = useLocation();
+    const currentPage = location.pathname;
+    console.log(currentPage, 'CURRENT')
+
+    useEffect(() => {
+        if (replyAdded) {
+            // window.location.reload();
+            if (currentPage === '/home') {
+                navigate('/home')
+            } else if (currentPage === '/profile') {
+                navigate('/profile')
+            }
+        }
+    }, [replyAdded]);
 
     const handleReply = async (event) => {
         event.preventDefault();
@@ -38,10 +57,10 @@ function ReplyForm(props) {
             });
             console.log('hit');
             onClose();
+            setReplyAdded(true);
         } catch (error) {
             console.error(error);
         }
-        navigate('/home')
     }
 
     return (
