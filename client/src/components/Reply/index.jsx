@@ -17,10 +17,6 @@ const Reply = (props) => {
 
     const [openReply, setOpenReply] = useState(false);
 
-    const openReplyForm = () => {
-        setOpenReply(true);
-    }
-
     const token = Auth.getProfile();
 
     const isReply = type === 'reply';
@@ -71,22 +67,14 @@ const Reply = (props) => {
                             </p>
                         </CardBody>
                         <CardFooter padding={0}>
-                            {openReply && <ReplyForm
+                            {isFriend ? isMainPost ? <ReplyForm
                                 openReply={openReply}
                                 setOpenReply={setOpenReply}
                                 postId={postId}
                                 repliesArr={repliesArr}
                                 setRepliesArr={setRepliesArr}
-                            ></ReplyForm>}
-                            {isFriend ? isMainPost ? <button
-                                className='reply-button'
-                                type='button'
-                                variant='solid'
-                                style={{ backgroundColor: userData.color }}
-                                onClick={openReplyForm}
-                            >
-                                REPLY
-                            </button> : <></> :<></>
+                                color={userData.color}
+                            ></ReplyForm> : <></> :<></>
                             }
                             {isOwnPost && <button
                                 className='reply-button'
