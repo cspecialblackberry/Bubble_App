@@ -7,7 +7,7 @@ import FriendPost from '../../components/FriendPost';
 import { useState, useEffect } from 'react';
 import './style.css';
 import { useLocation } from 'react-router-dom';
-import { QUERY_USER, QUERY_POST } from '../../utils/queries';
+import { QUERY_USER, QUERY_POSTS } from '../../utils/queries';
 import { DELETE_POST } from '../../utils/mutations';
 import { useQuery, useMutation } from '@apollo/client';
 import Auth from '../../utils/auth';
@@ -38,7 +38,7 @@ const Profile = () => {
     let posts = []
 
     const postData = useQuery(
-        QUERY_POST, { fetchPolicy: 'network-only' }
+        QUERY_POSTS, { fetchPolicy: 'network-only' }
       )
 
     useEffect(() => {
