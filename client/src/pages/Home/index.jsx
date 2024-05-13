@@ -98,6 +98,7 @@ export default function Home() {
                 userId={data.user._id}
                 postId={post._id}
                 repliesArr={repliesArr}
+                setRepliesArr={setRepliesArr}
                 handleDelete={handleDelete}
                 index={index}
               >
