@@ -9,9 +9,10 @@ import { QUERY_POSTS, QUERY_USER_INFO } from '../../utils/queries';
 import ReplyForm from '../ReplyForm';
 
 const Reply = (props) => {
-    const { url, name, color, text, userId, type, postId, handleDelete, index, isFriend } = props;
 
-    console.log(userId, postId, index)
+    const { url, name, color, text, userId, type, postId, handleDelete, index, isFriend replyId, handleDeleteReply } = props;
+
+    console.log(userId, postId, index, replyId)
 
     const [openReply, setOpenReply] = useState(false);
 
@@ -26,7 +27,7 @@ const Reply = (props) => {
     const isMainPost = type === 'main';
 
     const userQuery = useQuery(QUERY_USER_INFO, {
-        variables: { _id: userId }
+        variables: { postId: postId, _id: userId }
     })
 
     // const postData = useQuery(QUERY_POSTS, {
@@ -85,7 +86,7 @@ const Reply = (props) => {
                                 className='reply-button'
                                 variant='solid'
                                 style={{ backgroundColor: userData.color }}
-                                onClick={() => handleDelete(userId, postId, index)}
+                                onClick={isMainPost? () => handleDelete(userId, postId, index) : () => handleDeleteReply(postId, replyId, index)}
                             >
                                 DELETE
                             </button>
@@ -110,10 +111,14 @@ const Reply = (props) => {
 export default Reply;
 
 // CASEY-TODO:
-// reply sizing - smaller delete & padding?
-// add reply form + function
-// delete reply if it's your reply or on your post
 // replies on profile page
+// rerendering page when reply is added
 // ensure friends' profile + replies show up using Reply component
+
+// delete reply if it's your reply or on your post
+// reply sizing - smaller delete & padding?
+// "burst" instead of delete
+// remove console logs
 // comment out YourPost + FriendPost to ensure it works without them
 // media queries
+// auto login?
