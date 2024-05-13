@@ -60,7 +60,7 @@ function NavTabs() {
                     to="/"
                     className={currentPage === '/login' ? 'nav-link-active' : 'nav-link'}
                 >
-                    {isLoggedIn ? <><img className="footer-img" src="logout-icon.svg" alt="Logout" onClick={() => Auth.logout()} /><h2 className="footer-text">LOGOUT</h2></> 
+                    {isLoggedIn ? <><img className="footer-img" src="logout-icon.svg" alt="Logout" onClick={() => Auth.logout()} /><h2 className="footer-text" onClick={() => Auth.logout()} >LOGOUT</h2></> 
                     : <><img className="footer-img" src="login-icon.svg" alt="Login" /><h2 className="footer-text">LOGIN</h2></>}
                 </Link>
             </li>
