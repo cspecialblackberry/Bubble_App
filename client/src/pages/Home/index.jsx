@@ -57,12 +57,14 @@ export default function Home() {
     }
   }
 
-  const handleDeleteReply = async ( postId, replyId, index) => {
-    console.log(postId, replyId, index)
+  const handleDeleteReply = async ( postId, replyId) => {
+    console.log(postId, replyId)
     try {
       await deleteReply({
         variables: { postId: postId, replyId: replyId }
       })
+      const index = repliesArr.indexOf(repliesArr.find((reply) => reply._id === replyId))
+      console.log(index)
       let updatedReplies = [...repliesArr]
       updatedReplies.splice(index, 1)
       setRepliesArr(updatedReplies)
