@@ -88,14 +88,14 @@ const Reply = (props) => {
                                 REPLY
                             </button> : <></> :<></>
                             }
-                            {isOwnPost ? isReply ? <button
+                            {isOwnPost && <button
                                 className='reply-button'
                                 variant='solid'
                                 style={{ backgroundColor: userData.color }}
                                 onClick={isMainPost ? () => handleDelete(userId, postId, index) : () => handleDeleteReply(postId, replyId, index)}
                             >
                                 DELETE
-                            </button> : <></> : <></>
+                            </button>
                             }
                             {/* add in something if both are empty */}
                         </CardFooter>
