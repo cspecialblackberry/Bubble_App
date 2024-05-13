@@ -25,10 +25,9 @@ const Profile = () => {
     const yourId = Auth.getProfile().data._id;
 
 
-
     const yourInfo = useQuery(QUERY_USER, { variables: { _id: yourId }, fetchPolicy: 'network-only' })
     const { loading: loading, data: postsData } = useQuery(QUERY_POSTS)
-    const { loading: userLoading, data: userInfo} = useQuery(QUERY_USER, { variables: { _id: from }, fetchPolicy: 'network-only' })
+    const { loading: userLoading, data: userInfo } = useQuery(QUERY_USER, { variables: { _id: from }, fetchPolicy: 'network-only' })
 
     useEffect(() => {
         if (from === yourId) {
@@ -40,29 +39,22 @@ const Profile = () => {
         if (yourInfo.data) {
             if (yourId === from || yourInfo.data.user.friends.includes(from)) {
                 setIsFriend(true)
-                
+
             } else {
                 setIsFriend(false)
             }
         }
     }, [userInfo])
 
-// changing a state value rerenders the component
-// the component is rendering multiple times bc you are changing so many state variables
-// change them at the right time and it will work correctly
-// the replies array is correct on the first render and wrong on the second one
-
     useEffect(() => {
-        console.log('use effect:')
-
         if (postsData && userInfo) {
-            const filteredPosts = postsData.posts.filter((post) => post.user === userInfo.user._id).toReversed()
+            let posts = postsData.posts
+            const filteredPosts = posts.filter((post) => post.user === userInfo.user._id).toReversed()
             setPostsArr(filteredPosts)
             let replies = []
             filteredPosts.map((post) => post.replies.map((reply) => {
                 replies.push({ ...reply, postId: post._id })
             }))
-            console.log(replies)
             setRepliesArr(replies)
         }
     }, [userInfo])
@@ -91,7 +83,7 @@ const Profile = () => {
                 variables: { postId: postId, replyId: replyId }
             })
             const index = repliesArr.indexOf(repliesArr.find((reply) => reply._id === replyId))
-            console.log(index)
+            let updatedReplies = [...repliesArr]
             updatedReplies.splice(index, 1)
             setRepliesArr(updatedReplies)
         } catch (err) {
