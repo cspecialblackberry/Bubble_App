@@ -24,15 +24,17 @@ const Profile = () => {
 
     const yourId = Auth.getProfile().data._id;
 
-    useEffect(() => {
-        if (from === yourId) {
-            setHasEditButton(true);
-        }
-    }, []);
+
 
     const yourInfo = useQuery(QUERY_USER, { variables: { _id: yourId }, fetchPolicy: 'network-only' })
     const { loading: loading, data: postsData } = useQuery(QUERY_POSTS)
     const userInfo = useQuery(QUERY_USER, { variables: { _id: from }, fetchPolicy: 'network-only' })
+
+    useEffect(() => {
+        if (from === yourId) {
+            setHasEditButton(true);
+        }
+    }, [userInfo]);
 
     useEffect(() => {
         if (yourInfo.data) {
@@ -42,7 +44,7 @@ const Profile = () => {
                 setIsFriend(false)
             }
         }
-    }, [yourInfo])
+    }, [userInfo])
 
     useEffect(() => {
         if (postsData && userInfo.data) {
