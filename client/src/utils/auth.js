@@ -1,5 +1,4 @@
 import { jwtDecode } from 'jwt-decode'
-import { useNavigate } from 'react-router-dom'
 
 class AuthService {
   getProfile() {
